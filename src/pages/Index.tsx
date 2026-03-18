@@ -40,7 +40,7 @@ function getCategoryFromHash(hash: string): string {
 }
 
 const Index = () => {
-  // wake up the system
+  // fixing 404
   const { data: products = [], isLoading } = useProducts(50);
   const location = useLocation();
   const navigate = useNavigate();

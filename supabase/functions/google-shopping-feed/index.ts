@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SHOPIFY_STORE_DOMAIN = "bossqueenscollection.myshopify.com";
+const SHOPIFY_STORE_DOMAIN = "boss-queens-collection-8295.myshopify.com";
 const SHOPIFY_API_VERSION = "2025-07";
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const STORE_URL = "https://bossqueenscollection.com";

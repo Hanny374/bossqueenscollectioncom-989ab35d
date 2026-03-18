@@ -2,7 +2,7 @@ import { toast } from "sonner";
 
 // Shopify Storefront API Configuration
 const SHOPIFY_API_VERSION = '2024-04';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'bossqueenscollection.myshopify.com';
+const SHOPIFY_STORE_PERMANENT_DOMAIN = 'boss-queens-collection-8295.myshopify.com'; // Hardcoded to prevent environment variable typos from Lovable settings
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '0e942a6ba1a520b2bd97819256fe60c5';
 
 // In development, we use a proxy defined in vite.config.ts to avoid CORS issues.

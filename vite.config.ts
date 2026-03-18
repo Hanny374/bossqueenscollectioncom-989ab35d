@@ -10,9 +10,9 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     proxy: {
       '/shopify-api': {
-        target: 'https://bossqueenscollection.myshopify.com/api/2024-04/graphql.json',
+        target: 'https://boss-queens-collection-8295.myshopify.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/shopify-api/, ''),
+        rewrite: (path) => path.replace(/^\/shopify-api/, '/api/2024-04/graphql.json'),
       },
     },
     hmr: {

@@ -343,7 +343,7 @@ const ProductPage = () => {
               {product.descriptionHtml && (
                 <div className="space-y-3">
                   <div 
-                    className="text-muted-foreground text-lg leading-relaxed prose prose-stone max-w-none 
+                    className="text-muted-foreground text-lg leading-relaxed prose prose-stone max-w-none whitespace-pre-wrap
                     [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>li]:mb-2 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3"
                     dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                   />

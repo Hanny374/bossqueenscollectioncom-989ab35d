@@ -83,7 +83,7 @@ serve(async (req) => {
     const batchSize = body.batch_size || 5;
     const batchOffset = body.batch_offset || 0;
 
-    const SHOPIFY_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+    const SHOPIFY_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN") || "0e942a6ba1a520b2bd97819256fe60c5";
     if (!SHOPIFY_TOKEN) throw new Error("SHOPIFY_STOREFRONT_ACCESS_TOKEN not configured");
 
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");

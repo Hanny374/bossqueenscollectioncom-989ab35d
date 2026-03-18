@@ -20,7 +20,7 @@ function getCorsHeaders(req: Request) {
 const SHOPIFY_STORE_DOMAIN = Deno.env.get("VITE_SHOPIFY_STORE_DOMAIN") || "bossqueenscollection.myshopify.com";
 const SHOPIFY_API_VERSION = "2025-07";
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("VITE_SHOPIFY_STOREFRONT_TOKEN") || Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("VITE_SHOPIFY_STOREFRONT_TOKEN") || "0e942a6ba1a520b2bd97819256fe60c5";
 
 const PRODUCTS_QUERY = `
   query GetProducts($first: Int!) {

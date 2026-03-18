@@ -40,6 +40,7 @@ function getCategoryFromHash(hash: string): string {
 }
 
 const Index = () => {
+  // wake up the system
   const { data: products = [], isLoading } = useProducts(50);
   const location = useLocation();
   const navigate = useNavigate();

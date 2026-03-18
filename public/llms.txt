@@ -1,0 +1,52 @@
+# Boss Queens Collection
+
+> Premium 100% human hair wigs, bundles, frontals and accessories. Founded in St. Maarten, Caribbean. Ships worldwide.
+
+Boss Queens Collection is an online hair store specializing in premium virgin human hair products. We offer wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), HD lace frontals, closures, and hair accessories. All products are 100% virgin human hair, grade 10A, with lengths from 8" to 40".
+
+## Store Details
+
+- Website: https://bossqueenscollection.com
+- Location: St. Maarten, Caribbean
+- Founded: 2020
+- Currency: USD
+- Shipping: Free worldwide on orders over $100
+
+## Product Categories
+
+- **Wigs**: Lace front wigs, bob wigs, headband wigs, colored wigs (blonde, burgundy, ombre)
+- **Hair Bundles**: Brazilian body wave, Brazilian straight, Peruvian deep wave, Indian loose wave, Malaysian kinky curly, Vietnamese bone straight, Brazilian water wave
+- **Frontals & Closures**: 13x4 HD lace frontals, 4x4 closures, 5x5 closures, 13x6 frontals, 360 lace
+- **Bundle Deals**: 3-bundle deals, bundle + frontal combos
+
+## Key Features
+
+- 100% virgin human hair (no synthetic blends)
+- Grade 10A premium quality
+- Can be dyed up to #27
+- Heat-safe up to 400°F / 200°C
+- Double weft construction
+- Adjustable wig caps (small, medium, large)
+- Lace types: 4x4, 5x5, 13x4, 13x6, 360
+
+## AI Shopping API
+
+For programmatic access to our product catalog and semantic search:
+
+- OpenAPI Schema: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api
+- Product Catalog: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products
+- Semantic Search: POST https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search
+
+## Pages
+
+- Shop: https://bossqueenscollection.com/#products
+- About Us: https://bossqueenscollection.com/about
+- Shipping Info: https://bossqueenscollection.com/shipping
+- FAQ: https://bossqueenscollection.com/faq
+- Contact: https://bossqueenscollection.com/contact
+- Privacy Policy: https://bossqueenscollection.com/privacy-policy
+
+## Contact
+
+- Website: https://bossqueenscollection.com/contact
+- Email: support@bossqueenscollection.com

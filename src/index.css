@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Boss Queens Collection - Luxe Gold & Cream Design System
+  Colors: Warm gold, cream, espresso, soft rose
+  Typography: Cormorant Garamond (display), Outfit (body)
+  Aesthetic: Affordable luxury, warm, sophisticated
+*/
+
+@layer base {
+  :root {
+    /* Core brand colors - warm luxury palette */
+    --background: 40 40% 98%;
+    --foreground: 25 20% 15%;
+
+    --card: 40 50% 99%;
+    --card-foreground: 25 20% 15%;
+
+    --popover: 40 50% 99%;
+    --popover-foreground: 25 20% 15%;
+
+    /* Warm Gold - Primary brand color */
+    --primary: 38 70% 50%;
+    --primary-foreground: 40 40% 98%;
+
+    /* Soft Cream - Secondary */
+    --secondary: 40 40% 95%;
+    --secondary-foreground: 25 25% 20%;
+
+    /* Muted warm tones */
+    --muted: 35 25% 92%;
+    --muted-foreground: 25 15% 45%;
+
+    /* Accent - Soft rose gold */
+    --accent: 15 45% 90%;
+    --accent-foreground: 25 20% 20%;
+
+    /* Deep espresso for destructive */
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 25% 88%;
+    --input: 35 25% 88%;
+    --ring: 38 70% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens - Luxe Gold */
+    --gold: 38 70% 50%;
+    --gold-light: 40 65% 65%;
+    --gold-dark: 35 75% 40%;
+    --cream: 40 50% 96%;
+    --cream-dark: 38 40% 90%;
+    --espresso: 25 35% 18%;
+    --espresso-light: 25 25% 35%;
+    --rose-gold: 15 50% 70%;
+    --rose-gold-light: 15 55% 82%;
+    --champagne: 38 55% 85%;
+    --champagne-light: 40 60% 92%;
+    --nude: 25 25% 88%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+    --gradient-cream: linear-gradient(180deg, hsl(40 50% 98%), hsl(38 40% 94%));
+    --gradient-hero: linear-gradient(135deg, hsl(40 40% 98% / 0.95), hsl(38 45% 96% / 0.85));
+    --gradient-champagne: linear-gradient(135deg, hsl(40 60% 92%), hsl(38 55% 85%), hsl(35 50% 75%));
+
+    /* Refined Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(35 30% 30% / 0.06);
+    --shadow-glow: 0 8px 30px -8px hsl(38 70% 50% / 0.20);
+    --shadow-elevated: 0 20px 45px -12px hsl(25 25% 25% / 0.10);
+
+    /* Sidebar */
+    --sidebar-background: 40 40% 98%;
+    --sidebar-foreground: 25 20% 15%;
+    --sidebar-primary: 38 70% 50%;
+    --sidebar-primary-foreground: 40 40% 98%;
+    --sidebar-accent: 40 40% 95%;
+    --sidebar-accent-foreground: 25 20% 15%;
+    --sidebar-border: 35 25% 88%;
+    --sidebar-ring: 38 70% 50%;
+  }
+
+  .dark {
+    --background: 25 20% 8%;
+    --foreground: 40 40% 95%;
+
+    --card: 25 18% 12%;
+    --card-foreground: 40 40% 95%;
+
+    --popover: 25 18% 12%;
+    --popover-foreground: 40 40% 95%;
+
+    --primary: 38 65% 55%;
+    --primary-foreground: 25 20% 8%;
+
+    --secondary: 25 15% 18%;
+    --secondary-foreground: 40 35% 90%;
+
+    --muted: 25 12% 20%;
+    --muted-foreground: 35 20% 60%;
+
+    --accent: 25 25% 25%;
+    --accent-foreground: 40 40% 95%;
+
+    --destructive: 0 50% 45%;
+    --destructive-foreground: 40 40% 95%;
+
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 38 65% 55%;
+
+    --gold: 38 60% 50%;
+    --gold-light: 40 55% 60%;
+    --gold-dark: 35 65% 38%;
+    --cream: 40 35% 20%;
+    --cream-dark: 38 25% 15%;
+    --espresso: 25 25% 70%;
+    --espresso-light: 25 20% 55%;
+
+    --sidebar-background: 25 20% 10%;
+    --sidebar-foreground: 40 40% 95%;
+    --sidebar-primary: 38 65% 55%;
+    --sidebar-primary-foreground: 25 20% 8%;
+    --sidebar-accent: 25 15% 18%;
+    --sidebar-accent-foreground: 40 40% 95%;
+    --sidebar-border: 25 15% 22%;
+    --sidebar-ring: 38 65% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-glam {
+    background: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-champagne {
+    background: linear-gradient(135deg, hsl(40 60% 92%), hsl(38 55% 85%), hsl(35 50% 75%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+  }
+
+  .bg-gradient-glam {
+    background: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+  }
+
+  .bg-gradient-cream {
+    background: linear-gradient(180deg, hsl(40 50% 98%), hsl(38 40% 94%));
+  }
+
+  .bg-gradient-champagne {
+    background: linear-gradient(135deg, hsl(40 60% 92%), hsl(38 55% 85%), hsl(35 50% 75%));
+  }
+
+  .shadow-glow {
+    box-shadow: 0 8px 30px -8px hsl(38 70% 50% / 0.20);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 4px 20px -4px hsl(35 30% 30% / 0.06);
+  }
+
+  .shadow-elevated {
+    box-shadow: 0 20px 45px -12px hsl(25 25% 25% / 0.10);
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .hover-lift:hover {
+    @apply -translate-y-1;
+    box-shadow: 0 20px 45px -12px hsl(25 25% 25% / 0.12);
+  }
+
+  /* Glass morphism */
+  .glass {
+    @apply bg-background/80 backdrop-blur-lg;
+  }
+
+  /* Product card shine effect */
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(40 60% 92% / 0.3),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+  .shine-effect:hover::before {
+    left: 100%;
+  }
+
+  /* Stagger animation for grid items */
+  .stagger-animation > * {
+    opacity: 0;
+    animation: stagger-fade-in 0.5s ease-out forwards;
+  }
+  .stagger-animation > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-animation > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-animation > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-animation > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-animation > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-animation > *:nth-child(6) { animation-delay: 0.3s; }
+  .stagger-animation > *:nth-child(7) { animation-delay: 0.35s; }
+  .stagger-animation > *:nth-child(8) { animation-delay: 0.4s; }
+
+  @keyframes stagger-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

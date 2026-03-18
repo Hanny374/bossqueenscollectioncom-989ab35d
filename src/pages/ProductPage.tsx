@@ -1,0 +1,752 @@
+import { useEffect, useState, useRef } from "react";
+import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { fetchProductByHandle, ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag } from "lucide-react";
+import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const DENSITY_OPTIONS = [
+  { value: "180%", label: "180%", description: "Natural look", markup: 0 },
+  { value: "200%", label: "200%", description: "Full & voluminous", markup: 0 },
+  { value: "210%", label: "210%", description: "Extra full", markup: 0 },
+  { value: "250%", label: "250%", description: "Maximum volume", markup: 0 },
+  { value: "300%", label: "300%", description: "Ultra thick", markup: 0 },
+];
+
+const LACE_TYPES = [
+  { value: "4x4", label: "4x4 Closure", description: "Natural part", markup: 0 },
+  { value: "5x5", label: "5x5 Closure", description: "More parting space", markup: 0 },
+  { value: "13x4", label: "13x4 Frontal", description: "Ear to ear", markup: 0 },
+  { value: "13x6", label: "13x6 Frontal", description: "Deep part", markup: 0 },
+  { value: "360", label: "360 Lace", description: "Full perimeter", markup: 0 },
+];
+
+const HEAD_SIZES = [
+  { value: "small", label: "Small", measurement: "21.5\" - 22\"", markup: 0 },
+  { value: "medium", label: "Medium", measurement: "22\" - 22.5\"", markup: 0 },
+  { value: "large", label: "Large", measurement: "22.5\" - 23\"", markup: 0 },
+];
+
+const isLengthOption = (name: string) => name.toLowerCase().includes('length');
+
+const ProductPage = () => {
+  const { handle } = useParams<{ handle: string }>();
+  const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const [selectedVariant, setSelectedVariant] = useState<ShopifyProduct["node"]["variants"]["edges"][0]["node"] | null>(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedLaceType, setSelectedLaceType] = useState<string>("13x4");
+  const [selectedHeadSize, setSelectedHeadSize] = useState<string>("medium");
+  const [selectedDensity, setSelectedDensity] = useState<string>("200%");
+  const [showStickyBar, setShowStickyBar] = useState(false);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const addItem = useCartStore(state => state.addItem);
+  const buyNow = useCartStore(state => state.buyNow);
+  const isCartLoading = useCartStore(state => state.isLoading);
+  const isBuyingNow = useCartStore(state => state.isBuyingNow);
+
+  const isWigProduct = product ? (
+    product.productType?.toLowerCase().includes('wig') || 
+    product.title?.toLowerCase().includes('wig') ||
+    product.productType?.toLowerCase().includes('colored wig') ||
+    product.productType?.toLowerCase().includes('bob')
+  ) : false;
+
+  // Calculate dynamic price with markups for wig products
+  const getAdjustedPrice = () => {
+    const basePrice = parseFloat(selectedVariant?.price.amount || "0");
+    if (!isWigProduct) return basePrice;
+
+    const densityMarkup = DENSITY_OPTIONS.find(d => d.value === selectedDensity)?.markup || 0;
+    const laceMarkup = LACE_TYPES.find(l => l.value === selectedLaceType)?.markup || 0;
+    const headSizeMarkup = HEAD_SIZES.find(h => h.value === selectedHeadSize)?.markup || 0;
+
+    return basePrice * (1 + densityMarkup + laceMarkup + headSizeMarkup);
+  };
+
+  const adjustedPrice = getAdjustedPrice();
+
+  useEffect(() => {
+    const loadProduct = async () => {
+      if (!handle) return;
+      try {
+        const data = await fetchProductByHandle(handle);
+        setProduct(data);
+        if (data?.variants.edges[0]) {
+          setSelectedVariant(data.variants.edges[0].node);
+        }
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
+      } finally {
+        setIsPageLoading(false);
+      }
+    };
+    loadProduct();
+  }, [handle]);
+
+  // Show sticky bar when CTA buttons scroll out of view
+  useEffect(() => {
+    if (!ctaRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBar(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(ctaRef.current);
+    return () => observer.disconnect();
+  }, [product]);
+
+  const getCartItem = () => ({
+    product: { node: product! },
+    variantId: selectedVariant!.id,
+    variantTitle: selectedVariant!.title,
+    price: { amount: adjustedPrice.toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
+    quantity: 1,
+    selectedOptions: selectedVariant!.selectedOptions || []
+  });
+
+  const handleAddToCart = async () => {
+    if (!product || !selectedVariant) return;
+    await addItem(getCartItem());
+    toast.success("Added to cart!", { description: product.title });
+  };
+
+  const handleBuyNow = async () => {
+    if (!product || !selectedVariant) return;
+    await buyNow(getCartItem());
+  };
+
+  if (isPageLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="flex items-center justify-center py-40">
+          <Loader2 className="w-10 h-10 animate-spin text-primary" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container px-4 md:px-8 py-20 text-center">
+          <h1 className="font-display text-4xl font-bold mb-4">Product Not Found</h1>
+          <p className="text-muted-foreground mb-8">The product you're looking for doesn't exist.</p>
+          <Button asChild>
+            <Link to="/">Back to Shop</Link>
+          </Button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const images = product.images.edges;
+  const variants = product.variants.edges;
+  const mainImage = images[0]?.node?.url || "";
+  const storeUrl = "https://bossqueenscollection.com";
+
+  // Product JSON-LD for Google Shopping & SEO
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: images.map(img => img.node.url),
+    url: `${storeUrl}/product/${product.handle}`,
+    brand: { "@type": "Brand", name: "Boss Queens Collection" },
+    sku: product.handle,
+    category: product.productType || "Hair",
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: selectedVariant?.price.currencyCode || "USD",
+      lowPrice: product.priceRange.minVariantPrice.amount,
+      highPrice: variants[variants.length - 1]?.node.price.amount || product.priceRange.minVariantPrice.amount,
+      availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: "Boss Queens Collection" },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+        deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "d" }, transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "d" } }
+      }
+    }
+  };
+
+  // Compare at price
+  const compareAtPrice = selectedVariant?.compareAtPrice || null;
+
+  // Simulated urgency data (deterministic based on product handle)
+  const hashCode = product.handle.split("").reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a; }, 0);
+  const viewersNow = Math.abs(hashCode % 15) + 3;
+  const soldRecently = Math.abs((hashCode >> 4) % 20) + 5;
+  const lowStock = Math.abs((hashCode >> 8) % 12) + 1; // Simulated stock 1-12
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{product.title} | Boss Queens Collection</title>
+        <meta name="description" content={product.description?.substring(0, 160) || `Shop ${product.title} — premium 100% human hair from Boss Queens Collection.`} />
+        <link rel="canonical" href={`${storeUrl}/product/${product.handle}`} />
+        <meta property="og:title" content={`${product.title} | Boss Queens Collection`} />
+        <meta property="og:description" content={product.description?.substring(0, 160) || `Shop ${product.title} — premium 100% human hair.`} />
+        <meta property="og:image" content={mainImage} />
+        <meta property="og:url" content={`${storeUrl}/product/${product.handle}`} />
+        <meta property="og:type" content="product" />
+        <meta property="og:site_name" content="Boss Queens Collection" />
+        <meta property="product:price:amount" content={product.priceRange.minVariantPrice.amount} />
+        <meta property="product:price:currency" content={product.priceRange.minVariantPrice.currencyCode} />
+        <meta property="product:availability" content={product.availableForSale ? "in stock" : "out of stock"} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${product.title} | Boss Queens Collection`} />
+        <meta name="twitter:image" content={mainImage} />
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
+      </Helmet>
+      <Header />
+      <main className="py-8">
+        <div className="container px-4 md:px-8">
+          {/* Breadcrumb */}
+          <Link 
+            to="/" 
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Back to Collection
+          </Link>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Images */}
+            <div className="space-y-4">
+              <div className="aspect-square rounded-2xl overflow-hidden bg-secondary/30 shadow-soft">
+                {images[selectedImage]?.node ? (
+                  <img
+                    src={images[selectedImage].node.url}
+                    alt={images[selectedImage].node.altText || product.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-muted-foreground font-display">No Image</span>
+                  </div>
+                )}
+              </div>
+              
+              {images.length > 1 && (
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                  {images.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
+                        selectedImage === index 
+                          ? "border-primary shadow-gold" 
+                          : "border-transparent hover:border-primary/30"
+                      }`}
+                    >
+                      <img
+                        src={img.node.url}
+                        alt={img.node.altText || `${product.title} ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Product Info */}
+            <div className="space-y-6">
+              <div>
+                <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  {product.title}
+                </h1>
+                
+                {/* Price with savings badge */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <p className="text-3xl font-bold text-gradient-gold">
+                    {selectedVariant?.price.currencyCode} ${adjustedPrice.toFixed(2)}
+                  </p>
+                  {compareAtPrice && parseFloat(compareAtPrice.amount) > adjustedPrice && (
+                    <>
+                      <p className="text-lg text-muted-foreground line-through">
+                        ${parseFloat(compareAtPrice.amount).toFixed(2)}
+                      </p>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-destructive/10 text-destructive text-sm font-bold">
+                        <Tag className="w-3.5 h-3.5" />
+                        Save {Math.round(((parseFloat(compareAtPrice.amount) - adjustedPrice) / parseFloat(compareAtPrice.amount)) * 100)}%
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                {/* Low stock warning */}
+                {lowStock > 0 && lowStock <= 10 && (
+                  <motion.div
+                    className="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-destructive/5 border border-destructive/20"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                  >
+                    <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
+                    <span className="text-sm font-medium text-destructive">
+                      Only {lowStock} left in stock — order soon!
+                    </span>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Conversion: Urgency & Social Proof */}
+              <motion.div
+                className="space-y-2"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="flex items-center gap-2 text-sm">
+                  <Eye className="w-4 h-4 text-primary" />
+                  <span className="text-muted-foreground">
+                    <span className="font-semibold text-foreground">{viewersNow} people</span> are viewing this right now
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Flame className="w-4 h-4 text-destructive" />
+                  <span className="text-muted-foreground">
+                    <span className="font-semibold text-foreground">{soldRecently} sold</span> in the last 24 hours
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Truck className="w-4 h-4 text-primary" />
+                  <span className="text-muted-foreground">
+                    <span className="font-semibold text-primary">FREE shipping</span> on orders over $100
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Shield className="w-4 h-4 text-primary" />
+                  <span className="text-muted-foreground">
+                    <span className="font-semibold text-foreground">30-day</span> money-back guarantee
+                  </span>
+                </div>
+              </motion.div>
+
+              {product.descriptionHtml && (
+                <div className="space-y-3">
+                  <div 
+                    className="text-muted-foreground text-lg leading-relaxed prose prose-stone max-w-none 
+                    [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>li]:mb-2 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3"
+                    dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  />
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {["✨ Premium Quality", "💎 100% Human Hair", "🔥 Best Seller"].map((tag) => (
+                      <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Variants */}
+              {variants.length > 1 && (
+                <div className="space-y-4">
+                  {product.options.map((option) => {
+                    const isLength = isLengthOption(option.name);
+                    return (
+                      <div key={option.name} className="space-y-3">
+                        <label className="block text-sm font-medium text-foreground">
+                          {option.name}
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {option.values.map((value) => {
+                            const variantForValue = variants.find(v => 
+                              v.node.selectedOptions.some(
+                                opt => opt.name === option.name && opt.value === value
+                              )
+                            );
+                            const isSelected = selectedVariant?.selectedOptions.some(
+                              opt => opt.name === option.name && opt.value === value
+                            );
+                            
+                            return (
+                              <button
+                                key={value}
+                                onClick={() => variantForValue && setSelectedVariant(variantForValue.node)}
+                                className={`px-3 py-2 rounded-lg border transition-all ${isLength ? 'min-w-[60px]' : 'px-4'} ${
+                                  isSelected
+                                    ? "border-primary bg-primary/10 text-primary"
+                                    : "border-border hover:border-primary/50"
+                                }`}
+                              >
+                                <span className="text-sm font-medium">
+                                  {isLength ? `${value}"` : value}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {isLength && (
+                          <p className="text-xs text-muted-foreground italic">
+                            Measured when stretched straight. Longer lengths available upon request.
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Lace Type Selection */}
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-foreground">
+                  Lace Type
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {LACE_TYPES.map((type) => (
+                    <button
+                      key={type.value}
+                      onClick={() => setSelectedLaceType(type.value)}
+                      className={`p-3 rounded-lg border text-left transition-all ${
+                        selectedLaceType === type.value
+                          ? "border-primary bg-primary/10"
+                          : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <p className={`text-sm font-medium ${selectedLaceType === type.value ? "text-primary" : "text-foreground"}`}>
+                        {type.label}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {type.description}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Density Selection - Wigs Only */}
+              {isWigProduct && (
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">
+                    Density
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {DENSITY_OPTIONS.map((density) => (
+                      <button
+                        key={density.value}
+                        onClick={() => setSelectedDensity(density.value)}
+                        className={`px-4 py-3 rounded-lg border transition-all ${
+                          selectedDensity === density.value
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <p className={`text-sm font-medium ${selectedDensity === density.value ? "text-primary" : "text-foreground"}`}>
+                          {density.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {density.description}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground italic">
+                    Higher density = thicker, fuller look. 200% is the most popular choice.
+                  </p>
+                </div>
+              )}
+
+              {/* Head Size Selection */}
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-foreground">
+                  Head Size
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {HEAD_SIZES.map((size) => (
+                    <button
+                      key={size.value}
+                      onClick={() => setSelectedHeadSize(size.value)}
+                      className={`px-4 py-3 rounded-lg border transition-all ${
+                        selectedHeadSize === size.value
+                          ? "border-primary bg-primary/10"
+                          : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <p className={`text-sm font-medium ${selectedHeadSize === size.value ? "text-primary" : "text-foreground"}`}>
+                        {size.label}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {size.measurement}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground italic">
+                  Measure around your head at the hairline. All wigs include adjustable straps.
+                </p>
+              </div>
+
+              {/* Add to Cart & Buy Now */}
+              <div ref={ctaRef} className="pt-4 space-y-3">
+                <Button
+                  onClick={handleAddToCart}
+                  disabled={isCartLoading || !selectedVariant?.availableForSale}
+                  size="lg"
+                  variant="outline"
+                  className="w-full border-primary text-primary hover:bg-primary/10 text-lg py-6"
+                >
+                  {isCartLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-5 h-5 mr-2" />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
+                <Button
+                  onClick={handleBuyNow}
+                  disabled={isBuyingNow || !selectedVariant?.availableForSale}
+                  size="lg"
+                  className="w-full bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold text-lg py-6"
+                >
+                  {isBuyingNow ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : !selectedVariant?.availableForSale ? (
+                    "Sold Out"
+                  ) : (
+                    <>
+                      <Zap className="w-5 h-5 mr-2" />
+                      Buy Now
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="border-t border-border pt-6 space-y-3">
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <Check className="w-5 h-5 text-primary" />
+                  <span>100% Human Hair Guaranteed</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <Check className="w-5 h-5 text-primary" />
+                  <span>Free Shipping on Orders Over $100</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <Check className="w-5 h-5 text-primary" />
+                  <span>Easy 30-Day Returns</span>
+                </div>
+              </div>
+
+              {/* Hair Details Dropdown */}
+              <Accordion type="single" collapsible className="w-full border-t border-border pt-4">
+                <AccordionItem value="hair-details" className="border-b-0">
+                  <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
+                    Hair Details & Specifications
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4 pt-2">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Hair Type</span>
+                          <p className="text-sm font-medium text-foreground">100% Virgin Human Hair</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Hair Grade</span>
+                          <p className="text-sm font-medium text-foreground">10A Premium Quality</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Available Lengths</span>
+                          <p className="text-sm font-medium text-foreground">8" - 40" inches</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Hair Weight</span>
+                          <p className="text-sm font-medium text-foreground">95-105g per bundle</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Weft Type</span>
+                          <p className="text-sm font-medium text-foreground">Double Weft (Machine)</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Can Be Dyed</span>
+                          <p className="text-sm font-medium text-foreground">Yes, up to #27</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Heat Styling</span>
+                          <p className="text-sm font-medium text-foreground">Up to 400°F / 200°C</p>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-xs text-muted-foreground uppercase tracking-wide">Lace Types</span>
+                          <p className="text-sm font-medium text-foreground">4x4, 5x5, 13x4, 13x6, 360</p>
+                        </div>
+                      </div>
+                      
+                      {/* Lace Type Chart */}
+                      <div className="mt-4 p-4 bg-secondary/30 rounded-lg">
+                        <h4 className="text-sm font-semibold text-foreground mb-3">Lace Size Guide</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">4x4 Closure</p>
+                            <p className="text-muted-foreground">4" x 4" lace area</p>
+                            <p className="text-muted-foreground/70">Natural part</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">5x5 Closure</p>
+                            <p className="text-muted-foreground">5" x 5" lace area</p>
+                            <p className="text-muted-foreground/70">More parting space</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">13x4 Frontal</p>
+                            <p className="text-muted-foreground">13" x 4" ear to ear</p>
+                            <p className="text-muted-foreground/70">Natural hairline</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">13x6 Frontal</p>
+                            <p className="text-muted-foreground">13" x 6" deep part</p>
+                            <p className="text-muted-foreground/70">Deeper parting</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded col-span-2 md:col-span-1">
+                            <p className="font-medium text-foreground">360 Lace</p>
+                            <p className="text-muted-foreground">Full perimeter lace</p>
+                            <p className="text-muted-foreground/70">High ponytails & updos</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Head Size Chart */}
+                      <div className="mt-4 p-4 bg-secondary/30 rounded-lg">
+                        <h4 className="text-sm font-semibold text-foreground mb-3">Head Circumference</h4>
+                        <div className="grid grid-cols-3 gap-2 text-xs">
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">Small</p>
+                            <p className="text-muted-foreground">21.5" - 22"</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">Medium</p>
+                            <p className="text-muted-foreground">22" - 22.5"</p>
+                          </div>
+                          <div className="text-center p-2 bg-background rounded">
+                            <p className="font-medium text-foreground">Large</p>
+                            <p className="text-muted-foreground">22.5" - 23"</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2 italic">
+                          All wigs include adjustable straps for a perfect fit.
+                        </p>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="shipping" className="border-b-0">
+                  <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
+                    Shipping & Delivery
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                      <p><span className="font-medium text-foreground">Processing Time:</span> 1-3 business days</p>
+                      <p><span className="font-medium text-foreground">US Shipping:</span> 3-7 business days (Free over $100)</p>
+                      <p><span className="font-medium text-foreground">International:</span> 7-21 business days</p>
+                      <p><span className="font-medium text-foreground">Tracking:</span> Provided for all orders</p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="care" className="border-b-0">
+                  <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
+                    Care Instructions
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                      <ul className="list-disc list-inside space-y-2">
+                        <li>Wash with sulfate-free shampoo every 7-14 days</li>
+                        <li>Deep condition weekly for best results</li>
+                        <li>Detangle gently from ends to roots</li>
+                        <li>Air dry or use low heat setting</li>
+                        <li>Store on a wig stand or in silk/satin bag</li>
+                        <li>Use heat protectant before styling</li>
+                      </ul>
+                      <p className="text-xs italic pt-2">With proper care, our hair can last 12+ months.</p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="returns" className="border-b-0">
+                  <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
+                    Returns & Exchanges
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                      <p>We offer a <span className="font-medium text-foreground">30-day return policy</span> on all unused items in original packaging.</p>
+                      <ul className="list-disc list-inside space-y-2">
+                        <li>Hair must be uncut, unwashed, and unaltered</li>
+                        <li>Original packaging and tags must be intact</li>
+                        <li>Contact us within 30 days of delivery</li>
+                        <li>Refund processed within 5-7 business days</li>
+                      </ul>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+
+      {/* Sticky Mobile Buy Bar */}
+      <AnimatePresence>
+        {showStickyBar && product && selectedVariant && (
+          <motion.div
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg px-4 py-3 lg:hidden"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-display font-semibold text-foreground truncate">{product.title}</p>
+                <p className="text-lg font-bold text-primary">${adjustedPrice.toFixed(2)}</p>
+              </div>
+              <Button
+                onClick={handleAddToCart}
+                disabled={isCartLoading || !selectedVariant.availableForSale}
+                size="sm"
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10 shrink-0"
+              >
+                {isCartLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingCart className="w-4 h-4" />}
+              </Button>
+              <Button
+                onClick={handleBuyNow}
+                disabled={isBuyingNow || !selectedVariant.availableForSale}
+                size="sm"
+                className="bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold shrink-0"
+              >
+                {isBuyingNow ? <Loader2 className="w-4 h-4 animate-spin" /> : (
+                  <>
+                    <Zap className="w-4 h-4 mr-1" />
+                    Buy Now
+                  </>
+                )}
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default ProductPage;

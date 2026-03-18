@@ -1,0 +1,16 @@
+project_id = "iwrfexevbiiaikabbbus"
+
+[functions.contact-form]
+verify_jwt = false
+
+[functions.boss-queens-chat]
+verify_jwt = false
+
+[functions.sync-product-embeddings]
+verify_jwt = false
+
+[functions.search-products]
+verify_jwt = false
+
+[functions.ai-shopping-api]
+verify_jwt = false

@@ -1,0 +1,96 @@
+# Boss Queens Collection — Full Product & Store Information
+
+> Premium 100% human hair wigs, bundles, frontals and accessories. Founded in St. Maarten, Caribbean. Ships worldwide.
+
+## About Us
+
+Boss Queens Collection was founded in St. Maarten — a Caribbean island of just 37 square miles — with a bold vision: to make premium, 100% human hair accessible to queens everywhere. We source only the finest virgin hair from around the world and deliver it straight to your doorstep. Our mission is simple: top quality, affordable luxury, worldwide.
+
+## Why Choose Boss Queens Collection
+
+1. **100% Human Hair**: No synthetic blends — only premium virgin hair
+2. **Affordable Luxury**: Premium quality at prices that won't break the bank
+3. **Global Shipping**: Free worldwide shipping on orders over $100
+4. **Caribbean Heritage**: Founded with island love and dedication to every queen
+5. **Grade 10A Quality**: The highest grade of virgin human hair available
+6. **Versatile Styling**: Can be dyed, bleached, curled, and straightened
+
+## Product Categories
+
+### Wigs
+- **Lace Front Wigs**: Premium HD lace for an invisible hairline. Available in 13x4 and 13x6 frontal options.
+- **Bob Wigs**: Short, stylish blunt-cut bob wigs. Pre-plucked with baby hair.
+- **Headband Wigs**: Easy-to-wear wigs with attached headband. No glue or lace needed. Perfect for beginners.
+- **Colored Wigs**: Honey blonde (#27), burgundy wine (#99J), ombre styles. Pre-colored virgin hair.
+
+### Hair Bundles
+- **Brazilian Body Wave**: Soft, bouncy S-pattern waves. Most popular texture.
+- **Brazilian Straight**: Silky smooth, bone straight texture.
+- **Brazilian Water Wave**: Loose, flowing wave pattern resembling beach waves.
+- **Peruvian Deep Wave**: Tight, defined curl pattern with lots of volume.
+- **Indian Loose Wave**: Soft, romantic loose waves with natural movement.
+- **Malaysian Kinky Curly**: Tight, springy curls that blend with natural 3C/4A hair.
+- **Vietnamese Bone Straight**: Ultra-straight, thick, and glossy.
+
+### Frontals & Closures
+- **13x4 HD Lace Frontal**: Ear-to-ear coverage with invisible HD lace.
+- **4x4 Closure**: Natural part with minimal lace.
+- **5x5 Closure**: More parting space than 4x4.
+- **13x6 Frontal**: Deep parting space for versatile styling.
+- **360 Lace**: Full perimeter lace for ponytails and updos.
+
+### Bundle Deals
+- **3-Bundle Deals**: Save when buying 3 bundles of the same texture.
+- **Bundle + Frontal Combos**: Complete set with matching frontal included.
+
+## Hair Specifications
+
+| Specification | Details |
+|---|---|
+| Hair Type | 100% Virgin Human Hair |
+| Hair Grade | 10A Premium |
+| Available Lengths | 8" - 40" |
+| Weight per Bundle | 95-105g |
+| Weft Type | Double Weft (Machine) |
+| Can Be Dyed | Yes, up to #27 |
+| Heat Styling | Up to 400°F / 200°C |
+| Lace Types | 4x4, 5x5, 13x4, 13x6, 360 |
+| Cap Sizes | Small (21.5"-22"), Medium (22"-22.5"), Large (22.5"-23") |
+
+## Shipping & Returns
+
+- Free worldwide shipping on orders over $100
+- Standard processing time: 3-5 business days
+- International delivery: 7-14 business days
+- Easy 30-day return policy
+- Ships from St. Maarten, Caribbean
+
+## AI Shopping API
+
+For AI assistants and shopping agents, we provide a public API:
+
+### Endpoints
+- **OpenAPI Schema**: `GET https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api`
+- **List Products**: `GET https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products?limit=20&type=Wig`
+- **Semantic Search**: `POST https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search` with body `{"query": "wavy hair for beach look", "limit": 5}`
+
+### Plugin Discovery
+- AI Plugin manifest: `https://bossqueenscollection.com/.well-known/ai-plugin.json`
+
+## Store Information
+
+- **Store Name**: Boss Queens Collection
+- **Website**: https://bossqueenscollection.com
+- **Location**: St. Maarten, Caribbean
+- **Founded**: 2020
+- **Currency**: USD
+- **Contact**: support@bossqueenscollection.com
+
+## Pages
+
+- Home & Shop: https://bossqueenscollection.com
+- About Us: https://bossqueenscollection.com/about
+- Shipping Info: https://bossqueenscollection.com/shipping
+- FAQ: https://bossqueenscollection.com/faq
+- Contact: https://bossqueenscollection.com/contact
+- Privacy Policy: https://bossqueenscollection.com/privacy-policy

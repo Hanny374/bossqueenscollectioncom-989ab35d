@@ -1,6 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const SHOPIFY_STORE = 'boss-queens-collection-8295.myshopify.com';
+const SHOPIFY_STORE = 'bossqueenscollection.myshopify.com';
 const SHOPIFY_TOKEN = '0e942a6ba1a520b2bd97819256fe60c5';
 const SITE_URL = 'https://bossqueenscollection.com';
 

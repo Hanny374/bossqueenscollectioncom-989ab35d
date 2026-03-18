@@ -40,7 +40,7 @@ function getCategoryFromHash(hash: string): string {
 }
 
 const Index = () => {
-  // Hidden homepage marker
+  // hello
   const { data: products = [], isLoading } = useProducts(50);
   const location = useLocation();
   const navigate = useNavigate();

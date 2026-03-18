@@ -106,7 +106,7 @@ const Index = () => {
                 </span>
               </div>
               <span className="text-muted-foreground text-sm md:text-base">
-                On all orders over <span className="font-semibold text-primary">$120</span> — delivered worldwide to your doorstep
+                On all orders over <span className="font-semibold text-primary">$100</span> — delivered worldwide to your doorstep
               </span>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Globe className="w-4 h-4" />

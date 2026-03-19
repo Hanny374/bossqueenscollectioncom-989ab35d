@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boss Queens Collection — Standalone Homepage</title>
+    <meta
+      name="description"
+      content="Standalone static homepage for Boss Queens Collection featuring premium human hair wigs, bundles, accessories, and worldwide shipping."
+    />
+    <link rel="canonical" href="https://bossqueenscollection.com/homepage-standalone.html" />
+    <meta property="og:title" content="Boss Queens Collection — Standalone Homepage" />
+    <meta
+      property="og:description"
+      content="Premium human hair wigs, bundles, and accessories in one standalone static homepage."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Boss Queens Collection — Standalone Homepage" />
+    <meta
+      name="twitter:description"
+      content="Premium human hair wigs, bundles, and accessories in one standalone static homepage."
+    />
+    <meta name="twitter:image" content="/og-image.jpg" />
+    <style>
+      :root {
+        --background: 40 43% 98%;
+        --foreground: 18 28% 13%;
+        --card: 0 0% 100%;
+        --card-foreground: 18 28% 13%;
+        --muted: 35 24% 93%;
+        --muted-foreground: 20 12% 38%;
+        --border: 28 18% 84%;
+        --primary: 40 78% 62%;
+        --primary-foreground: 18 28% 13%;
+        --secondary: 28 22% 90%;
+        --espresso: 20 28% 14%;
+        --cream: 42 47% 95%;
+        --shadow: 22 35% 12% / 0.12;
+        --shadow-strong: 22 35% 12% / 0.2;
+        --gradient-hero: linear-gradient(135deg, hsl(var(--espresso) / 0.96), hsl(20 24% 20% / 0.72), hsl(40 78% 62% / 0.22));
+        --gradient-gold: linear-gradient(135deg, hsl(var(--primary)), hsl(35 88% 72%));
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+      }
+      img { display: block; max-width: 100%; }
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(1180px, calc(100% - 2rem)); margin: 0 auto; }
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: hsl(var(--primary));
+        margin-bottom: 0.85rem;
+        font-weight: 700;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3.2rem;
+        padding: 0 1.4rem;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        transition: transform 0.2s ease, opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary {
+        background: var(--gradient-gold);
+        color: hsl(var(--primary-foreground));
+        box-shadow: 0 12px 32px -14px hsl(var(--shadow-strong));
+      }
+      .btn-secondary {
+        border: 1px solid hsl(var(--cream) / 0.25);
+        background: hsl(var(--cream) / 0.08);
+        color: hsl(var(--cream));
+        backdrop-filter: blur(10px);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1rem;
+        border-radius: 999px;
+        background: hsl(var(--cream) / 0.08);
+        color: hsl(var(--cream));
+        border: 1px solid hsl(var(--cream) / 0.18);
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+      }
+      .announcement {
+        background: hsl(var(--espresso));
+        color: hsl(var(--cream));
+        text-align: center;
+        padding: 0.7rem 1rem;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: hsl(var(--background) / 0.84);
+        border-bottom: 1px solid hsl(var(--border) / 0.8);
+      }
+      .site-header .inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: 4.5rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-weight: 700;
+      }
+      .brand-mark {
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 999px;
+        background: var(--gradient-gold);
+        color: hsl(var(--primary-foreground));
+        display: grid;
+        place-items: center;
+        font-size: 1rem;
+      }
+      .brand-copy strong {
+        display: block;
+        font-size: 1.1rem;
+      }
+      .brand-copy span {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: hsl(var(--muted-foreground));
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .nav a {
+        padding: 0.7rem 0.95rem;
+        border-radius: 999px;
+        color: hsl(var(--muted-foreground));
+        font-size: 0.95rem;
+      }
+      .nav a:hover,
+      .nav a.is-active {
+        color: hsl(var(--foreground));
+        background: hsl(var(--muted));
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+        min-height: calc(100vh - 7.4rem);
+        color: hsl(var(--cream));
+        background:
+          var(--gradient-hero),
+          radial-gradient(circle at 82% 24%, hsl(var(--primary) / 0.28), transparent 24%),
+          radial-gradient(circle at 15% 78%, hsl(var(--primary) / 0.14), transparent 20%),
+          hsl(var(--espresso));
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent, hsl(var(--espresso) / 0.42));
+        pointer-events: none;
+      }
+      .hero .container {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+        gap: 3rem;
+        align-items: center;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+      .hero-copy h1 {
+        margin: 0;
+        font-size: clamp(3.6rem, 9vw, 7.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+      }
+      .hero-copy h1 em {
+        font-style: normal;
+        color: hsl(var(--primary));
+      }
+      .hero-copy p {
+        max-width: 34rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: hsl(var(--cream) / 0.76);
+        margin: 1.35rem 0 0;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-top: 2.4rem;
+      }
+      .hero-stats strong {
+        display: block;
+        font-size: 1.9rem;
+        color: hsl(var(--primary));
+      }
+      .hero-stats span {
+        display: block;
+        color: hsl(var(--cream) / 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.72rem;
+        margin-top: 0.35rem;
+      }
+      .hero-panel {
+        position: relative;
+        padding: 2rem;
+        border-radius: 2rem;
+        border: 1px solid hsl(var(--cream) / 0.12);
+        background: linear-gradient(180deg, hsl(var(--cream) / 0.12), hsl(var(--cream) / 0.04));
+        backdrop-filter: blur(12px);
+        box-shadow: 0 30px 80px -40px hsl(var(--shadow-strong));
+      }
+      .hero-panel h2 {
+        margin: 0 0 1rem;
+        font-size: 1.2rem;
+      }
+      .hero-panel p {
+        margin: 0 0 1.5rem;
+        color: hsl(var(--cream) / 0.76);
+        line-height: 1.7;
+      }
+      .hero-panel-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .hero-card {
+        padding: 1rem;
+        border-radius: 1.25rem;
+        background: hsl(var(--cream) / 0.08);
+        border: 1px solid hsl(var(--cream) / 0.12);
+      }
+      .hero-card strong {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 0.35rem;
+      }
+      .hero-card span {
+        color: hsl(var(--cream) / 0.72);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+      .marquee {
+        background: hsl(var(--espresso));
+        color: hsl(var(--cream) / 0.84);
+        overflow: hidden;
+        border-top: 1px solid hsl(var(--cream) / 0.08);
+        border-bottom: 1px solid hsl(var(--cream) / 0.08);
+      }
+      .marquee-track {
+        display: flex;
+        gap: 2rem;
+        padding: 0.9rem 0;
+        white-space: nowrap;
+        min-width: max-content;
+        animation: marquee 28s linear infinite;
+      }
+      .marquee-item { font-size: 0.92rem; letter-spacing: 0.04em; }
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+      section { padding: 5.5rem 0; }
+      .banner {
+        padding: 1.35rem 0;
+        background: hsl(var(--primary) / 0.08);
+        border-top: 1px solid hsl(var(--primary) / 0.14);
+        border-bottom: 1px solid hsl(var(--primary) / 0.14);
+      }
+      .banner .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem 2rem;
+        text-align: center;
+      }
+      .banner strong { font-size: 1.15rem; }
+      .banner span { color: hsl(var(--muted-foreground)); }
+      .category-grid,
+      .product-grid,
+      .why-grid,
+      .trust-grid,
+      .footer-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+      .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 2rem; }
+      .why-grid { grid-template-columns: 1.2fr 1fr; align-items: start; gap: 2rem; }
+      .trust-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: 1.1fr repeat(3, minmax(0, 1fr)); }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(2.1rem, 4vw, 4rem);
+        line-height: 0.98;
+      }
+      .section-head p {
+        max-width: 28rem;
+        margin: 0;
+        color: hsl(var(--muted-foreground));
+        line-height: 1.75;
+      }
+      .category-card,
+      .product-card,
+      .trust-card,
+      .why-feature,
+      .footer-card {
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+        border-radius: 1.7rem;
+        box-shadow: 0 18px 50px -36px hsl(var(--shadow));
+      }
+      .category-card {
+        padding: 2rem;
+        min-height: 16rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+      }
+      .category-card .number {
+        position: absolute;
+        top: 1rem;
+        right: 1.4rem;
+        font-size: 4rem;
+        line-height: 1;
+        color: hsl(var(--primary) / 0.12);
+        font-weight: 700;
+      }
+      .category-card .icon {
+        width: 3.2rem;
+        height: 3.2rem;
+        display: grid;
+        place-items: center;
+        border-radius: 1rem;
+        background: hsl(var(--primary) / 0.12);
+        color: hsl(var(--primary));
+        font-size: 1.2rem;
+      }
+      .category-card h3,
+      .product-card h3,
+      .trust-card h3,
+      .why-feature h3,
+      footer h3,
+      footer h4 {
+        margin: 0;
+      }
+      .category-card p,
+      .product-card p,
+      .trust-card p,
+      .why-copy p,
+      .why-feature p,
+      footer p,
+      footer li,
+      footer a,
+      .newsletter small {
+        color: hsl(var(--muted-foreground));
+        line-height: 1.7;
+      }
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .filter-btn {
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--card));
+        color: hsl(var(--muted-foreground));
+        border-radius: 999px;
+        padding: 0.8rem 1rem;
+        font: inherit;
+        cursor: pointer;
+      }
+      .filter-btn.is-active {
+        background: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border-color: hsl(var(--primary));
+      }
+      .product-card {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .product-media {
+        aspect-ratio: 1 / 1;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        background:
+          radial-gradient(circle at 50% 30%, hsl(var(--primary) / 0.25), transparent 35%),
+          linear-gradient(160deg, hsl(var(--secondary)), hsl(var(--background)));
+      }
+      .product-badge-row {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.75rem;
+      }
+      .product-badge {
+        border-radius: 999px;
+        padding: 0.35rem 0.6rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+      .product-badge.stock {
+        background: hsl(var(--primary) / 0.14);
+        color: hsl(var(--foreground));
+      }
+      .product-badge.sale {
+        background: hsl(0 84% 92%);
+        color: hsl(0 68% 38%);
+      }
+      .product-content {
+        padding: 1.2rem 1.2rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+      .product-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+      }
+      .price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: hsl(var(--primary));
+      }
+      .compare-price {
+        color: hsl(var(--muted-foreground));
+        text-decoration: line-through;
+        font-size: 0.92rem;
+      }
+      .product-footer {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 0.5rem;
+      }
+      .product-footer a {
+        flex: 1;
+        text-align: center;
+        border-radius: 999px;
+        padding: 0.8rem 1rem;
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+      .product-footer .ghost {
+        border: 1px solid hsl(var(--border));
+      }
+      .product-footer .solid {
+        background: var(--gradient-gold);
+        color: hsl(var(--primary-foreground));
+      }
+      .trust-section {
+        border-top: 1px solid hsl(var(--border));
+        border-bottom: 1px solid hsl(var(--border));
+        background: hsl(var(--background));
+      }
+      .trust-card,
+      .why-feature {
+        padding: 1.4rem;
+      }
+      .why-copy {
+        padding-right: 2rem;
+      }
+      .why-feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .newsletter {
+        padding: 2rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--background)));
+      }
+      .newsletter-form {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      .newsletter-form input {
+        flex: 1;
+        min-height: 3rem;
+        border-radius: 999px;
+        border: 1px solid hsl(var(--border));
+        padding: 0 1rem;
+        font: inherit;
+        background: hsl(var(--card));
+      }
+      footer {
+        padding: 5rem 0 2rem;
+        background: linear-gradient(180deg, hsl(var(--secondary) / 0.55), hsl(var(--background)));
+      }
+      .footer-bottom {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid hsl(var(--border));
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        color: hsl(var(--muted-foreground));
+        font-size: 0.92rem;
+      }
+      .socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      .socials a {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+      }
+      [hidden] { display: none !important; }
+
+      @media (max-width: 1100px) {
+        .hero .container,
+        .why-grid,
+        .footer-grid { grid-template-columns: 1fr; }
+        .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .category-grid,
+        .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .why-copy { padding-right: 0; }
+      }
+      @media (max-width: 760px) {
+        .site-header .inner,
+        .section-head,
+        .newsletter-form,
+        .footer-bottom { display: block; }
+        .nav { margin-top: 0.8rem; justify-content: flex-start; }
+        .hero .container { padding-top: 3rem; padding-bottom: 3rem; }
+        .hero-copy h1 { font-size: clamp(3rem, 16vw, 4.6rem); }
+        section { padding: 4rem 0; }
+        .category-grid,
+        .product-grid,
+        .trust-grid,
+        .why-feature-grid,
+        .footer-grid { grid-template-columns: 1fr; }
+        .hero-panel-grid { grid-template-columns: 1fr; }
+        .banner .container { justify-content: flex-start; text-align: left; }
+        .product-footer { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- standalone homepage export -->
+    <div class="announcement">
+      ✨ Use code <strong>WELCOME10</strong> for 10% off your first order · FREE SHIPPING OVER $100 ✨
+    </div>
+
+    <header class="site-header">
+      <div class="container inner">
+        <a class="brand" href="#top" aria-label="Boss Queens Collection home">
+          <span class="brand-mark">♛</span>
+          <span class="brand-copy">
+            <strong>Boss Queens</strong>
+            <span>Collection · Est. 2020</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#products" class="is-active">Shop All</a>
+          <a href="#products" data-jump-category="colored-wigs">Colored Wigs</a>
+          <a href="#products" data-jump-category="bob-wigs">Bob Wigs</a>
+          <a href="#products" data-jump-category="bundles">Bundles</a>
+          <a href="#story">About Us</a>
+          <a href="#footer-contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-copy">
+            <span class="pill">♛ 100% Human Hair · Premium Quality</span>
+            <h1>Slay Every <br /><em>Day</em></h1>
+            <p>
+              Affordable luxury hair that looks natural and feels incredible — crafted for queens who demand the best,
+              shipped from St. Maarten to doorsteps worldwide.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#products">Shop Collection</a>
+              <a class="btn btn-secondary" href="#categories">Explore Categories</a>
+            </div>
+            <div class="hero-stats" aria-label="Store stats">
+              <div><strong>5K+</strong><span>Happy Queens</span></div>
+              <div><strong>100%</strong><span>Human Hair</span></div>
+              <div><strong>30+</strong><span>Countries</span></div>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Store highlights">
+            <h2>Why queens keep coming back</h2>
+            <p>
+              Natural-looking textures, rich density options, and globally delivered styles made to elevate your everyday look.
+            </p>
+            <div class="hero-panel-grid">
+              <div class="hero-card">
+                <strong>Global Shipping</strong>
+                <span>Tracked and insured delivery to 180+ countries.</span>
+              </div>
+              <div class="hero-card">
+                <strong>Affordable Luxury</strong>
+                <span>Premium quality without the boutique markup.</span>
+              </div>
+              <div class="hero-card">
+                <strong>Virgin Hair</strong>
+                <span>No synthetic blends — only premium human hair.</span>
+              </div>
+              <div class="hero-card">
+                <strong>Caribbean Born</strong>
+                <span>Founded in St. Maarten with island confidence.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="marquee-item">♛ 100% Human Hair</span>
+          <span class="marquee-item">♛ Free Worldwide Shipping</span>
+          <span class="marquee-item">♛ Premium Quality</span>
+          <span class="marquee-item">♛ 30-Day Returns</span>
+          <span class="marquee-item">♛ Caribbean Born</span>
+          <span class="marquee-item">♛ Affordable Luxury</span>
+          <span class="marquee-item">♛ 100% Human Hair</span>
+          <span class="marquee-item">♛ Free Worldwide Shipping</span>
+          <span class="marquee-item">♛ Premium Quality</span>
+          <span class="marquee-item">♛ 30-Day Returns</span>
+          <span class="marquee-item">♛ Caribbean Born</span>
+          <span class="marquee-item">♛ Affordable Luxury</span>
+        </div>
+      </div>
+
+      <div class="banner">
+        <div class="container">
+          <strong>Free Global Shipping</strong>
+          <span>On all orders over <strong>$100</strong> — delivered worldwide to your doorstep</span>
+          <span>180+ Countries · Tracked &amp; Insured</span>
+        </div>
+      </div>
+
+      <section id="categories">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Collections</span>
+              <h2>Shop by Category</h2>
+            </div>
+            <p>Explore curated collections of premium 100% human hair styles, bundles, and finishing essentials.</p>
+          </div>
+
+          <div class="category-grid">
+            <a class="category-card" href="#products" data-jump-category="colored-wigs">
+              <span class="number">01</span>
+              <span class="icon">♛</span>
+              <div>
+                <h3>Wigs</h3>
+                <p>HD lace fronts, bob wigs, and premium statement styles.</p>
+              </div>
+              <strong>Explore →</strong>
+            </a>
+            <a class="category-card" href="#products" data-jump-category="bundles">
+              <span class="number">02</span>
+              <span class="icon">✦</span>
+              <div>
+                <h3>Bundles</h3>
+                <p>Virgin hair bundles in silky, deep wave, body wave, and straight textures.</p>
+              </div>
+              <strong>Explore →</strong>
+            </a>
+            <a class="category-card" href="#products" data-jump-category="accessories">
+              <span class="number">03</span>
+              <span class="icon">✂</span>
+              <div>
+                <h3>Accessories</h3>
+                <p>Frontals, closures, and must-haves that complete the install.</p>
+              </div>
+              <strong>Explore →</strong>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="products">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Our Products</span>
+              <h2>The Collection</h2>
+            </div>
+            <p>Premium human hair wigs and bundles, presented in one static standalone homepage export.</p>
+          </div>
+
+          <div class="filter-row" aria-label="Category filters">
+            <button class="filter-btn is-active" type="button" data-filter="all">All</button>
+            <button class="filter-btn" type="button" data-filter="colored-wigs">Colored Wigs</button>
+            <button class="filter-btn" type="button" data-filter="bob-wigs">Bob Wigs</button>
+            <button class="filter-btn" type="button" data-filter="bundles">Bundles</button>
+            <button class="filter-btn" type="button" data-filter="headband-wigs">Headband Wigs</button>
+            <button class="filter-btn" type="button" data-filter="accessories">Accessories</button>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card" data-category="colored-wigs">
+              <div class="product-media"><img src="/og-image.jpg" alt="Burgundy Wine wig product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span><span class="product-badge sale">Sale</span></div>
+                <h3>Burgundy Wine Wig</h3>
+                <p>Rich color, soft movement, and premium styling impact for bold everyday glam.</p>
+                <div class="product-meta"><span class="price">$189.00</span><span class="compare-price">$229.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="bob-wigs">
+              <div class="product-media"><img src="/og-image.jpg" alt="Blunt cut bob wig product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Blunt Cut Bob Wig</h3>
+                <p>Sharp silhouette, natural shine, and a clean finish made for effortless styling.</p>
+                <div class="product-meta"><span class="price">$149.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="bundles">
+              <div class="product-media"><img src="/og-image.jpg" alt="Brazilian body wave bundles product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Brazilian Body Wave Bundles</h3>
+                <p>Soft body texture with full volume and seamless blend potential.</p>
+                <div class="product-meta"><span class="price">$95.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="bundles">
+              <div class="product-media"><img src="/og-image.jpg" alt="Peruvian deep wave bundles product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Peruvian Deep Wave Bundles</h3>
+                <p>Defined deep wave pattern with lush body and high-impact bounce.</p>
+                <div class="product-meta"><span class="price">$109.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="headband-wigs">
+              <div class="product-media"><img src="/og-image.jpg" alt="Headband wig body wave product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Headband Wig — Body Wave</h3>
+                <p>Quick-install confidence with soft waves and easy daily wear.</p>
+                <div class="product-meta"><span class="price">$129.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="colored-wigs">
+              <div class="product-media"><img src="/og-image.jpg" alt="Honey blonde wig product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Honey Blonde Wig</h3>
+                <p>Bright, dimensional blonde tone with luxury softness and movement.</p>
+                <div class="product-meta"><span class="price">$215.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="accessories">
+              <div class="product-media"><img src="/og-image.jpg" alt="HD lace frontal product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>HD Lace Frontal</h3>
+                <p>Clean melt, lightweight lace, and a polished finish for premium installs.</p>
+                <div class="product-meta"><span class="price">$85.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+
+            <article class="product-card" data-category="bundles">
+              <div class="product-media"><img src="/og-image.jpg" alt="Vietnamese bone straight bundles product feature" loading="lazy" /></div>
+              <div class="product-content">
+                <div class="product-badge-row"><span class="product-badge stock">In Stock</span></div>
+                <h3>Vietnamese Bone Straight Bundles</h3>
+                <p>Silky straight finish with premium density and sleek shine.</p>
+                <div class="product-meta"><span class="price">$119.00</span></div>
+                <div class="product-footer"><a class="ghost" href="#footer-contact">Inquire</a><a class="solid" href="#footer-contact">Buy Now</a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Shop With Confidence</span>
+              <h2>Luxury, without the guesswork</h2>
+            </div>
+            <p>Everything customers care about most — fast delivery, secure checkout, and premium quality assurance.</p>
+          </div>
+          <div class="trust-grid">
+            <article class="trust-card"><h3>Free Shipping</h3><p>Free worldwide shipping on orders over $100.</p></article>
+            <article class="trust-card"><h3>Secure Payments</h3><p>Major cards and trusted payment methods accepted worldwide.</p></article>
+            <article class="trust-card"><h3>Authentic Hair</h3><p>100% human hair selected for softness, density, and durability.</p></article>
+            <article class="trust-card"><h3>Tracked &amp; Insured</h3><p>Global deliveries backed by tracking and shipment protection.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="story">
+        <div class="container why-grid">
+          <div class="why-copy">
+            <span class="eyebrow">Our Story</span>
+            <h2>Born in the Caribbean, made for queens</h2>
+            <p>
+              From the beautiful island of St. Maarten, Boss Queens Collection was founded with a bold vision: make premium,
+              100% human hair accessible to queens everywhere.
+            </p>
+            <p>
+              We source only the finest virgin hair and deliver it straight to your doorstep — combining top quality,
+              affordable luxury, and worldwide reach in one confident brand.
+            </p>
+          </div>
+
+          <div class="why-feature-grid">
+            <article class="why-feature"><h3>100% Human Hair</h3><p>No synthetic blends — just premium virgin hair.</p></article>
+            <article class="why-feature"><h3>Affordable Luxury</h3><p>High-end quality at prices designed to stay accessible.</p></article>
+            <article class="why-feature"><h3>Global Shipping</h3><p>From the Caribbean to customers around the world.</p></article>
+            <article class="why-feature"><h3>Caribbean Heart</h3><p>Every order is shaped by island warmth and confidence.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="newsletter footer-card">
+          <span class="eyebrow">Newsletter</span>
+          <h3>Join the Boss Queens</h3>
+          <p>Subscribe for exclusive deals, new arrivals, and beauty tips delivered to your inbox.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault()" aria-label="Newsletter signup form">
+            <input type="email" placeholder="Enter your email" aria-label="Email address" />
+            <button class="btn btn-primary" type="submit">Subscribe</button>
+          </form>
+          <small>This standalone file keeps the form visual-only.</small>
+        </div>
+
+        <div class="footer-grid" id="footer-contact">
+          <div>
+            <h4>Boss Queens Collection</h4>
+            <p>Premium 100% human hair wigs, bundles, and accessories. Affordable luxury for every queen.</p>
+            <div class="socials" aria-label="Social links">
+              <a href="https://instagram.com/bossqueenscollection" aria-label="Instagram">◎</a>
+              <a href="https://facebook.com/bossqueenscollection" aria-label="Facebook">f</a>
+              <a href="https://tiktok.com/@bossqueenscollection" aria-label="TikTok">♪</a>
+              <a href="mailto:Bossqueenscollections@gmail.com" aria-label="Email">✉</a>
+            </div>
+          </div>
+
+          <div>
+            <h4>Shop</h4>
+            <p><a href="#products">All Products</a></p>
+            <p><a href="#products" data-jump-category="colored-wigs">Colored Wigs</a></p>
+            <p><a href="#products" data-jump-category="bob-wigs">Bob Wigs</a></p>
+            <p><a href="#products" data-jump-category="bundles">Hair Bundles</a></p>
+          </div>
+
+          <div>
+            <h4>Support</h4>
+            <p><a href="#story">About Us</a></p>
+            <p><a href="#products">Collection</a></p>
+            <p><a href="#footer-contact">Contact</a></p>
+            <p><a href="#top">Back to top</a></p>
+          </div>
+
+          <div>
+            <h4>Contact</h4>
+            <p>St. Maarten, Caribbean</p>
+            <p><a href="mailto:Bossqueenscollections@gmail.com">Bossqueenscollections@gmail.com</a></p>
+            <p><a href="tel:+17215853221">+1 (721) 585-3221</a></p>
+            <p>Open 24/7</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 Boss Queens Collection. All rights reserved.</span>
+          <span>Standalone static homepage export</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
+      const productCards = Array.from(document.querySelectorAll('.product-card'));
+      const jumpLinks = Array.from(document.querySelectorAll('[data-jump-category]'));
+
+      function setFilter(category) {
+        filterButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.filter === category);
+        });
+
+        productCards.forEach((card) => {
+          const matches = category === 'all' || card.dataset.category === category;
+          card.hidden = !matches;
+        });
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => setFilter(button.dataset.filter || 'all'));
+      });
+
+      jumpLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          const category = link.dataset.jumpCategory;
+          if (category) {
+            requestAnimationFrame(() => setFilter(category));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

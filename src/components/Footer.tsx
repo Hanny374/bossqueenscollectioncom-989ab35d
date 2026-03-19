@@ -55,13 +55,24 @@ export const Footer = () => {
             <p className="text-cream/70 mb-8 text-lg">
               Subscribe for exclusive deals, new arrivals, and beauty tips delivered to your inbox.
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form 
+              action="https://bossqueenscollection.us1.list-manage.com/subscribe/post?u=2246e87e87954d8c8ffa90d4e&amp;id=a66ecc91b0&amp;f_id=000114e1f0" 
+              method="post" 
+              target="_blank"
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative"
+            >
               <Input 
                 type="email" 
+                name="EMAIL"
+                required
                 placeholder="Enter your email" 
                 className="bg-cream/10 border-cream/20 text-cream placeholder:text-cream/50 focus-visible:ring-primary h-12"
               />
-              <Button className="bg-gradient-gold hover:opacity-90 text-espresso font-semibold shrink-0 h-12 px-8">
+              {/* Mailchimp anti-bot honeypot */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-5000px' }}>
+                <input type="text" name="b_2246e87e87954d8c8ffa90d4e_a66ecc91b0" tabIndex={-1} defaultValue="" />
+              </div>
+              <Button type="submit" name="subscribe" className="bg-gradient-gold hover:opacity-90 text-espresso font-semibold shrink-0 h-12 px-8">
                 Subscribe
               </Button>
             </form>

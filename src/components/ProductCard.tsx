@@ -154,7 +154,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </h3>
         
         <p className="text-muted-foreground text-sm line-clamp-2">
-          {node.description || "Premium quality hair product"}
+          {getCardDescription({ title: node.title, productType: node.productType, tags: node.tags, description: node.description, options: node.options })}
         </p>
         
         {colorOption && colorOption.values.length > 0 && (

@@ -6,7 +6,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag } from "lucide-react";
+import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
+import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {

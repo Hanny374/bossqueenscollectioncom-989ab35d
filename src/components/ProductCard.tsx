@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 
@@ -153,7 +154,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </h3>
         
         <p className="text-muted-foreground text-sm line-clamp-2">
-          {node.description || "Premium quality hair product"}
+          {getCardDescription({ title: node.title, productType: node.productType, tags: node.tags, description: node.description, options: node.options })}
         </p>
         
         {colorOption && colorOption.values.length > 0 && (

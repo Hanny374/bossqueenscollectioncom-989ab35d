@@ -52,6 +52,7 @@ export const Footer = () => {
             <h3 className="font-display text-3xl md:text-4xl font-bold mb-4 text-cream">
               Join the Boss Queens
             </h3>
+            {/* email setup */}
             <p className="text-cream/70 mb-8 text-lg">
               Subscribe for exclusive deals, new arrivals, and beauty tips delivered to your inbox.
             </p>

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 
-export function useProducts(count: number = 50) {
+export function useProducts(count: number = 100) {
   return useQuery<ShopifyProduct[]>({
     queryKey: ["shopify-products", count],
     queryFn: () => fetchProducts(count),

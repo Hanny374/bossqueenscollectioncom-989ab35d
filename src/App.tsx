@@ -28,6 +28,7 @@ const CookieConsent = lazy(() => import("./components/CookieConsent").then(m => 
 const WelcomePopup = lazy(() => import("./components/WelcomePopup").then(m => ({ default: m.WelcomePopup })));
 const SocialProofToast = lazy(() => import("./components/SocialProofToast").then(m => ({ default: m.SocialProofToast })));
 const ExitIntentPopup = lazy(() => import("./components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
+const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m => ({ default: m.MobileBottomNav })));
 const queryClient = new QueryClient();
 
 const AppContent = () => {
@@ -59,6 +60,7 @@ const AppContent = () => {
         <WelcomePopup />
         <SocialProofToast />
         <ExitIntentPopup />
+        <MobileBottomNav />
       </Suspense>
     </BrowserRouter>
   );

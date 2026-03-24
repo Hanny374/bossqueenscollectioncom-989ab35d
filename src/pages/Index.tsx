@@ -21,8 +21,9 @@ const CATEGORY_FILTERS = [
   { label: "Colored Wigs", value: "colored-wigs" },
   { label: "Bob Wigs", value: "bob-wigs" },
   { label: "Lace Front Wigs", value: "lace-front-wigs" },
-  { label: "Bundles", value: "bundles" },
   { label: "Headband Wigs", value: "headband-wigs" },
+  { label: "Boho Braids", value: "boho-braids" },
+  { label: "Bundles", value: "bundles" },
   { label: "Accessories", value: "accessories" },
 ] as const;
 
@@ -30,10 +31,11 @@ const CATEGORY_FILTERS = [
 const CATEGORY_TYPE_MAP: Record<string, string[]> = {
   "colored-wigs": ["Colored Wigs"],
   "bob-wigs": ["Bob Wig"],
-  "lace-front-wigs": [], // Special: matches products with no type that have "lace" in title
-  "bundles": ["Hair Bundles", "Bundle Deals"],
+  "lace-front-wigs": [],
   "headband-wigs": ["Headband Wig"],
-  "accessories": ["Frontals", "Closures", "Accessories"],
+  "boho-braids": [],
+  "bundles": ["Hair Bundles", "Bundle Deals"],
+  "accessories": ["Frontals", "Closures", "Accessories", "Dryer"],
 };
 
 function getCategoryFromHash(hash: string): string {

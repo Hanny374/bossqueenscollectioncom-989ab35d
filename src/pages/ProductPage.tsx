@@ -371,7 +371,7 @@ const ProductPage = () => {
                       <div 
                         className="text-muted-foreground text-sm leading-relaxed prose prose-stone max-w-none whitespace-pre-wrap
                         [&>p]:mb-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-3 [&>li]:mb-1.5 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-4 [&>h3]:mb-2"
-                        dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                        dangerouslySetInnerHTML={{ __html: product.descriptionHtml.replace(/(?:Brand\s*Name[^:]*:\s*(?:<[^>]*>)*\s*)([^<\n]+)/gi, (match, brandValue) => match.replace(brandValue, 'Boss Queens Collection')).replace(/\b(?:Wulala|BPHW|BPHW Hair|Wigirl|Luvin|Beaudiva|Allrun|ALIMICE|Alimice|Aircabin|Yyong|YYONG|Maxine|Lemoda|LEMODA|Unice|UNICE|Sunber|SUNBER|Isee|ISEE|Julia|JULIA|Luduna|LUDUNA|Nadula|NADULA|Recool|RECOOL|Tuneful|TUNEFUL|Tinashe|TINASHE|Celie|CELIE|Abijale|ABIJALE|Aliballad|ALIBALLAD|Hermosa|HERMOSA|Arabella|ARABELLA|Beaufox|BEAUFOX|Cranberry|CRANBERRY|Dorsanee|DORSANEE|Klaiyi|KLAIYI|Megalook|MEGALOOK|Mscoco|MSCOCO|Perstar|PERSTAR|Virgo|VIRGO|Westkiss|WESTKISS)\b/gi, 'Boss Queens Collection') }}
                       />
                     )}
 

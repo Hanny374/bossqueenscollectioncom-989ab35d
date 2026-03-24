@@ -109,6 +109,18 @@ const ProductPage = () => {
     loadProduct();
   }, [handle]);
 
+  // Track recently viewed
+  useEffect(() => {
+    if (!product) return;
+    addToRecentlyViewed({
+      handle: product.handle,
+      title: product.title,
+      image: product.images.edges[0]?.node?.url || "",
+      price: product.priceRange.minVariantPrice.amount,
+      currencyCode: product.priceRange.minVariantPrice.currencyCode,
+    });
+  }, [product]);
+
   // Show sticky bar when CTA buttons scroll out of view
   useEffect(() => {
     if (!ctaRef.current) return;

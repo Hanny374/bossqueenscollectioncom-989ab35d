@@ -197,6 +197,50 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
               </div>
             )}
 
+            {/* Density Selector */}
+            {isWig && (
+              <div className="space-y-2">
+                <span className="text-sm font-medium text-foreground">Density</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {["180%", "200%", "210%", "250%", "300%"].map((d) => (
+                    <button
+                      key={d}
+                      onClick={() => setSelectedDensity(d)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+                        selectedDensity === d
+                          ? "border-primary bg-primary/10 text-primary font-semibold"
+                          : "border-border/50 text-foreground hover:border-primary/50"
+                      }`}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Lace Type Selector */}
+            {laceTypes.length > 0 && (
+              <div className="space-y-2">
+                <span className="text-sm font-medium text-foreground">Lace Type</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {laceTypes.map((lace) => (
+                    <button
+                      key={lace}
+                      onClick={() => setSelectedLaceType(lace)}
+                      className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+                        selectedLaceType === lace
+                          ? "border-primary bg-primary/10 text-primary font-semibold"
+                          : "border-border/50 text-foreground hover:border-primary/50"
+                      }`}
+                    >
+                      {lace}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Actions */}
             <div className="flex gap-2 mt-auto pt-4">
               <Button

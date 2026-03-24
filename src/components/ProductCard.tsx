@@ -7,6 +7,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
+import { QuickViewModal } from "./QuickViewModal";
 
 interface ProductCardProps {
   product: ShopifyProduct;

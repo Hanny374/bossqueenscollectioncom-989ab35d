@@ -1,26 +1,16 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const allowedOrigins = [
-  "https://bossqueenscollection.com",
-  "https://id-preview--3611fa2a-e636-40e8-b53d-3e1257d23df9.lovable.app",
-  "http://localhost:8080",
-  "http://localhost:5173",
-];
-
-function getCorsHeaders(req: Request) {
-  const origin = req.headers.get("origin") || "";
-  return {
-    "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : allowedOrigins[0],
-    "Access-Control-Allow-Headers":
-      "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-  };
-}
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
 
 // ── Shopify product fetching ────────────────────────────────────
 const SHOPIFY_STORE_DOMAIN = Deno.env.get("VITE_SHOPIFY_STORE_DOMAIN") || "boss-queens-collection-8295.myshopify.com";
 const SHOPIFY_API_VERSION = "2025-07";
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("VITE_SHOPIFY_STOREFRONT_TOKEN") || "0e942a6ba1a520b2bd97819256fe60c5";
+const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("VITE_SHOPIFY_STOREFRONT_TOKEN") || Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN") || "";
 
 const PRODUCTS_QUERY = `
   query GetProducts($first: Int!) {
@@ -71,7 +61,7 @@ interface ProductSummary {
 
 let cachedCatalog: string | null = null;
 let cacheTimestamp = 0;
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL_MS = 5 * 60 * 1000;
 
 async function getProductCatalog(): Promise<string> {
   const now = Date.now();
@@ -79,10 +69,9 @@ async function getProductCatalog(): Promise<string> {
     return cachedCatalog;
   }
 
-  const token = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN");
   if (!SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
-    console.warn("SHOPIFY_STOREFRONT_ACCESS_TOKEN not set, using static catalog");
-    return "(Live product data unavailable — use static catalog from system prompt)";
+    console.warn("SHOPIFY_STOREFRONT_ACCESS_TOKEN not set");
+    return "(Live product data unavailable)";
   }
 
   try {
@@ -90,7 +79,7 @@ async function getProductCatalog(): Promise<string> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_ACCESS_TOKEN,
       },
       body: JSON.stringify({ query: PRODUCTS_QUERY, variables: { first: 50 } }),
     });
@@ -133,7 +122,7 @@ async function getProductCatalog(): Promise<string> {
       let line = `• ${p.title} — ${p.price}`;
       if (p.compareAt) line += ` (was ${p.compareAt})`;
       if (!p.available) line += " [SOLD OUT]";
-      line += `\n  URL: https://bossqueenscollection.com/product/${p.handle}`;
+      line += `\n  URL: https://bossqueenscollectioncom.lovable.app/product/${p.handle}`;
       if (p.type) line += `\n  Type: ${p.type}`;
       if (p.tags.length) line += `\n  Tags: ${p.tags.join(", ")}`;
       if (p.options.length) {
@@ -162,7 +151,7 @@ Your personality: warm, confident, empowering, and knowledgeable about hair. You
 
 STORE INFO:
 - Brand: Boss Queens Collection (Est. 2020)
-- Website: https://bossqueenscollection.com
+- Website: https://bossqueenscollectioncom.lovable.app
 - Location: St. Maarten, Caribbean
 - Products: 100% human hair wigs (HD lace, bob wigs, colored wigs), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), frontals, closures
 - Shipping: FREE worldwide on orders over $100
@@ -170,39 +159,45 @@ STORE INFO:
 - WhatsApp: wa.me/17215853221
 - Open 24/7
 
+YOUR PRIMARY GOAL: HELP CUSTOMERS BUY. Every conversation should guide toward a purchase. Be helpful AND sales-driven.
+
 HOW TO HELP:
-1. Welcome customers warmly and help them find the perfect hair
-2. Recommend products based on their needs (texture, length, style, budget)
-3. Answer questions about hair care, styling, and maintenance
-4. Guide them through the ordering process — tell them to browse the collection on the site and add items to cart
-5. Provide shipping and return information
-6. If they need personal assistance, direct them to WhatsApp or email
+1. Welcome customers warmly and immediately ask what they're looking for
+2. Recommend specific products with prices and direct "Buy Now" links
+3. Answer questions about hair care, styling, maintenance — then circle back to a product recommendation
+4. For EVERY product recommendation, include a clickable link: [👉 Buy Now](https://bossqueenscollectioncom.lovable.app/product/HANDLE)
+5. If they seem interested, encourage them: "Want me to help you pick the perfect length/color?"
+6. Handle objections (price, quality, shipping) confidently and redirect to purchase
+7. If they need personal assistance, direct them to WhatsApp: [Chat on WhatsApp](https://wa.me/17215853221)
+
+CONVERSION TACTICS:
+- After recommending a product, ALWAYS add a "Buy Now" link
+- Create urgency: "This one's popular, queens love it!"
+- Mention FREE shipping on orders over $100
+- If budget is a concern, suggest affordable alternatives AND link to them
+- When answering ANY question (shipping, care, etc.), end with a product suggestion
+- Use format: **[Product Name](URL)** — $XX.XX 👉 [Buy Now](URL)
 
 LIVE PRODUCT CATALOG (use this for accurate prices, availability & recommendations):
 ${catalog}
 
 WHEN RECOMMENDING PRODUCTS:
 - Always use real prices from the catalog above
-- Link to products using their FULL URL (e.g., "Check out our [Product Name](https://bossqueenscollection.com/product/handle)")
-- ALWAYS use full absolute URLs starting with https://bossqueenscollection.com/ — never use relative paths like /product/
-- If a product is SOLD OUT, let the customer know and suggest alternatives
-- When a customer describes what they want (e.g., "something wavy", "a short wig"), match it to products from the catalog
+- Link to products using their FULL URL: https://bossqueenscollectioncom.lovable.app/product/HANDLE
+- ALWAYS use full absolute URLs — never use relative paths
+- If a product is SOLD OUT, let the customer know and suggest alternatives with buy links
+- When a customer describes what they want, match it to products and include buy links
 - Mention if a product is on sale (compare price vs. original price)
 
-ORDERING PROCESS:
-1. Browse products on the website: https://bossqueenscollection.com/#products
-2. Select desired length/variant
-3. Add to cart
-4. Click checkout in the cart drawer
-5. Complete payment on the secure checkout page
-
-Keep responses concise (2-4 sentences usually). Use emoji sparingly (👑💕✨). Always be helpful and encouraging.`;
+RESPONSE FORMAT:
+- Keep responses concise (2-4 sentences usually)
+- Use emoji sparingly (👑💕✨🔥)
+- ALWAYS include at least one product link with "Buy Now" when relevant
+- Be helpful, encouraging, and conversion-focused`;
 }
 
 // ── Handler ─────────────────────────────────────────────────────
 serve(async (req) => {
-  const corsHeaders = getCorsHeaders(req);
-
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -233,7 +228,6 @@ serve(async (req) => {
       }
     }
 
-    // Fetch live catalog (cached for 5 min)
     const catalog = await getProductCatalog();
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");

@@ -17,6 +17,7 @@ const Marquee = lazy(() => import("@/components/Marquee").then(m => ({ default: 
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
+const HomeReviewsSection = lazy(() => import("@/components/HomeReviewsSection").then(m => ({ default: m.HomeReviewsSection })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const CATEGORY_FILTERS = [
@@ -417,34 +418,8 @@ const Index = () => {
         <RecentlyViewed />
 
         <Suspense fallback={null}>
-          {/* Loox Review Carousel */}
-          <section className="py-16 bg-secondary/30">
-            <div className="container px-4 md:px-8">
-              <motion.div
-                className="text-center mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
-                  Real Reviews
-                </span>
-                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
-                  What Our Queens Say
-                </h2>
-              </motion.div>
-              <div
-                id="loox-default-carousel"
-              >
-                <div
-                  className="loox-v2-carousel-container"
-                  id="LOOX-V2_CAROUSEL-card"
-                  data-slide-type="card"
-                />
-              </div>
-            </div>
-          </section>
+          {/* Customer Reviews */}
+          <HomeReviewsSection />
 
           {/* Tag Us In Your Selfie Banner */}
           <section className="py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
@@ -500,7 +475,7 @@ const Index = () => {
             </div>
           </section>
 
-          <Testimonials />
+          {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}
           <section className="py-16 border-y border-border/50">

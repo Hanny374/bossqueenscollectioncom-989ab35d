@@ -247,5 +247,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </div>
     </Link>
+      <QuickViewModal product={product} open={quickViewOpen} onOpenChange={setQuickViewOpen} />
+    </>
   );
 };

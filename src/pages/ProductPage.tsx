@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
+import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
@@ -212,6 +213,16 @@ const ProductPage = () => {
     }
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", position: 1, name: "Home", item: storeUrl },
+      { "@type": "ListItem", position: 2, name: product.productType || "Products", item: `${storeUrl}/#products` },
+      { "@type": "ListItem", position: 3, name: product.title, item: `${storeUrl}/product/${product.handle}` }
+    ]
+  };
+
   // Compare at price
   const compareAtPrice = selectedVariant?.compareAtPrice || null;
 
@@ -240,6 +251,7 @@ const ProductPage = () => {
         <meta name="twitter:title" content={`${product.title} | Boss Queens Collection`} />
         <meta name="twitter:image" content={mainImage} />
         <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
       <Header />
       <main className="py-8">
@@ -296,9 +308,16 @@ const ProductPage = () => {
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3">
                   {product.title}
                 </h1>
+                <div className="mb-4">
+                  <ShareButtons 
+                    url={`${storeUrl}/product/${product.handle}`}
+                    title={product.title}
+                    image={mainImage}
+                  />
+                </div>
                 
                 {/* Price with savings badge */}
                 <div className="flex items-center gap-3 flex-wrap">

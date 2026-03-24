@@ -99,6 +99,15 @@ const Index = () => {
       });
     }
     
+    // Special filter for bob wigs: match by type OR title containing "bob"
+    if (activeCategory === "bob-wigs") {
+      return products.filter((p) => {
+        const type = p.node.productType?.toLowerCase().trim() || "";
+        const title = p.node.title?.toLowerCase() || "";
+        return type === "bob wig" || title.includes("bob");
+      });
+    }
+
     const types = CATEGORY_TYPE_MAP[activeCategory];
     if (!types || types.length === 0) return products;
     return products.filter((p) =>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Crown, Sparkles, ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-beauty.jpg";
+import heroImage from "@/assets/hero-beauty.webp";
 
 export const Hero = () => {
   return (
@@ -15,6 +15,9 @@ export const Hero = () => {
           className="w-full h-full object-cover object-top"
           loading="eager"
           fetchPriority="high"
+          decoding="async"
+          width={1200}
+          height={686}
         />
         {/* Cinematic overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent" />

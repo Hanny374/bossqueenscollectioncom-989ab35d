@@ -2,9 +2,6 @@ import { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Marquee } from "@/components/Marquee";
-import { Categories } from "@/components/Categories";
-import { ProductGrid } from "@/components/ProductGrid";
 import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
@@ -13,6 +10,9 @@ import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkl
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 // Lazy load below-fold sections
+const Marquee = lazy(() => import("@/components/Marquee").then(m => ({ default: m.Marquee })));
+const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
+const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 

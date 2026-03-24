@@ -59,6 +59,8 @@ const Index = () => {
 
   useScrollToHash();
 
+  const topSellers = useMemo(() => products.slice(0, 8), [products]);
+
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
     

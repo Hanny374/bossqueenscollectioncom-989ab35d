@@ -91,63 +91,102 @@ const Index = () => {
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
-    
-    // Special filter for lace front wigs: natural black lace fronts without a specific category
-    if (activeCategory === "lace-front-wigs") {
-      const categorizedTypes = ["Colored Wigs", "Bob Wig", "Hair Bundles", "Bundle Deals", "Headband Wig", "Frontals", "Closures", "Accessories", "Dryer"];
-      return products.filter((p) => {
-        const type = p.node.productType?.trim();
-        const title = p.node.title?.toLowerCase() || "";
-        const isUncategorized = !type || !categorizedTypes.some(t => t.toLowerCase() === type.toLowerCase());
-        const isLaceFront = title.includes("lace");
-        const isBob = title.includes("bob");
-        const isBraid = title.includes("braid") || title.includes("crochet") || title.includes("boho");
-        const isHeadband = title.includes("headband");
-        return isUncategorized && isLaceFront && !isBob && !isBraid && !isHeadband;
-      });
-    }
-    
-    // Special filter for bob wigs: match by type OR title containing "bob"
-    if (activeCategory === "bob-wigs") {
-      return products.filter((p) => {
-        const type = p.node.productType?.toLowerCase().trim() || "";
-        const title = p.node.title?.toLowerCase() || "";
-        return type === "bob wig" || title.includes("bob");
-      });
+
+    const titleOf = (p: ShopifyProduct) => (p.node.title || "").toLowerCase();
+    const descOf = (p: ShopifyProduct) => (p.node.description || "").toLowerCase();
+    const typeOf = (p: ShopifyProduct) => (p.node.productType || "").toLowerCase().trim();
+
+    // Helper: check if product is an accessory (used to exclude from other categories)
+    const isAccessory = (p: ShopifyProduct) => {
+      const t = titleOf(p);
+      const type = typeOf(p);
+      if (type === "dryer" || type === "accessories") return true;
+      // Match accessory keywords but NOT "glueless" (which is a wig feature)
+      const accessoryKeywords = ["wig glue ", "wig glue\t", "glue for", "glue and", "glue with", "lace glue", "super lace glue", "glued strong", 
+        "lace tint", "lace melting", "melting spray", "tint spray", "edge control", "wig installation kit", "installation kit set",
+        "wig stand", "wig storage", "wig bag", "wig rack", "wig holder", "blowout brush", "styling tool",
+        "wig cap", "hd wig cap", "melt band", "wax stick", "edge brush", "hair polisher", "scalp oil",
+        "wig glue", "glue remover", "hair glue", "adhesive", "walker tape"];
+      return accessoryKeywords.some(k => t.includes(k));
+    };
+
+    // Helper: check if product is a bundle (not a wig)
+    const isBundle = (p: ShopifyProduct) => {
+      const t = titleOf(p);
+      return (t.includes("bundle") || t.includes("hair weave") || t.includes("hair weft") || t.includes("hair extension")) 
+        && !t.includes("wig") && !isAccessory(p);
+    };
+
+    // Helper: check if product is a boho/braid
+    const isBohoBraid = (p: ShopifyProduct) => {
+      const t = titleOf(p);
+      const d = descOf(p);
+      return (t.includes("boho") || t.includes("braid") || t.includes("crochet") || t.includes("bulk hair"))
+        && !t.includes("wig") && !isAccessory(p);
+    };
+
+    if (activeCategory === "accessories") {
+      return products.filter(isAccessory);
     }
 
-    // Special filter for headband wigs: match by type OR title containing "headband"
-    if (activeCategory === "headband-wigs") {
-      return products.filter((p) => {
-        const type = p.node.productType?.toLowerCase().trim() || "";
-        const title = p.node.title?.toLowerCase() || "";
-        return type === "headband wig" || title.includes("headband");
-      });
+    if (activeCategory === "bundles") {
+      return products.filter(isBundle);
     }
 
-    // Special filter for boho braids: match by title keywords
     if (activeCategory === "boho-braids") {
-      return products.filter((p) => {
-        const title = p.node.title?.toLowerCase() || "";
-        const desc = p.node.description?.toLowerCase() || "";
-        return title.includes("boho") || title.includes("braid") || title.includes("crochet") || 
-               (desc.includes("boho") && (desc.includes("braid") || desc.includes("crochet")));
-      });
+      return products.filter(isBohoBraid);
     }
 
-    // Special filter for V part & half wigs
     if (activeCategory === "v-part-half-wigs") {
       return products.filter((p) => {
-        const title = p.node.title?.toLowerCase() || "";
-        return title.includes("v part") || title.includes("v-part") || title.includes("half wig") || title.includes("u part") || title.includes("u-part");
+        const t = titleOf(p);
+        return (t.includes("v part") || t.includes("v-part") || t.includes("half wig") || t.includes("u part") || t.includes("u-part") || t.includes("flip wig"))
+          && !isAccessory(p);
       });
     }
 
-    const types = CATEGORY_TYPE_MAP[activeCategory];
-    if (!types || types.length === 0) return products;
-    return products.filter((p) =>
-      types.some((t) => p.node.productType?.toLowerCase() === t.toLowerCase())
-    );
+    if (activeCategory === "headband-wigs") {
+      return products.filter((p) => {
+        const t = titleOf(p);
+        return (t.includes("headband") || typeOf(p) === "headband wig") && !isAccessory(p);
+      });
+    }
+
+    if (activeCategory === "bob-wigs") {
+      return products.filter((p) => {
+        const t = titleOf(p);
+        return (t.includes("bob") && (t.includes("wig") || t.includes("lace"))) && !isAccessory(p) && !isBundle(p);
+      });
+    }
+
+    if (activeCategory === "colored-wigs") {
+      return products.filter((p) => {
+        const t = titleOf(p);
+        const isWig = t.includes("wig") || t.includes("lace");
+        const isColored = ["blonde", "burgundy", "#27", "#99j", "ombre", "honey", "ginger", "highlight", "#613", 
+          "#4/27", "#4/613", "#30", "auburn", "reddish", "red ", "pink", "blue", "purple", "chocolate", "#4 ", "colored", "ash"]
+          .some(k => t.includes(k));
+        return isWig && isColored && !isAccessory(p) && !isBundle(p);
+      });
+    }
+
+    // Lace front wigs: everything with "lace" that doesn't belong to other categories
+    if (activeCategory === "lace-front-wigs") {
+      return products.filter((p) => {
+        const t = titleOf(p);
+        const isLace = t.includes("lace") || t.includes("wig");
+        return isLace && !isAccessory(p) && !isBundle(p) && !isBohoBraid(p)
+          && !t.includes("headband")
+          && !(t.includes("bob") && (t.includes("wig") || t.includes("lace")))
+          && !(t.includes("v part") || t.includes("v-part") || t.includes("half wig") || t.includes("u part") || t.includes("flip wig"))
+          // Exclude colored wigs
+          && !["blonde", "burgundy", "#27", "#99j", "ombre", "honey", "ginger", "highlight", "#613", 
+            "#4/27", "#4/613", "#30", "auburn", "reddish", "red ", "pink", "blue", "purple", "chocolate", "#4 ", "colored", "ash"]
+            .some(k => t.includes(k));
+      });
+    }
+
+    return products;
   }, [products, activeCategory]);
 
   const visibleProducts = useMemo(() => filteredProducts.slice(0, visibleCount), [filteredProducts, visibleCount]);

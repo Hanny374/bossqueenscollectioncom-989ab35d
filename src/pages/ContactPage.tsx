@@ -94,7 +94,8 @@ const ContactPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
             <div className="bg-card rounded-2xl p-8 shadow-soft border border-border">
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground mb-2">Request a Custom Wig</h2>
+              <p className="text-sm text-muted-foreground mb-6">Describe your ideal wig — we'll get back to you with a quote within 24-48 hours.</p>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">

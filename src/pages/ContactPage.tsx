@@ -138,10 +138,25 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="How can we help?"
+                    placeholder="e.g. Custom wig inquiry, Color request, etc."
                     maxLength={200}
                   />
                 </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-foreground">
+                    Wig Details <span className="text-destructive">*</span>
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Describe your dream wig: hair type (e.g. body wave, straight, curly), length (e.g. 18 inches), color (e.g. honey blonde, ombre), density (e.g. 180%), lace type (e.g. 13x4, 13x6), and any other preferences..."
+                    rows={6}
+                    maxLength={1000}
+                    required
+                  />
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">

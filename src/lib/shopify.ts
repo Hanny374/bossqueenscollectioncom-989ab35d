@@ -280,9 +280,80 @@ export const CART_LINES_REMOVE_MUTATION = `
   }
 `;
 
-// Fetch products
+// Query for newest products
+export const NEWEST_PRODUCTS_QUERY = `
+  query GetNewestProducts($first: Int!) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+      edges {
+        node {
+          id
+          title
+          description
+          descriptionHtml
+          handle
+          productType
+          tags
+          availableForSale
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          compareAtPriceRange {
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          images(first: 10) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+          variants(first: 20) {
+            edges {
+              node {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
+                availableForSale
+                selectedOptions {
+                  name
+                  value
+                }
+              }
+            }
+          }
+          options {
+            name
+            values
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Fetch products (sorted by best selling)
 export async function fetchProducts(first: number = 20): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(PRODUCTS_QUERY, { first });
+  return data?.data?.products?.edges || [];
+}
+
+// Fetch newest products
+export async function fetchNewestProducts(first: number = 8): Promise<ShopifyProduct[]> {
+  const data = await storefrontApiRequest(NEWEST_PRODUCTS_QUERY, { first });
   return data?.data?.products?.edges || [];
 }
 

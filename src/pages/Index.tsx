@@ -5,11 +5,11 @@ import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Categories } from "@/components/Categories";
 import { ProductGrid } from "@/components/ProductGrid";
-import { useProducts } from "@/hooks/useProducts";
+import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
-import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package } from "lucide-react";
+import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles } from "lucide-react";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 // Lazy load below-fold sections
@@ -44,6 +44,7 @@ function getCategoryFromHash(hash: string): string {
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(100);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -57,6 +58,8 @@ const Index = () => {
   }, [location.hash]);
 
   useScrollToHash();
+
+  const topSellers = useMemo(() => products.slice(0, 8), [products]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
@@ -136,6 +139,52 @@ const Index = () => {
         </section>
 
         <Categories />
+
+        {/* Top Sellers Section */}
+        <section className="py-20 relative bg-secondary/30">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Flame className="w-5 h-5 text-primary" />
+                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
+                </div>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
+              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
+            </motion.div>
+            <ProductGrid products={topSellers} isLoading={isLoading} />
+          </div>
+        </section>
+
+        {/* Newly Added Section */}
+        <section className="py-20 relative">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Fresh Drops</span>
+                </div>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Newly Added</h2>
+              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
+            </motion.div>
+            <ProductGrid products={newestProducts} isLoading={isLoadingNewest} />
+          </div>
+        </section>
 
         {/* Products Section */}
         <section id="products" className="py-28 relative">

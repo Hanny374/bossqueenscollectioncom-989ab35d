@@ -32,11 +32,18 @@ const categories = [
     number: "04",
   },
   {
+    title: "V Part & Half Wigs",
+    subtitle: "V-part & U-part wigs for a natural, glueless look",
+    icon: Crown,
+    href: "/#products?category=v-part-half-wigs",
+    number: "05",
+  },
+  {
     title: "Boho Braids",
     subtitle: "Crochet & boho braid extensions in human hair",
     icon: Palette,
     href: "/#products?category=boho-braids",
-    number: "05",
+    number: "06",
   },
   {
     title: "Bundles",

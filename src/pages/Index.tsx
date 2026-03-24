@@ -20,6 +20,7 @@ const CATEGORY_FILTERS = [
   { label: "All", value: "all" },
   { label: "Colored Wigs", value: "colored-wigs" },
   { label: "Bob Wigs", value: "bob-wigs" },
+  { label: "Lace Front Wigs", value: "lace-front-wigs" },
   { label: "Bundles", value: "bundles" },
   { label: "Headband Wigs", value: "headband-wigs" },
   { label: "Accessories", value: "accessories" },
@@ -29,6 +30,7 @@ const CATEGORY_FILTERS = [
 const CATEGORY_TYPE_MAP: Record<string, string[]> = {
   "colored-wigs": ["Colored Wigs"],
   "bob-wigs": ["Bob Wig"],
+  "lace-front-wigs": [], // Special: matches products with no type that have "lace" in title
   "bundles": ["Hair Bundles", "Bundle Deals"],
   "headband-wigs": ["Headband Wig"],
   "accessories": ["Frontals", "Closures", "Accessories"],
@@ -58,8 +60,21 @@ const Index = () => {
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
+    
+    // Special filter for lace front wigs: natural black lace fronts without a specific category
+    if (activeCategory === "lace-front-wigs") {
+      const categorizedTypes = ["Colored Wigs", "Bob Wig", "Hair Bundles", "Bundle Deals", "Headband Wig", "Frontals", "Closures", "Accessories"];
+      return products.filter((p) => {
+        const type = p.node.productType?.trim();
+        const title = p.node.title?.toLowerCase() || "";
+        const isUncategorized = !type || !categorizedTypes.some(t => t.toLowerCase() === type.toLowerCase());
+        const isLaceFront = title.includes("lace");
+        return isUncategorized && isLaceFront;
+      });
+    }
+    
     const types = CATEGORY_TYPE_MAP[activeCategory];
-    if (!types) return products;
+    if (!types || types.length === 0) return products;
     return products.filter((p) =>
       types.some((t) => p.node.productType?.toLowerCase() === t.toLowerCase())
     );

@@ -4,25 +4,32 @@ import { motion } from "framer-motion";
 
 const categories = [
   {
-    title: "Wigs",
-    subtitle: "HD Lace fronts, full lace, and premium styles",
-    icon: Crown,
+    title: "Colored Wigs",
+    subtitle: "Blonde, burgundy, honey & ombre HD lace front wigs",
+    icon: Sparkles,
     href: "/#products?category=colored-wigs",
     number: "01",
   },
   {
-    title: "Bundles",
-    subtitle: "Virgin hair bundles in all textures",
-    icon: Sparkles,
-    href: "/#products?category=bundles",
+    title: "Bob Wigs",
+    subtitle: "Short bob lace front wigs in all textures",
+    icon: Scissors,
+    href: "/#products?category=bob-wigs",
     number: "02",
   },
   {
-    title: "Accessories",
-    subtitle: "Frontals, closures & styling tools",
-    icon: Scissors,
-    href: "/#products?category=accessories",
+    title: "Lace Front Wigs",
+    subtitle: "Natural black HD lace frontal wigs, 13x4 & 13x6",
+    icon: Crown,
+    href: "/#products?category=lace-front-wigs",
     number: "03",
+  },
+  {
+    title: "Bundles",
+    subtitle: "Virgin hair bundles & bundle deals in all textures",
+    icon: Sparkles,
+    href: "/#products?category=bundles",
+    number: "04",
   },
 ];
 
@@ -53,7 +60,7 @@ export const Categories = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}

@@ -46,7 +46,7 @@ const PRODUCTS_PER_PAGE = 20;
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
   const location = useLocation();
   const navigate = useNavigate();
 

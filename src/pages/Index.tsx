@@ -86,8 +86,12 @@ const Index = () => {
     );
   }, [products, activeCategory]);
 
+  const visibleProducts = useMemo(() => filteredProducts.slice(0, visibleCount), [filteredProducts, visibleCount]);
+  const hasMore = visibleCount < filteredProducts.length;
+
   const handleCategoryChange = (value: string) => {
     setActiveCategory(value);
+    setVisibleCount(PRODUCTS_PER_PAGE);
     if (value === "all") {
       navigate("/#products", { replace: true });
     } else {

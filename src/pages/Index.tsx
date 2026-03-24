@@ -134,6 +134,14 @@ const Index = () => {
       });
     }
 
+    // Special filter for V part & half wigs
+    if (activeCategory === "v-part-half-wigs") {
+      return products.filter((p) => {
+        const title = p.node.title?.toLowerCase() || "";
+        return title.includes("v part") || title.includes("v-part") || title.includes("half wig") || title.includes("u part") || title.includes("u-part");
+      });
+    }
+
     const types = CATEGORY_TYPE_MAP[activeCategory];
     if (!types || types.length === 0) return products;
     return products.filter((p) =>

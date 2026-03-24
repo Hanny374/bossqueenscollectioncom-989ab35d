@@ -50,7 +50,7 @@ const categories = [
     subtitle: "Virgin hair bundles & bundle deals in all textures",
     icon: Sparkles,
     href: "/#products?category=bundles",
-    number: "06",
+    number: "07",
   },
 ];
 

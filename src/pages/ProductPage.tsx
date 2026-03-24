@@ -451,32 +451,34 @@ const ProductPage = () => {
                 </div>
               )}
 
-              {/* Lace Type Selection */}
-              <div className="space-y-3">
-                <label className="block text-sm font-medium text-foreground">
-                  Lace Type
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {LACE_TYPES.map((type) => (
-                    <button
-                      key={type.value}
-                      onClick={() => setSelectedLaceType(type.value)}
-                      className={`p-3 rounded-lg border text-left transition-all ${
-                        selectedLaceType === type.value
-                          ? "border-primary bg-primary/10"
-                          : "border-border hover:border-primary/50"
-                      }`}
-                    >
-                      <p className={`text-sm font-medium ${selectedLaceType === type.value ? "text-primary" : "text-foreground"}`}>
-                        {type.label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {type.description}
-                      </p>
-                    </button>
-                  ))}
+              {/* Lace Type Selection - Wigs Only */}
+              {isWigProduct && (
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">
+                    Lace Type
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {LACE_TYPES.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => setSelectedLaceType(type.value)}
+                        className={`p-3 rounded-lg border text-left transition-all ${
+                          selectedLaceType === type.value
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <p className={`text-sm font-medium ${selectedLaceType === type.value ? "text-primary" : "text-foreground"}`}>
+                          {type.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {type.description}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Density Selection - Wigs Only */}
               {isWigProduct && (
@@ -510,35 +512,37 @@ const ProductPage = () => {
                 </div>
               )}
 
-              {/* Head Size Selection */}
-              <div className="space-y-3">
-                <label className="block text-sm font-medium text-foreground">
-                  Head Size
-                </label>
-                <div className="flex flex-wrap gap-2">
-                  {HEAD_SIZES.map((size) => (
-                    <button
-                      key={size.value}
-                      onClick={() => setSelectedHeadSize(size.value)}
-                      className={`px-4 py-3 rounded-lg border transition-all ${
-                        selectedHeadSize === size.value
-                          ? "border-primary bg-primary/10"
-                          : "border-border hover:border-primary/50"
-                      }`}
-                    >
-                      <p className={`text-sm font-medium ${selectedHeadSize === size.value ? "text-primary" : "text-foreground"}`}>
-                        {size.label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {size.measurement}
-                      </p>
-                    </button>
-                  ))}
+              {/* Head Size Selection - Wigs Only */}
+              {isWigProduct && (
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">
+                    Head Size
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {HEAD_SIZES.map((size) => (
+                      <button
+                        key={size.value}
+                        onClick={() => setSelectedHeadSize(size.value)}
+                        className={`px-4 py-3 rounded-lg border transition-all ${
+                          selectedHeadSize === size.value
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <p className={`text-sm font-medium ${selectedHeadSize === size.value ? "text-primary" : "text-foreground"}`}>
+                          {size.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {size.measurement}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground italic">
+                    Measure around your head at the hairline. All wigs include adjustable straps.
+                  </p>
                 </div>
-                <p className="text-xs text-muted-foreground italic">
-                  Measure around your head at the hairline. All wigs include adjustable straps.
-                </p>
-              </div>
+              )}
 
               {/* Add to Cart & Buy Now */}
               <div ref={ctaRef} className="pt-4 space-y-3">

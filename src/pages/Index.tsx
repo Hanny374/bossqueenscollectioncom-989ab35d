@@ -79,7 +79,8 @@ const Index = () => {
     return newestProducts.filter((p) => {
       const type = p.node.productType?.toLowerCase().trim() || "";
       const title = p.node.title?.toLowerCase() || "";
-      const isBundle = bundleTypes.some(t => type === t) || title.includes("bundle") || title.includes("bulk");
+      const tags = p.node.tags?.map(t => t.toLowerCase()) || [];
+      const isBundle = bundleTypes.some(t => type === t) || title.includes("bundle") || title.includes("bulk") || title.includes("extension") || title.includes("weave") || title.includes("weft") || tags.includes("bundles");
       return isBundle;
     }).slice(0, 8);
   }, [newestProducts]);

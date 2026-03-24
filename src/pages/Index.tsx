@@ -46,7 +46,7 @@ const PRODUCTS_PER_PAGE = 20;
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -73,16 +73,8 @@ const Index = () => {
     }).slice(0, 8);
   }, [products]);
 
-  // Newly Added: newest bundles only
-  const newestBundles = useMemo(() => {
-    const bundleTypes = ["hair bundles", "bundle deals"];
-    return newestProducts.filter((p) => {
-      const type = p.node.productType?.toLowerCase().trim() || "";
-      const title = p.node.title?.toLowerCase() || "";
-      const isBundle = bundleTypes.some(t => type === t) || title.includes("bundle") || title.includes("bulk");
-      return isBundle;
-    }).slice(0, 8);
-  }, [newestProducts]);
+  // Newly Added: 8 most recently added products
+  const newestBundles = useMemo(() => newestProducts.slice(0, 8), [newestProducts]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

@@ -286,8 +286,8 @@ export const CART_LINES_REMOVE_MUTATION = `
 
 // Query for newest products
 export const NEWEST_PRODUCTS_QUERY = `
-  query GetNewestProducts($first: Int!) {
-    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+  query GetNewestProducts($first: Int!, $query: String) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true, query: $query) {
       edges {
         node {
           id

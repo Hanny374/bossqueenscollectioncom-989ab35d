@@ -11,10 +11,10 @@ export function useProducts(count: number = 500) {
   });
 }
 
-export function useNewestProducts(count: number = 8) {
+export function useNewestProducts(count: number = 8, query?: string) {
   return useQuery<ShopifyProduct[]>({
-    queryKey: ["shopify-newest-products", count],
-    queryFn: () => fetchNewestProducts(count),
+    queryKey: ["shopify-newest-products", count, query],
+    queryFn: () => fetchNewestProducts(count, query),
     staleTime: 5 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: false,

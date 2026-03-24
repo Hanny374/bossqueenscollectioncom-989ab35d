@@ -158,21 +158,7 @@ const ContactPage = () => {
                     required
                   />
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    Message <span className="text-destructive">*</span>
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us more about your inquiry..."
-                    rows={5}
-                    maxLength={1000}
-                    required
-                  />
-                  <p className="text-xs text-muted-foreground text-right">
+                <p className="text-xs text-muted-foreground text-right">
                     {formData.message.length}/1000
                   </p>
                 </div>

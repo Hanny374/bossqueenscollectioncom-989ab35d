@@ -22,6 +22,7 @@ const CATEGORY_FILTERS = [
   { label: "Bob Wigs", value: "bob-wigs" },
   { label: "Lace Front Wigs", value: "lace-front-wigs" },
   { label: "Headband Wigs", value: "headband-wigs" },
+  { label: "V Part & Half Wigs", value: "v-part-half-wigs" },
   { label: "Boho Braids", value: "boho-braids" },
   { label: "Bundles", value: "bundles" },
   { label: "Accessories", value: "accessories" },
@@ -33,6 +34,7 @@ const CATEGORY_TYPE_MAP: Record<string, string[]> = {
   "bob-wigs": ["Bob Wig"],
   "lace-front-wigs": [],
   "headband-wigs": ["Headband Wig"],
+  "v-part-half-wigs": [],
   "boho-braids": [],
   "bundles": ["Hair Bundles", "Bundle Deals"],
   "accessories": ["Frontals", "Closures", "Accessories", "Dryer"],
@@ -129,6 +131,14 @@ const Index = () => {
         const desc = p.node.description?.toLowerCase() || "";
         return title.includes("boho") || title.includes("braid") || title.includes("crochet") || 
                (desc.includes("boho") && (desc.includes("braid") || desc.includes("crochet")));
+      });
+    }
+
+    // Special filter for V part & half wigs
+    if (activeCategory === "v-part-half-wigs") {
+      return products.filter((p) => {
+        const title = p.node.title?.toLowerCase() || "";
+        return title.includes("v part") || title.includes("v-part") || title.includes("half wig") || title.includes("u part") || title.includes("u-part");
       });
     }
 

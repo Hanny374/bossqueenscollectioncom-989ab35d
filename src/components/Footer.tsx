@@ -118,6 +118,7 @@ export const Footer = () => {
                 { label: "Colored Wigs", href: "/#products?category=colored-wigs" },
                 { label: "Bob Wigs", href: "/#products?category=bob-wigs" },
                 { label: "Headband Wigs", href: "/#products?category=headband-wigs" },
+                { label: "V Part & Half Wigs", href: "/#products?category=v-part-half-wigs" },
                 { label: "Boho Braids", href: "/#products?category=boho-braids" },
                 { label: "Hair Bundles", href: "/#products?category=bundles" },
               ].map((link) => (

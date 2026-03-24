@@ -209,7 +209,7 @@ const Index = () => {
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
             </motion.div>
-            <ProductGrid products={newestProducts} isLoading={isLoadingNewest} />
+            <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
           </div>
         </section>
 

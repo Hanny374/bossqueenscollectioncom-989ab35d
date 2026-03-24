@@ -475,7 +475,7 @@ const Index = () => {
             </div>
           </section>
 
-          <Testimonials />
+          {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}
           <section className="py-16 border-y border-border/50">

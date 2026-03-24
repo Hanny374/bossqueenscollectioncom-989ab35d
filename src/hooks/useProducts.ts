@@ -1,11 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
+import { fetchProducts, fetchNewestProducts, ShopifyProduct } from "@/lib/shopify";
 
 export function useProducts(count: number = 100) {
   return useQuery<ShopifyProduct[]>({
     queryKey: ["shopify-products", count],
     queryFn: () => fetchProducts(count),
-    staleTime: 5 * 60 * 1000, // 5 min cache
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+    refetchOnWindowFocus: false,
+  });
+}
+
+export function useNewestProducts(count: number = 8) {
+  return useQuery<ShopifyProduct[]>({
+    queryKey: ["shopify-newest-products", count],
+    queryFn: () => fetchNewestProducts(count),
+    staleTime: 5 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: false,
   });

@@ -16,6 +16,7 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { node } = product;
   const [isHovered, setIsHovered] = useState(false);
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
   const buyNow = useCartStore(state => state.buyNow);

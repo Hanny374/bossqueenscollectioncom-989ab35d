@@ -286,8 +286,8 @@ export const CART_LINES_REMOVE_MUTATION = `
 
 // Query for newest products
 export const NEWEST_PRODUCTS_QUERY = `
-  query GetNewestProducts($first: Int!) {
-    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+  query GetNewestProducts($first: Int!, $query: String) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true, query: $query) {
       edges {
         node {
           id
@@ -377,8 +377,8 @@ export async function fetchProducts(targetCount: number = 250): Promise<ShopifyP
 }
 
 // Fetch newest products
-export async function fetchNewestProducts(first: number = 8): Promise<ShopifyProduct[]> {
-  const data = await storefrontApiRequest(NEWEST_PRODUCTS_QUERY, { first });
+export async function fetchNewestProducts(first: number = 8, query?: string): Promise<ShopifyProduct[]> {
+  const data = await storefrontApiRequest(NEWEST_PRODUCTS_QUERY, { first, query });
   return data?.data?.products?.edges || [];
 }
 

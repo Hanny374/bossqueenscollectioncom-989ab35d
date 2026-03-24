@@ -779,7 +779,7 @@ const ProductPage = () => {
         {/* Loox Product Reviews */}
         {product && (
           <div className="container px-4 md:px-8 pb-16">
-            <LooxReviews productId={product.id} />
+            <ProductReviews productHandle={product.handle} productTitle={product.title} />
           </div>
         )}
 

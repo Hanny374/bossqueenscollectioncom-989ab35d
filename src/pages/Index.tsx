@@ -12,6 +12,7 @@ import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkl
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 // Lazy load below-fold sections
+const EasterBanner = lazy(() => import("@/components/EasterBanner").then(m => ({ default: m.EasterBanner })));
 const Marquee = lazy(() => import("@/components/Marquee").then(m => ({ default: m.Marquee })));
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));

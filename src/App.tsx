@@ -63,6 +63,7 @@ const AppContent = () => {
         <SocialProofToast />
         <ExitIntentPopup />
         <MobileBottomNav />
+        <CarnivalStickyWidget />
       </Suspense>
     </BrowserRouter>
   );

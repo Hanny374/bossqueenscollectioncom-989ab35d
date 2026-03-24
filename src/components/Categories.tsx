@@ -52,6 +52,13 @@ const categories = [
     href: "/#products?category=bundles",
     number: "07",
   },
+  {
+    title: "Accessories",
+    subtitle: "Wig caps, combs, glue, edge control & styling essentials",
+    icon: Palette,
+    href: "/#products?category=accessories",
+    number: "08",
+  },
 ];
 
 export const Categories = () => {

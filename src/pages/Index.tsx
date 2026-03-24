@@ -21,8 +21,9 @@ const CATEGORY_FILTERS = [
   { label: "Colored Wigs", value: "colored-wigs" },
   { label: "Bob Wigs", value: "bob-wigs" },
   { label: "Lace Front Wigs", value: "lace-front-wigs" },
-  { label: "Bundles", value: "bundles" },
   { label: "Headband Wigs", value: "headband-wigs" },
+  { label: "Boho Braids", value: "boho-braids" },
+  { label: "Bundles", value: "bundles" },
   { label: "Accessories", value: "accessories" },
 ] as const;
 
@@ -30,10 +31,11 @@ const CATEGORY_FILTERS = [
 const CATEGORY_TYPE_MAP: Record<string, string[]> = {
   "colored-wigs": ["Colored Wigs"],
   "bob-wigs": ["Bob Wig"],
-  "lace-front-wigs": [], // Special: matches products with no type that have "lace" in title
-  "bundles": ["Hair Bundles", "Bundle Deals"],
+  "lace-front-wigs": [],
   "headband-wigs": ["Headband Wig"],
-  "accessories": ["Frontals", "Closures", "Accessories"],
+  "boho-braids": [],
+  "bundles": ["Hair Bundles", "Bundle Deals"],
+  "accessories": ["Frontals", "Closures", "Accessories", "Dryer"],
 };
 
 function getCategoryFromHash(hash: string): string {
@@ -89,13 +91,16 @@ const Index = () => {
     
     // Special filter for lace front wigs: natural black lace fronts without a specific category
     if (activeCategory === "lace-front-wigs") {
-      const categorizedTypes = ["Colored Wigs", "Bob Wig", "Hair Bundles", "Bundle Deals", "Headband Wig", "Frontals", "Closures", "Accessories"];
+      const categorizedTypes = ["Colored Wigs", "Bob Wig", "Hair Bundles", "Bundle Deals", "Headband Wig", "Frontals", "Closures", "Accessories", "Dryer"];
       return products.filter((p) => {
         const type = p.node.productType?.trim();
         const title = p.node.title?.toLowerCase() || "";
         const isUncategorized = !type || !categorizedTypes.some(t => t.toLowerCase() === type.toLowerCase());
         const isLaceFront = title.includes("lace");
-        return isUncategorized && isLaceFront;
+        const isBob = title.includes("bob");
+        const isBraid = title.includes("braid") || title.includes("crochet") || title.includes("boho");
+        const isHeadband = title.includes("headband");
+        return isUncategorized && isLaceFront && !isBob && !isBraid && !isHeadband;
       });
     }
     
@@ -105,6 +110,25 @@ const Index = () => {
         const type = p.node.productType?.toLowerCase().trim() || "";
         const title = p.node.title?.toLowerCase() || "";
         return type === "bob wig" || title.includes("bob");
+      });
+    }
+
+    // Special filter for headband wigs: match by type OR title containing "headband"
+    if (activeCategory === "headband-wigs") {
+      return products.filter((p) => {
+        const type = p.node.productType?.toLowerCase().trim() || "";
+        const title = p.node.title?.toLowerCase() || "";
+        return type === "headband wig" || title.includes("headband");
+      });
+    }
+
+    // Special filter for boho braids: match by title keywords
+    if (activeCategory === "boho-braids") {
+      return products.filter((p) => {
+        const title = p.node.title?.toLowerCase() || "";
+        const desc = p.node.description?.toLowerCase() || "";
+        return title.includes("boho") || title.includes("braid") || title.includes("crochet") || 
+               (desc.includes("boho") && (desc.includes("braid") || desc.includes("crochet")));
       });
     }
 

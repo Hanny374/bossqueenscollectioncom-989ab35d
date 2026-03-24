@@ -12,6 +12,8 @@ const navLinks = [
   { label: "Shop All", href: "/#products" },
   { label: "Colored Wigs", href: "/#products?category=colored-wigs" },
   { label: "Bob Wigs", href: "/#products?category=bob-wigs" },
+  { label: "Headband Wigs", href: "/#products?category=headband-wigs" },
+  { label: "Boho Braids", href: "/#products?category=boho-braids" },
   { label: "Bundles", href: "/#products?category=bundles" },
   { label: "About Us", href: "/about" },
   { label: "Shipping", href: "/shipping" },

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Crown, Scissors, Sparkles, ArrowRight } from "lucide-react";
+import { Crown, Scissors, Sparkles, ArrowRight, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 
 const categories = [
@@ -25,11 +25,25 @@ const categories = [
     number: "03",
   },
   {
+    title: "Headband Wigs",
+    subtitle: "Easy-to-wear headband wigs, no glue or lace needed",
+    icon: Crown,
+    href: "/#products?category=headband-wigs",
+    number: "04",
+  },
+  {
+    title: "Boho Braids",
+    subtitle: "Crochet & boho braid extensions in human hair",
+    icon: Palette,
+    href: "/#products?category=boho-braids",
+    number: "05",
+  },
+  {
     title: "Bundles",
     subtitle: "Virgin hair bundles & bundle deals in all textures",
     icon: Sparkles,
     href: "/#products?category=bundles",
-    number: "04",
+    number: "06",
   },
 ];
 
@@ -60,7 +74,7 @@ export const Categories = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}

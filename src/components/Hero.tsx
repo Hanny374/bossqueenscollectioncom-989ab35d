@@ -15,6 +15,9 @@ export const Hero = () => {
           className="w-full h-full object-cover object-top"
           loading="eager"
           fetchPriority="high"
+          decoding="async"
+          width={1200}
+          height={686}
         />
         {/* Cinematic overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent" />

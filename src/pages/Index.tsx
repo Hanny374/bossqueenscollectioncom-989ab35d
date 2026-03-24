@@ -7,17 +7,12 @@ import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram } from "lucide-react";
+import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 // Lazy load below-fold sections
 const Marquee = lazy(() => import("@/components/Marquee").then(m => ({ default: m.Marquee })));
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
-const PaymentLogos = lazy(() => import("@/components/PaymentLogos").then(m => ({
-  default: () => {
-    const { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } = m;
-    return <>{[VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo].map((Logo, i) => <Logo key={i} />)}</>;
-  }
-})));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 

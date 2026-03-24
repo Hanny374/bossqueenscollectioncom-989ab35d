@@ -73,17 +73,8 @@ const Index = () => {
     }).slice(0, 8);
   }, [products]);
 
-  // Newly Added: newest bundles only
-  const newestBundles = useMemo(() => {
-    const bundleTypes = ["hair bundles", "bundle deals"];
-    return newestProducts.filter((p) => {
-      const type = p.node.productType?.toLowerCase().trim() || "";
-      const title = p.node.title?.toLowerCase() || "";
-      const tags = p.node.tags?.map(t => t.toLowerCase()) || [];
-      const isBundle = bundleTypes.some(t => type === t) || title.includes("bundle") || title.includes("bulk") || title.includes("extension") || title.includes("weave") || title.includes("weft") || tags.includes("bundles");
-      return isBundle;
-    }).slice(0, 8);
-  }, [newestProducts]);
+  // Newly Added: 8 most recently added products
+  const newestBundles = useMemo(() => newestProducts.slice(0, 8), [newestProducts]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

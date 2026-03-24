@@ -782,6 +782,9 @@ const ProductPage = () => {
             <LooxReviews productId={product.id} />
           </div>
         )}
+
+        {/* Recently Viewed */}
+        <RecentlyViewed excludeHandle={product?.handle} />
       </main>
       <Footer />
 

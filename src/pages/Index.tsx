@@ -46,7 +46,7 @@ const PRODUCTS_PER_PAGE = 20;
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8, "product_type:\"Colored Wigs\" OR product_type:\"Bob Wig\"");
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -73,8 +73,16 @@ const Index = () => {
     }).slice(0, 8);
   }, [products]);
 
-  // Newly Added: 8 most recently added products
-  const newestBundles = useMemo(() => newestProducts.slice(0, 8), [newestProducts]);
+  // Newly Added: mix of colored wigs and bob wigs from newest products
+  const newestBundles = useMemo(() => {
+    return newestProducts.filter((p) => {
+      const title = p.node.title?.toLowerCase() || "";
+      const type = p.node.productType?.toLowerCase().trim() || "";
+      const isColored = type.includes("colored") || title.includes("colored") || title.includes("highlight") || title.includes("blonde") || title.includes("burgundy") || title.includes("ginger") || title.includes("ombre");
+      const isBob = type.includes("bob") || title.includes("bob");
+      return isColored || isBob;
+    }).slice(0, 8);
+  }, [newestProducts]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Crown, Sparkles, ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-beauty.jpg";
+import heroImage from "@/assets/hero-beauty.webp";
 
 export const Hero = () => {
   return (

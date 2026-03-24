@@ -349,10 +349,31 @@ export const NEWEST_PRODUCTS_QUERY = `
   }
 `;
 
-// Fetch products (sorted by best selling)
-export async function fetchProducts(first: number = 20): Promise<ShopifyProduct[]> {
-  const data = await storefrontApiRequest(PRODUCTS_QUERY, { first });
-  return data?.data?.products?.edges || [];
+// Fetch all products with cursor-based pagination (sorted by best selling)
+export async function fetchProducts(targetCount: number = 250): Promise<ShopifyProduct[]> {
+  const allProducts: ShopifyProduct[] = [];
+  let hasNextPage = true;
+  let cursor: string | null = null;
+  const pageSize = Math.min(targetCount, 250); // Shopify max is 250 per request
+
+  while (hasNextPage) {
+    const variables: Record<string, unknown> = { first: pageSize };
+    if (cursor) variables.after = cursor;
+
+    const data = await storefrontApiRequest(PRODUCTS_QUERY, variables);
+    const edges = data?.data?.products?.edges || [];
+    const pageInfo = data?.data?.products?.pageInfo;
+
+    allProducts.push(...edges);
+
+    hasNextPage = pageInfo?.hasNextPage ?? false;
+    cursor = pageInfo?.endCursor ?? null;
+
+    // Safety: stop if we've fetched enough or no more pages
+    if (targetCount > 0 && allProducts.length >= targetCount) break;
+  }
+
+  return allProducts;
 }
 
 // Fetch newest products

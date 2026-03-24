@@ -144,6 +144,28 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
                   options: node.options,
                 })}
               </p>
+
+              {/* Star Rating */}
+              <div className="flex items-center gap-1.5 mt-1">
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-4 h-4 text-muted-foreground/30" />
+                  ))}
+                </div>
+                <span className="text-xs text-muted-foreground">No reviews yet</span>
+              </div>
+            </div>
+
+            {/* Shipping Info */}
+            <div className="flex flex-col gap-1.5 bg-secondary/50 rounded-xl p-3">
+              <div className="flex items-center gap-2 text-sm">
+                <Truck className="w-4 h-4 text-primary shrink-0" />
+                <span className="text-foreground font-medium">Free shipping over $100</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock className="w-3.5 h-3.5 shrink-0" />
+                <span>US & Caribbean: 5–10 days · Europe: 7–14 days · Worldwide: 10–21 days</span>
+              </div>
             </div>
 
             {/* Price */}

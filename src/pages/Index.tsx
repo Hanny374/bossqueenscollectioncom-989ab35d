@@ -74,7 +74,12 @@ const Index = () => {
   }, [products]);
 
   // Newly Added: 8 most recently added products
-  const newestBundles = useMemo(() => newestProducts.slice(0, 8), [newestProducts]);
+  const newestBundles = useMemo(() => {
+    return newestProducts.filter((p) => {
+      const type = p.node.productType?.toLowerCase().trim() || "";
+      return type === "colored wigs" || type === "bob wig";
+    }).slice(0, 8);
+  }, [newestProducts]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

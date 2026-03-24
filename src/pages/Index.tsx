@@ -68,15 +68,22 @@ const Index = () => {
 
   useScrollToHash();
 
-  // Top Sellers: best-selling wigs only (products are sorted by BEST_SELLING)
+  // Top Sellers: mix of best-selling wigs AND bundles (products sorted by BEST_SELLING)
   const topSellers = useMemo(() => {
-    const wigTypes = ["colored wigs", "bob wig", "headband wig"];
-    return products.filter((p) => {
-      const type = p.node.productType?.toLowerCase().trim() || "";
-      const title = p.node.title?.toLowerCase() || "";
-      const isWig = wigTypes.some(t => type === t) || title.includes("wig") || title.includes("lace");
-      return isWig;
-    }).slice(0, 8);
+    const topWigs = products.filter((p) => {
+      const title = (p.node.title || "").toLowerCase();
+      const isWig = title.includes("wig") || title.includes("lace");
+      const isAccessory = ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "blowout brush", "styling tool", "wax stick", "edge brush", "glue remover", "hair glue", "adhesive"].some(k => title.includes(k));
+      return isWig && !isAccessory;
+    }).slice(0, 5);
+
+    const topBundles = products.filter((p) => {
+      const title = (p.node.title || "").toLowerCase();
+      return (title.includes("bundle") || title.includes("hair weave") || title.includes("hair weft") || title.includes("hair extension"))
+        && !title.includes("wig");
+    }).slice(0, 3);
+
+    return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
   // Newly Added: mix of colored wigs and bob wigs from newest products

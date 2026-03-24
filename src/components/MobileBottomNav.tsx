@@ -36,8 +36,7 @@ export const MobileBottomNav = () => {
               <button
                 key={item.label}
                 onClick={() => {
-                  // Trigger cart drawer - dispatch custom event
-                  window.dispatchEvent(new CustomEvent("open-cart-drawer"));
+                  useCartStore.getState().setCartOpen(true);
                 }}
                 className="flex flex-col items-center gap-0.5 px-3 py-1 relative"
               >

@@ -60,6 +60,7 @@ const AppContent = () => {
         <WelcomePopup />
         <SocialProofToast />
         <ExitIntentPopup />
+        <MobileBottomNav />
       </Suspense>
     </BrowserRouter>
   );

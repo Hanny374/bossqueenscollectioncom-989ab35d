@@ -281,12 +281,15 @@ const ContactPage = () => {
 
               {/* FAQ Teaser */}
               <div className="bg-gradient-gold rounded-2xl p-8 text-primary-foreground">
-                <h3 className="font-display text-xl font-bold mb-3">Need Quick Answers?</h3>
-                <p className="opacity-90 mb-4">
-                  Check out our product pages for detailed hair specs, care instructions, and sizing guides.
-                </p>
-                <Button variant="secondary" className="bg-background text-foreground hover:bg-background/90">
-                  Browse Products
+                <h3 className="font-display text-xl font-bold mb-3">How Custom Orders Work</h3>
+                <ul className="space-y-2 opacity-90 text-sm mb-4">
+                  <li>✦ Tell us your desired style, color, length & density</li>
+                  <li>✦ We'll send you a quote within 24-48 hours</li>
+                  <li>✦ Your custom wig is handcrafted & shipped to you</li>
+                  <li>✦ 100% virgin human hair, made to order</li>
+                </ul>
+                <Button variant="secondary" className="bg-background text-foreground hover:bg-background/90" asChild>
+                  <a href="/#products">Browse Ready-Made Wigs</a>
                 </Button>
               </div>
             </div>

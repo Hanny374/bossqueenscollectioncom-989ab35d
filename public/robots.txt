@@ -50,7 +50,8 @@ Allow: /
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
+Sitemap: https://bossqueenscollection.com/sitemap.xml
 Sitemap: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/sitemap
 
 # AI Discovery — https://llmstxt.org

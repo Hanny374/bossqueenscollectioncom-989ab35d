@@ -182,7 +182,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {lengthOption.values.slice(0, 4).map((length) => {
                 const matchingVariant = node.variants.edges.find(v => 
                   v.node.selectedOptions?.some(opt => 
-                    opt.name.toLowerCase() === 'length' && opt.value === length
+                    opt.name.toLowerCase().includes('length') && opt.value === length
                   )
                 );
                 const variantPrice = matchingVariant?.node.price.amount;

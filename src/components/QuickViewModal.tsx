@@ -166,7 +166,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
                   {lengthOption.values.map((length) => {
                     const variantIdx = node.variants.edges.findIndex((v) =>
                       v.node.selectedOptions?.some(
-                        (opt) => opt.name.toLowerCase() === "length" && opt.value === length
+                        (opt) => opt.name.toLowerCase().includes("length") && opt.value === length
                       )
                     );
                     const isSelected = variantIdx === selectedVariantIndex;

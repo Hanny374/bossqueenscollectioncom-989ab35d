@@ -24,6 +24,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const addItem = useCartStore(state => state.addItem);
   const isCartLoading = useCartStore(state => state.isLoading);
   
+  const { data: reviewStatsMap } = useAllReviewStats();
+  const reviewStats = reviewStatsMap?.[node.handle];
+  
   const image = node.images.edges[0]?.node;
   const secondImage = node.images.edges[1]?.node;
   const price = node.priceRange.minVariantPrice;

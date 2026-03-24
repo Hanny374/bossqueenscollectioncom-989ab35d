@@ -5,7 +5,7 @@ import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { Categories } from "@/components/Categories";
 import { ProductGrid } from "@/components/ProductGrid";
-import { useProducts } from "@/hooks/useProducts";
+import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";

@@ -163,13 +163,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {node.title}
         </h3>
 
-        {/* Loox Star Rating & Shipping */}
+        {/* Star Rating & Shipping */}
         <div className="flex items-center justify-between">
-          <div
-            className="loox-rating"
-            data-fetch
-            data-id={node.id.replace(/^gid:\/\/shopify\/Product\//, "")}
-          />
+          <div className="flex items-center gap-1.5">
+            <div className="flex gap-0.5">
+              {[1, 2, 3, 4, 5].map(s => (
+                <Star
+                  key={s}
+                  className={`w-3.5 h-3.5 ${
+                    reviewStats && s <= Math.round(reviewStats.avgRating)
+                      ? "fill-primary text-primary"
+                      : "text-border"
+                  }`}
+                />
+              ))}
+            </div>
+            {reviewStats && reviewStats.count > 0 && (
+              <span className="text-xs text-muted-foreground">({reviewStats.count})</span>
+            )}
+          </div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Truck className="w-3.5 h-3.5 text-primary" />
             <span>5–10 days</span>

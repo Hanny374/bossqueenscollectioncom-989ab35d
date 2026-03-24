@@ -5,9 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
-import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck } from "lucide-react";
+import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
+import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 
 interface ProductCardProps {
   product: ShopifyProduct;
@@ -22,6 +23,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const buyNow = useCartStore(state => state.buyNow);
   const addItem = useCartStore(state => state.addItem);
   const isCartLoading = useCartStore(state => state.isLoading);
+  
+  const { data: reviewStatsMap } = useAllReviewStats();
+  const reviewStats = reviewStatsMap?.[node.handle];
   
   const image = node.images.edges[0]?.node;
   const secondImage = node.images.edges[1]?.node;
@@ -159,13 +163,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {node.title}
         </h3>
 
-        {/* Loox Star Rating & Shipping */}
+        {/* Star Rating & Shipping */}
         <div className="flex items-center justify-between">
-          <div
-            className="loox-rating"
-            data-fetch
-            data-id={node.id.replace(/^gid:\/\/shopify\/Product\//, "")}
-          />
+          <div className="flex items-center gap-1.5">
+            <div className="flex gap-0.5">
+              {[1, 2, 3, 4, 5].map(s => (
+                <Star
+                  key={s}
+                  className={`w-3.5 h-3.5 ${
+                    reviewStats && s <= Math.round(reviewStats.avgRating)
+                      ? "fill-primary text-primary"
+                      : "text-border"
+                  }`}
+                />
+              ))}
+            </div>
+            {reviewStats && reviewStats.count > 0 && (
+              <span className="text-xs text-muted-foreground">({reviewStats.count})</span>
+            )}
+          </div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Truck className="w-3.5 h-3.5 text-primary" />
             <span>5–10 days</span>

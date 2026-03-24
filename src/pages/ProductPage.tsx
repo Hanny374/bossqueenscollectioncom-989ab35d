@@ -18,6 +18,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+/** Replace third-party brand names in Shopify HTML with our brand */
+function rebrandHtml(html: string): string {
+  let out = html.replace(
+    /(Brand\s*Name[^:]*:\s*(?:<[^>]*>\s*)*)([^<\n]+)/gi,
+    (_m, prefix) => prefix + "Boss Queens Collection"
+  );
+  const suppliers = /\b(?:Wulala|BPHW(?:\s*Hair)?|Wigirl|Luvin|Beaudiva|Allrun|ALIMICE|Alimice|Aircabin|Yyong|Maxine|Lemoda|Unice|Sunber|Isee|Julia|Luduna|Nadula|Recool|Tuneful|Tinashe|Celie|Abijale|Aliballad|Hermosa|Arabella|Beaufox|Cranberry|Dorsanee|Klaiyi|Megalook|Mscoco|Perstar|Virgo|Westkiss)\b/gi;
+  out = out.replace(suppliers, "Boss Queens Collection");
+  return out;
+}
+
 const DENSITY_OPTIONS = [
   { value: "180%", label: "180%", description: "Natural look", markup: 0 },
   { value: "200%", label: "200%", description: "Full & voluminous", markup: 0 },

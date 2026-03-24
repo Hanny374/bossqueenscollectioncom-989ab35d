@@ -84,17 +84,18 @@ const ContactPage = () => {
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Get in <span className="text-gradient-gold">Touch</span>
+              Custom Wig <span className="text-gradient-gold">Orders</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have questions about our products? Need styling advice? We're here to help you achieve your dream look.
+              Want a wig made just for you? Tell us your dream style — color, length, density, texture — and we'll craft it to perfection.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
             <div className="bg-card rounded-2xl p-8 shadow-soft border border-border">
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground mb-2">Request a Custom Wig</h2>
+              <p className="text-sm text-muted-foreground mb-6">Describe your ideal wig — we'll get back to you with a quote within 24-48 hours.</p>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -137,26 +138,27 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="How can we help?"
+                    placeholder="e.g. Custom wig inquiry, Color request, etc."
                     maxLength={200}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    Message <span className="text-destructive">*</span>
+                    Wig Details <span className="text-destructive">*</span>
                   </label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us more about your inquiry..."
-                    rows={5}
+                    placeholder="Describe your dream wig: hair type (e.g. body wave, straight, curly), length (e.g. 18 inches), color (e.g. honey blonde, ombre), density (e.g. 180%), lace type (e.g. 13x4, 13x6), and any other preferences..."
+                    rows={6}
                     maxLength={1000}
                     required
                   />
-                  <p className="text-xs text-muted-foreground text-right">
+
+                <p className="text-xs text-muted-foreground text-right">
                     {formData.message.length}/1000
                   </p>
                 </div>
@@ -279,12 +281,15 @@ const ContactPage = () => {
 
               {/* FAQ Teaser */}
               <div className="bg-gradient-gold rounded-2xl p-8 text-primary-foreground">
-                <h3 className="font-display text-xl font-bold mb-3">Need Quick Answers?</h3>
-                <p className="opacity-90 mb-4">
-                  Check out our product pages for detailed hair specs, care instructions, and sizing guides.
-                </p>
-                <Button variant="secondary" className="bg-background text-foreground hover:bg-background/90">
-                  Browse Products
+                <h3 className="font-display text-xl font-bold mb-3">How Custom Orders Work</h3>
+                <ul className="space-y-2 opacity-90 text-sm mb-4">
+                  <li>✦ Tell us your desired style, color, length & density</li>
+                  <li>✦ We'll send you a quote within 24-48 hours</li>
+                  <li>✦ Your custom wig is handcrafted & shipped to you</li>
+                  <li>✦ 100% virgin human hair, made to order</li>
+                </ul>
+                <Button variant="secondary" className="bg-background text-foreground hover:bg-background/90" asChild>
+                  <a href="/#products">Browse Ready-Made Wigs</a>
                 </Button>
               </div>
             </div>

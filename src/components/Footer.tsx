@@ -117,6 +117,8 @@ export const Footer = () => {
                 { label: "All Products", href: "/#products" },
                 { label: "Colored Wigs", href: "/#products?category=colored-wigs" },
                 { label: "Bob Wigs", href: "/#products?category=bob-wigs" },
+                { label: "Headband Wigs", href: "/#products?category=headband-wigs" },
+                { label: "Boho Braids", href: "/#products?category=boho-braids" },
                 { label: "Hair Bundles", href: "/#products?category=bundles" },
               ].map((link) => (
                 <li key={link.label}>

@@ -62,7 +62,27 @@ const Index = () => {
 
   useScrollToHash();
 
-  const topSellers = useMemo(() => products.slice(0, 8), [products]);
+  // Top Sellers: best-selling wigs only (products are sorted by BEST_SELLING)
+  const topSellers = useMemo(() => {
+    const wigTypes = ["colored wigs", "bob wig", "headband wig"];
+    return products.filter((p) => {
+      const type = p.node.productType?.toLowerCase().trim() || "";
+      const title = p.node.title?.toLowerCase() || "";
+      const isWig = wigTypes.some(t => type === t) || title.includes("wig") || title.includes("lace");
+      return isWig;
+    }).slice(0, 8);
+  }, [products]);
+
+  // Newly Added: newest bundles only
+  const newestBundles = useMemo(() => {
+    const bundleTypes = ["hair bundles", "bundle deals"];
+    return newestProducts.filter((p) => {
+      const type = p.node.productType?.toLowerCase().trim() || "";
+      const title = p.node.title?.toLowerCase() || "";
+      const isBundle = bundleTypes.some(t => type === t) || title.includes("bundle") || title.includes("bulk");
+      return isBundle;
+    }).slice(0, 8);
+  }, [newestProducts]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

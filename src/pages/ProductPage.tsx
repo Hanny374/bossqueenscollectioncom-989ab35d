@@ -251,6 +251,7 @@ const ProductPage = () => {
         <meta name="twitter:title" content={`${product.title} | Boss Queens Collection`} />
         <meta name="twitter:image" content={mainImage} />
         <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
       <Header />
       <main className="py-8">

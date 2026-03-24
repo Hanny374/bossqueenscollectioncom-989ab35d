@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
-import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart } from "lucide-react";
+import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Star, Truck } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
 

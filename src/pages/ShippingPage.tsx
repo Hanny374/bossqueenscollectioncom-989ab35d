@@ -1,8 +1,9 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Truck, Globe, Clock, Package, ShieldCheck } from "lucide-react";
+import { Truck, Globe, Clock, Package, ShieldCheck, Crown } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
+import brandPackaging from "@/assets/brand-packaging.jpg";
 
 const ShippingPage = () => {
   return (
@@ -31,6 +32,51 @@ const ShippingPage = () => {
             </p>
           </motion.div>
 
+          {/* Brand Packaging Showcase */}
+          <motion.div
+            className="mb-12 rounded-2xl overflow-hidden border border-border/60 bg-card"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="aspect-square md:aspect-auto">
+                <img
+                  src={brandPackaging}
+                  alt="Boss Queens Collection premium branded packaging with gold crown tissue paper and custom mailer"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                />
+              </div>
+              <div className="flex flex-col justify-center p-8 md:p-10">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5">
+                  <Crown className="w-6 h-6" />
+                </div>
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+                  Premium Brand Packaging
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Every order ships in our signature Boss Queens Collection packaging — custom branded boxes, gold-foil crown tissue paper, and a premium satin pouch to keep your hair protected and looking luxurious from the moment you unbox.
+                </p>
+                <ul className="space-y-2">
+                  {[
+                    "Custom branded shipping box",
+                    "Gold crown pattern tissue paper",
+                    "Signature satin hair pouch",
+                    "Discreet & secure packaging",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+
           <div className="grid gap-8">
             {[
               {
@@ -51,7 +97,7 @@ const ShippingPage = () => {
               {
                 icon: Package,
                 title: "Packaging",
-                description: "All orders are carefully packaged in premium, discreet packaging to ensure your hair arrives in perfect condition.",
+                description: "All orders are carefully wrapped in our signature Boss Queens Collection branded packaging — custom boxes, gold crown tissue paper, and satin pouches to ensure your hair arrives in perfect condition.",
               },
               {
                 icon: ShieldCheck,
@@ -64,7 +110,7 @@ const ShippingPage = () => {
                 className="flex gap-5 bg-card border border-border/60 rounded-2xl p-6 hover:border-primary/20 transition-all duration-300"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                   <item.icon className="w-6 h-6" />

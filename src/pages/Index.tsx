@@ -46,7 +46,7 @@ const PRODUCTS_PER_PAGE = 20;
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8, "product_type:\"Hair Bundles\" OR product_type:\"Bundle Deals\"");
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8, "product_type:\"Colored Wigs\" OR product_type:\"Bob Wig\"");
   const location = useLocation();
   const navigate = useNavigate();
 

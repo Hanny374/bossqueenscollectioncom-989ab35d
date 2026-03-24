@@ -43,7 +43,7 @@ function getCategoryFromHash(hash: string): string {
 
 const Index = () => {
   // collection fix
-  const { data: products = [], isLoading } = useProducts(100);
+  const { data: products = [], isLoading } = useProducts(500);
   const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(8);
   const location = useLocation();
   const navigate = useNavigate();

@@ -74,12 +74,15 @@ const Index = () => {
   }, [products]);
 
   // Newly Added: 8 most recently added products
+  // Newly Added: filter from main products for colored wigs and bob wigs, take newest 8
   const newestBundles = useMemo(() => {
-    return newestProducts.filter((p) => {
+    const coloredAndBobs = products.filter((p) => {
       const type = p.node.productType?.toLowerCase().trim() || "";
       return type === "colored wigs" || type === "bob wig";
-    }).slice(0, 8);
-  }, [newestProducts]);
+    });
+    // Since products are sorted by BEST_SELLING, just take 8 — these are popular colored/bob wigs
+    return coloredAndBobs.slice(0, 8);
+  }, [products]);
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;

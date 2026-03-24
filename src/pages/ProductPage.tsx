@@ -213,6 +213,16 @@ const ProductPage = () => {
     }
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", position: 1, name: "Home", item: storeUrl },
+      { "@type": "ListItem", position: 2, name: product.productType || "Products", item: `${storeUrl}/#products` },
+      { "@type": "ListItem", position: 3, name: product.title, item: `${storeUrl}/product/${product.handle}` }
+    ]
+  };
+
   // Compare at price
   const compareAtPrice = selectedVariant?.compareAtPrice || null;
 

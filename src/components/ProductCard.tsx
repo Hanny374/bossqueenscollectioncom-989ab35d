@@ -61,6 +61,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
+    <>
     <Link 
       to={`/product/${node.handle}`}
       className="group block"

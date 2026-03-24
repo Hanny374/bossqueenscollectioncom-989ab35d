@@ -30,7 +30,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
   const firstVariant = node.variants.edges[0]?.node;
   
-  const lengthOption = node.options?.find(opt => opt.name.toLowerCase() === 'length');
+  const lengthOption = node.options?.find(opt => opt.name.toLowerCase().includes('length'));
   const colorOption = node.options?.find(opt => opt.name.toLowerCase() === 'color');
   const variantCount = node.variants.edges.length;
   const availableVariants = node.variants.edges.filter(v => v.node.availableForSale).length;
@@ -182,7 +182,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {lengthOption.values.slice(0, 4).map((length) => {
                 const matchingVariant = node.variants.edges.find(v => 
                   v.node.selectedOptions?.some(opt => 
-                    opt.name.toLowerCase() === 'length' && opt.value === length
+                    opt.name.toLowerCase().includes('length') && opt.value === length
                   )
                 );
                 const variantPrice = matchingVariant?.node.price.amount;

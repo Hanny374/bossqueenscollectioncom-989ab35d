@@ -35,7 +35,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
   const selectedVariant = node.variants.edges[selectedVariantIndex]?.node;
   const availableVariants = node.variants.edges.filter((v) => v.node.availableForSale).length;
   const inStock = availableVariants > 0;
-  const lengthOption = node.options?.find((opt) => opt.name.toLowerCase() === "length");
+  const lengthOption = node.options?.find((opt) => opt.name.toLowerCase().includes("length"));
   const isWig = node.productType?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("lace");
   const laceTypeOption = node.options?.find((opt) => opt.name.toLowerCase() === "lace type" || opt.name.toLowerCase() === "lace size");
   
@@ -166,7 +166,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
                   {lengthOption.values.map((length) => {
                     const variantIdx = node.variants.edges.findIndex((v) =>
                       v.node.selectedOptions?.some(
-                        (opt) => opt.name.toLowerCase() === "length" && opt.value === length
+                        (opt) => opt.name.toLowerCase().includes("length") && opt.value === length
                       )
                     );
                     const isSelected = variantIdx === selectedVariantIndex;

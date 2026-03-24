@@ -7,6 +7,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
+import { QuickViewModal } from "./QuickViewModal";
 
 interface ProductCardProps {
   product: ShopifyProduct;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { node } = product;
   const [isHovered, setIsHovered] = useState(false);
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
   const buyNow = useCartStore(state => state.buyNow);
@@ -59,6 +61,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
+    <>
     <Link 
       to={`/product/${node.handle}`}
       className="group block"
@@ -105,10 +108,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
 
         <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex items-center gap-1 bg-background/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-medium text-foreground shadow-soft">
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setQuickViewOpen(true); }}
+            className="flex items-center gap-1 bg-background/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-medium text-foreground shadow-soft hover:bg-background transition-colors"
+          >
             <Eye className="w-3.5 h-3.5" />
             Quick View
-          </div>
+          </button>
         </div>
         
         <div className="absolute bottom-4 left-4 right-4 opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 z-10 flex gap-2">
@@ -242,5 +248,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </div>
     </Link>
+      <QuickViewModal product={product} open={quickViewOpen} onOpenChange={setQuickViewOpen} />
+    </>
   );
 };

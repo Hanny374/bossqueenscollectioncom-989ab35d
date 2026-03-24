@@ -18,6 +18,8 @@ interface QuickViewModalProps {
 export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [selectedDensity, setSelectedDensity] = useState("200%");
+  const [selectedLaceType, setSelectedLaceType] = useState("13x4");
   const isBuyingNow = useCartStore((s) => s.isBuyingNow);
   const buyNow = useCartStore((s) => s.buyNow);
   const addItem = useCartStore((s) => s.addItem);
@@ -34,6 +36,18 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
   const availableVariants = node.variants.edges.filter((v) => v.node.availableForSale).length;
   const inStock = availableVariants > 0;
   const lengthOption = node.options?.find((opt) => opt.name.toLowerCase() === "length");
+  const isWig = node.productType?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("lace");
+  const laceTypeOption = node.options?.find((opt) => opt.name.toLowerCase() === "lace type" || opt.name.toLowerCase() === "lace size");
+  
+  // Detect lace types from title
+  const detectedLaceTypes: string[] = [];
+  const titleLower = node.title?.toLowerCase() || "";
+  if (titleLower.includes("13x6")) detectedLaceTypes.push("13x6");
+  if (titleLower.includes("13x4")) detectedLaceTypes.push("13x4");
+  if (titleLower.includes("4x4")) detectedLaceTypes.push("4x4");
+  if (titleLower.includes("5x5")) detectedLaceTypes.push("5x5");
+  if (titleLower.includes("360")) detectedLaceTypes.push("360");
+  const laceTypes = laceTypeOption?.values || (detectedLaceTypes.length > 0 ? detectedLaceTypes : isWig ? ["13x4", "13x6"] : []);
 
   const getCartItem = () => ({
     product,

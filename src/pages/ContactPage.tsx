@@ -84,10 +84,10 @@ const ContactPage = () => {
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Get in <span className="text-gradient-gold">Touch</span>
+              Custom Wig <span className="text-gradient-gold">Orders</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have questions about our products? Need styling advice? We're here to help you achieve your dream look.
+              Want a wig made just for you? Tell us your dream style — color, length, density, texture — and we'll craft it to perfection.
             </p>
           </div>
 

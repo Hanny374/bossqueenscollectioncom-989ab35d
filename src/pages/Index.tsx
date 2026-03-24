@@ -86,15 +86,27 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: mix of colored wigs and bob wigs from newest products
+  // Newly Added: mix of newest wigs, bundles, and braids
   const newestBundles = useMemo(() => {
-    return newestProducts.filter((p) => {
-      const title = p.node.title?.toLowerCase() || "";
-      const type = p.node.productType?.toLowerCase().trim() || "";
-      const isColored = type.includes("colored") || title.includes("colored") || title.includes("highlight") || title.includes("blonde") || title.includes("burgundy") || title.includes("ginger") || title.includes("ombre");
-      const isBob = type.includes("bob") || title.includes("bob");
-      return isColored || isBob;
-    }).slice(0, 8);
+    const isAccessory = (t: string) => ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "blowout brush", "styling tool", "wax stick", "edge brush", "glue remover", "hair glue", "adhesive"].some(k => t.includes(k));
+
+    const newestWigs = newestProducts.filter((p) => {
+      const t = (p.node.title || "").toLowerCase();
+      return (t.includes("wig") || t.includes("lace")) && !isAccessory(t);
+    }).slice(0, 4);
+
+    const newestBundlesArr = newestProducts.filter((p) => {
+      const t = (p.node.title || "").toLowerCase();
+      return (t.includes("bundle") || t.includes("hair weave") || t.includes("hair weft") || t.includes("hair extension"))
+        && !t.includes("wig") && !isAccessory(t);
+    }).slice(0, 2);
+
+    const newestBraids = newestProducts.filter((p) => {
+      const t = (p.node.title || "").toLowerCase();
+      return (t.includes("boho") || t.includes("braid") || t.includes("crochet")) && !t.includes("wig") && !isAccessory(t);
+    }).slice(0, 2);
+
+    return [...newestWigs, ...newestBundlesArr, ...newestBraids].slice(0, 8);
   }, [newestProducts]);
 
   const filteredProducts = useMemo(() => {

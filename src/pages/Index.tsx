@@ -41,6 +41,8 @@ function getCategoryFromHash(hash: string): string {
   return match ? match[1] : "all";
 }
 
+const PRODUCTS_PER_PAGE = 20;
+
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);

@@ -9,6 +9,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { LooxReviews } from "@/components/LooxReviews";
+import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -107,6 +108,18 @@ const ProductPage = () => {
     };
     loadProduct();
   }, [handle]);
+
+  // Track recently viewed
+  useEffect(() => {
+    if (!product) return;
+    addToRecentlyViewed({
+      handle: product.handle,
+      title: product.title,
+      image: product.images.edges[0]?.node?.url || "",
+      price: product.priceRange.minVariantPrice.amount,
+      currencyCode: product.priceRange.minVariantPrice.currencyCode,
+    });
+  }, [product]);
 
   // Show sticky bar when CTA buttons scroll out of view
   useEffect(() => {
@@ -769,6 +782,9 @@ const ProductPage = () => {
             <LooxReviews productId={product.id} />
           </div>
         )}
+
+        {/* Recently Viewed */}
+        <RecentlyViewed excludeHandle={product?.handle} />
       </main>
       <Footer />
 
@@ -780,7 +796,7 @@ const ProductPage = () => {
             animate={{ y: 0 }}
             exit={{ y: 100 }}
             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg px-4 py-3 lg:hidden"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg px-4 py-3"
           >
             <div className="flex items-center gap-3">
               <div className="flex-1 min-w-0">

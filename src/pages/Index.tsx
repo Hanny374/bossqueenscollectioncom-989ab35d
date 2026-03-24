@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -350,6 +351,9 @@ const Index = () => {
             )}
           </div>
         </section>
+
+        {/* Recently Viewed */}
+        <RecentlyViewed />
 
         <Suspense fallback={null}>
           {/* Loox Review Carousel */}

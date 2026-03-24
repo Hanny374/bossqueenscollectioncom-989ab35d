@@ -41,6 +41,8 @@ function getCategoryFromHash(hash: string): string {
   return match ? match[1] : "all";
 }
 
+const PRODUCTS_PER_PAGE = 20;
+
 const Index = () => {
   // collection fix
   const { data: products = [], isLoading } = useProducts(500);
@@ -50,6 +52,7 @@ const Index = () => {
 
   const categoryFromUrl = getCategoryFromHash(location.hash);
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);
+  const [visibleCount, setVisibleCount] = useState(PRODUCTS_PER_PAGE);
 
   // Sync category from URL hash changes
   useEffect(() => {
@@ -83,8 +86,12 @@ const Index = () => {
     );
   }, [products, activeCategory]);
 
+  const visibleProducts = useMemo(() => filteredProducts.slice(0, visibleCount), [filteredProducts, visibleCount]);
+  const hasMore = visibleCount < filteredProducts.length;
+
   const handleCategoryChange = (value: string) => {
     setActiveCategory(value);
+    setVisibleCount(PRODUCTS_PER_PAGE);
     if (value === "all") {
       navigate("/#products", { replace: true });
     } else {
@@ -238,7 +245,27 @@ const Index = () => {
               ))}
             </motion.div>
 
-            <ProductGrid products={filteredProducts} isLoading={isLoading} />
+            <ProductGrid products={visibleProducts} isLoading={isLoading} />
+
+            {/* Load More Button */}
+            {!isLoading && hasMore && (
+              <motion.div
+                className="flex flex-col items-center gap-3 mt-12"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + PRODUCTS_PER_PAGE)}
+                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm shadow-glow hover:opacity-90 transition-all duration-300"
+                >
+                  Load More Products
+                </button>
+                <span className="text-xs text-muted-foreground">
+                  Showing {visibleProducts.length} of {filteredProducts.length} products
+                </span>
+              </motion.div>
+            )}
 
             {/* No results message */}
             {!isLoading && filteredProducts.length === 0 && products.length > 0 && (

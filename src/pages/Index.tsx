@@ -235,6 +235,7 @@ const Index = () => {
         path="/"
       />
       <main>
+        <EasterBanner />
         <Hero />
         <Marquee />
         {/* Free Shipping Banner */}

@@ -8,6 +8,7 @@ import { fetchProductByHandle, ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
+import { LooxReviews } from "@/components/LooxReviews";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {

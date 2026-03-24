@@ -289,6 +289,35 @@ const Index = () => {
         </section>
 
         <Suspense fallback={null}>
+          {/* Loox Review Carousel */}
+          <section className="py-16 bg-secondary/30">
+            <div className="container px-4 md:px-8">
+              <motion.div
+                className="text-center mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                  Real Reviews
+                </span>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
+                  What Our Queens Say
+                </h2>
+              </motion.div>
+              <div
+                id="loox-default-carousel"
+              >
+                <div
+                  className="loox-v2-carousel-container"
+                  id="LOOX-V2_CAROUSEL-card"
+                  data-slide-type="card"
+                />
+              </div>
+            </div>
+          </section>
+
           <Testimonials />
 
           {/* Payment & Trust Banner */}

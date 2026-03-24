@@ -9,7 +9,7 @@ import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
-import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles } from "lucide-react";
+import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram } from "lucide-react";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 // Lazy load below-fold sections
@@ -335,6 +335,60 @@ const Index = () => {
                   data-slide-type="card"
                 />
               </div>
+            </div>
+          </section>
+
+          {/* Tag Us In Your Selfie Banner */}
+          <section className="py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+            <div className="container px-4 md:px-8 relative">
+              <motion.div
+                className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="w-20 h-20 rounded-full bg-gradient-gold flex items-center justify-center shadow-glow">
+                  <Camera className="w-9 h-9 text-primary-foreground" />
+                </div>
+                <div className="space-y-3">
+                  <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
+                    Tag Us In Your Selfie
+                  </h2>
+                  <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                    Show off your Boss Queens hair! Tag us on Instagram for a chance to be featured and win a discount on your next order.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                  <a
+                    href="https://www.instagram.com/bossqueenscollection"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm shadow-glow hover:opacity-90 transition-all duration-300"
+                  >
+                    <Instagram className="w-5 h-5" />
+                    @bossqueenscollection
+                  </a>
+                  <span className="text-sm text-muted-foreground font-medium">
+                    Use <span className="text-primary font-bold">#BossQueensHair</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-6 mt-4 text-muted-foreground text-sm">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span>Get featured</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-4 h-4 text-primary" />
+                    <span>Win discounts</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-primary" />
+                    <span>Join 5K+ queens</span>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </section>
 

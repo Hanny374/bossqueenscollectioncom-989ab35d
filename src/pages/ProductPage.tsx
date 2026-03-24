@@ -308,9 +308,16 @@ const ProductPage = () => {
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3">
                   {product.title}
                 </h1>
+                <div className="mb-4">
+                  <ShareButtons 
+                    url={`${storeUrl}/product/${product.handle}`}
+                    title={product.title}
+                    image={mainImage}
+                  />
+                </div>
                 
                 {/* Price with savings badge */}
                 <div className="flex items-center gap-3 flex-wrap">

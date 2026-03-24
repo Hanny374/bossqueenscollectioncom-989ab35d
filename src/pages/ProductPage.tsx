@@ -796,7 +796,7 @@ const ProductPage = () => {
             animate={{ y: 0 }}
             exit={{ y: 100 }}
             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg px-4 py-3 lg:hidden"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border shadow-lg px-4 py-3"
           >
             <div className="flex items-center gap-3">
               <div className="flex-1 min-w-0">

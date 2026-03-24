@@ -451,32 +451,34 @@ const ProductPage = () => {
                 </div>
               )}
 
-              {/* Lace Type Selection */}
-              <div className="space-y-3">
-                <label className="block text-sm font-medium text-foreground">
-                  Lace Type
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {LACE_TYPES.map((type) => (
-                    <button
-                      key={type.value}
-                      onClick={() => setSelectedLaceType(type.value)}
-                      className={`p-3 rounded-lg border text-left transition-all ${
-                        selectedLaceType === type.value
-                          ? "border-primary bg-primary/10"
-                          : "border-border hover:border-primary/50"
-                      }`}
-                    >
-                      <p className={`text-sm font-medium ${selectedLaceType === type.value ? "text-primary" : "text-foreground"}`}>
-                        {type.label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {type.description}
-                      </p>
-                    </button>
-                  ))}
+              {/* Lace Type Selection - Wigs Only */}
+              {isWigProduct && (
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">
+                    Lace Type
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {LACE_TYPES.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => setSelectedLaceType(type.value)}
+                        className={`p-3 rounded-lg border text-left transition-all ${
+                          selectedLaceType === type.value
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <p className={`text-sm font-medium ${selectedLaceType === type.value ? "text-primary" : "text-foreground"}`}>
+                          {type.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {type.description}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Density Selection - Wigs Only */}
               {isWigProduct && (

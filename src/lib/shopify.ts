@@ -107,8 +107,12 @@ export async function storefrontApiRequest(query: string, variables: Record<stri
 
 // GraphQL Queries
 export const PRODUCTS_QUERY = `
-  query GetProducts($first: Int!, $query: String) {
-    products(first: $first, query: $query, sortKey: BEST_SELLING) {
+  query GetProducts($first: Int!, $after: String, $query: String) {
+    products(first: $first, after: $after, query: $query, sortKey: BEST_SELLING) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           id

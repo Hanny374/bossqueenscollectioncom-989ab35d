@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
-import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Star, Truck } from "lucide-react";
+import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
 
@@ -159,14 +159,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {node.title}
         </h3>
 
-        {/* Stars & Shipping */}
+        {/* Loox Star Rating & Shipping */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <Star key={s} className="w-3.5 h-3.5 text-muted-foreground/30" />
-            ))}
-            <span className="text-xs text-muted-foreground ml-1">0</span>
-          </div>
+          <div
+            className="loox-rating"
+            data-fetch
+            data-id={node.id.replace(/^gid:\/\/shopify\/Product\//, "")}
+          />
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Truck className="w-3.5 h-3.5 text-primary" />
             <span>5–10 days</span>

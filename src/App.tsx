@@ -50,6 +50,8 @@ const AppContent = () => {
         <AIChatWidget />
         <CookieConsent />
         <WelcomePopup />
+        <SocialProofToast />
+        <ExitIntentPopup />
       </Suspense>
     </BrowserRouter>
   );

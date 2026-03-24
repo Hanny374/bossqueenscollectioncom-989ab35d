@@ -352,6 +352,9 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Recently Viewed */}
+        <RecentlyViewed />
+
         <Suspense fallback={null}>
           {/* Loox Review Carousel */}
           <section className="py-16 bg-secondary/30">

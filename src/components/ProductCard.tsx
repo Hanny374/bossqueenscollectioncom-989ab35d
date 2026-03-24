@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +8,7 @@ import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
-import { supabase } from "@/integrations/supabase/client";
+import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 
 interface ProductCardProps {
   product: ShopifyProduct;

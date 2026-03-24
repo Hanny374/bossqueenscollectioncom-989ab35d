@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
-import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 interface QuickViewModalProps {

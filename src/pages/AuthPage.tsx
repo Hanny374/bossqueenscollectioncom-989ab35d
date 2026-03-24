@@ -159,6 +159,27 @@ const AuthPage = () => {
               </button>
             </div>
           </form>
+
+          <div className="mt-6 text-center">
+            <div className="relative mb-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-3 text-muted-foreground">or</span>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              className="w-full h-12 text-muted-foreground hover:text-foreground border-border"
+              onClick={() => navigate("/")}
+            >
+              Continue as Guest
+            </Button>
+            <p className="text-xs text-muted-foreground mt-2">
+              You can browse & purchase without an account. Sign up to leave reviews and save preferences.
+            </p>
+          </div>
         </div>
       </main>
       <Footer />

@@ -52,6 +52,7 @@ const Index = () => {
 
   const categoryFromUrl = getCategoryFromHash(location.hash);
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);
+  const [visibleCount, setVisibleCount] = useState(PRODUCTS_PER_PAGE);
 
   // Sync category from URL hash changes
   useEffect(() => {

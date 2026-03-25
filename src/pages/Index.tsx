@@ -111,6 +111,18 @@ const Index = () => {
     return [...newestWigs, ...newestBundlesArr, ...newestBraids].slice(0, 8);
   }, [newestProducts]);
 
+  // Lace Wig Collection: lace front wigs (natural black, not colored, not bob, not headband)
+  const laceWigCollection = useMemo(() => {
+    return products.filter((p) => {
+      const t = (p.node.title || "").toLowerCase();
+      const isLace = t.includes("lace") || (t.includes("wig") && (t.includes("frontal") || t.includes("13x4") || t.includes("13x6") || t.includes("hd")));
+      const isAccessory = ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "glue remover", "hair glue", "adhesive"].some(k => t.includes(k));
+      const isBundle = (t.includes("bundle") || t.includes("hair weave")) && !t.includes("wig");
+      const isBraid = t.includes("boho") || t.includes("braid") || t.includes("crochet");
+      return isLace && !isAccessory && !isBundle && !isBraid && !t.includes("headband") && !t.includes("v part") && !t.includes("u part");
+    }).slice(0, 8);
+  }, [products]);
+
   const filteredProducts = useMemo(() => {
     if (activeCategory === "all") return products;
 

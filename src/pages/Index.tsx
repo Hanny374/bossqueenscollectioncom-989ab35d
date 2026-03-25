@@ -46,7 +46,7 @@ const CATEGORY_TYPE_MAP: Record<string, string[]> = {
 
 function getCategoryFromHash(hash: string): string {
   const match = hash.match(/category=([^&]+)/);
-  return match ? match[1] : "all";
+  return match ? match[1] : "lace-front-wigs";
 }
 
 const PRODUCTS_PER_PAGE = 20;
@@ -308,7 +308,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Newly Added Section - Lace Wigs */}
+        {/* Newly Added Section */}
         <section className="py-20 relative">
           <div className="container px-4 md:px-8">
             <motion.div
@@ -325,17 +325,9 @@ const Index = () => {
                 </div>
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Newly Added</h2>
               </div>
-              <div className="flex flex-col items-start md:items-end gap-2">
-                <p className="text-muted-foreground text-lg max-w-sm">HD lace front wigs for the most natural, undetectable look</p>
-                <button
-                  onClick={() => handleCategoryChange("lace-front-wigs")}
-                  className="text-primary text-sm font-medium hover:underline transition-all"
-                >
-                  View All Lace Wigs →
-                </button>
-              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
             </motion.div>
-            <ProductGrid products={laceWigCollection} isLoading={isLoading} />
+            <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
           </div>
         </section>
 

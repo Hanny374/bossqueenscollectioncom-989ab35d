@@ -308,7 +308,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Newly Added Section */}
+        {/* Newly Added Section - Lace Wigs */}
         <section className="py-20 relative">
           <div className="container px-4 md:px-8">
             <motion.div
@@ -324,29 +324,6 @@ const Index = () => {
                   <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Fresh Drops</span>
                 </div>
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Newly Added</h2>
-              </div>
-              <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
-            </motion.div>
-            <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
-          </div>
-        </section>
-
-        {/* Lace Wigs Collection */}
-        <section className="py-20 relative bg-gradient-to-b from-primary/[0.04] to-transparent">
-          <div className="container px-4 md:px-8">
-            <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-            >
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Crown className="w-5 h-5 text-primary" />
-                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Featured Collection</span>
-                </div>
-                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Lace Wig Collection</h2>
               </div>
               <div className="flex flex-col items-start md:items-end gap-2">
                 <p className="text-muted-foreground text-lg max-w-sm">HD lace front wigs for the most natural, undetectable look</p>

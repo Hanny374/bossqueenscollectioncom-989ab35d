@@ -88,27 +88,14 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: mix of newest wigs, bundles, and braids
+  // Newly Added: show newest products (excluding accessories)
   const newestBundles = useMemo(() => {
     const isAccessory = (t: string) => ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "blowout brush", "styling tool", "wax stick", "edge brush", "glue remover", "hair glue", "adhesive"].some(k => t.includes(k));
 
-    const newestWigs = newestProducts.filter((p) => {
+    return newestProducts.filter((p) => {
       const t = (p.node.title || "").toLowerCase();
-      return (t.includes("wig") || t.includes("lace")) && !isAccessory(t);
-    }).slice(0, 4);
-
-    const newestBundlesArr = newestProducts.filter((p) => {
-      const t = (p.node.title || "").toLowerCase();
-      return (t.includes("bundle") || t.includes("hair weave") || t.includes("hair weft") || t.includes("hair extension"))
-        && !t.includes("wig") && !isAccessory(t);
-    }).slice(0, 2);
-
-    const newestBraids = newestProducts.filter((p) => {
-      const t = (p.node.title || "").toLowerCase();
-      return (t.includes("boho") || t.includes("braid") || t.includes("crochet")) && !t.includes("wig") && !isAccessory(t);
-    }).slice(0, 2);
-
-    return [...newestWigs, ...newestBundlesArr, ...newestBraids].slice(0, 8);
+      return !isAccessory(t);
+    }).slice(0, 8);
   }, [newestProducts]);
 
   // Lace Wig Collection: lace front wigs (natural black, not colored, not bob, not headband)

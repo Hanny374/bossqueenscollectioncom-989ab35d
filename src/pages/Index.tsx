@@ -88,11 +88,11 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: show newest lace wig products
+  // Newly Added: show newest wig products
   const newestBundles = useMemo(() => {
     return newestProducts.filter((p) => {
       const t = (p.node.title || "").toLowerCase();
-      return t.includes("lace") || t.includes("frontal wig") || t.includes("closure wig");
+      return t.includes("wig") || t.includes("lace") || t.includes("frontal") || t.includes("closure") || t.includes("bob") || t.includes("headband");
     }).slice(0, 8);
   }, [newestProducts]);
 

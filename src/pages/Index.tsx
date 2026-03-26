@@ -88,13 +88,11 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: show newest products (excluding accessories)
+  // Newly Added: show newest lace wig products
   const newestBundles = useMemo(() => {
-    const isAccessory = (t: string) => ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "blowout brush", "styling tool", "wax stick", "edge brush", "glue remover", "hair glue", "adhesive"].some(k => t.includes(k));
-
     return newestProducts.filter((p) => {
       const t = (p.node.title || "").toLowerCase();
-      return !isAccessory(t);
+      return t.includes("lace") || t.includes("frontal wig") || t.includes("closure wig");
     }).slice(0, 8);
   }, [newestProducts]);
 

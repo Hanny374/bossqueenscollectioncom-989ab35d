@@ -88,13 +88,26 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: show newest wig products
+  // Newly Added: prefer newest wig products, fallback to wig catalog if newest results are empty
   const newestBundles = useMemo(() => {
-    return newestProducts.filter((p) => {
-      const t = (p.node.title || "").toLowerCase();
-      return t.includes("wig") || t.includes("lace") || t.includes("frontal") || t.includes("closure") || t.includes("bob") || t.includes("headband");
-    }).slice(0, 8);
-  }, [newestProducts]);
+    const isAccessory = (title: string) => ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "blowout brush", "styling tool", "wax stick", "edge brush", "glue remover", "hair glue", "adhesive"].some((keyword) => title.includes(keyword));
+    const isWig = (title: string) => (
+      title.includes("wig") ||
+      title.includes("lace") ||
+      title.includes("frontal") ||
+      title.includes("closure") ||
+      title.includes("bob") ||
+      title.includes("headband") ||
+      title.includes("v part") ||
+      title.includes("u part") ||
+      title.includes("glueless")
+    ) && !isAccessory(title);
+
+    const newestWigs = newestProducts.filter((p) => isWig((p.node.title || "").toLowerCase()));
+    if (newestWigs.length > 0) return newestWigs.slice(0, 8);
+
+    return products.filter((p) => isWig((p.node.title || "").toLowerCase())).slice(0, 8);
+  }, [newestProducts, products]);
 
   // Lace Wig Collection: lace front wigs (natural black, not colored, not bob, not headband)
   const laceWigCollection = useMemo(() => {

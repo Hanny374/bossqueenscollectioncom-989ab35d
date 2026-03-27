@@ -96,8 +96,6 @@ export const CarnivalStickyWidget = () => {
     </AnimatePresence>
   );
 };
-  const [visible, setVisible] = useState(false);
-  const [dismissed, setDismissed] = useState(() => {
     return sessionStorage.getItem("carnival-widget-dismissed") === "true";
   });
 

@@ -88,10 +88,45 @@ const Index = () => {
     return [...topWigs, ...topBundles].slice(0, 8);
   }, [products]);
 
-  // Newly Added: show all newest products
+  // Newly Added: curated mix of wigs, bobs, boho braids, bundles, and styling tools
   const newestBundles = useMemo(() => {
-    if (newestProducts.length > 0) return newestProducts.slice(0, 8);
-    return products.slice(0, 8);
+    const accessoryKeywords = ["wig glue", "lace tint", "lace melting", "melting spray", "tint spray", "installation kit", "wig stand", "wig storage", "wig bag", "glue remover", "hair glue", "adhesive", "walker tape", "wig cap", "melt band", "edge control"];
+    const isAccessory = (t: string) => accessoryKeywords.some(k => t.includes(k));
+
+    const categorize = (p: ShopifyProduct) => {
+      const t = (p.node.title || "").toLowerCase();
+      if (isAccessory(t)) return "accessory";
+      if (t.includes("boho") || t.includes("braid") || t.includes("crochet")) return "boho";
+      if (t.includes("bob") && (t.includes("wig") || t.includes("lace"))) return "bob";
+      if (t.includes("bundle") || t.includes("hair weave") || t.includes("hair weft") || t.includes("hair extension")) return "bundles";
+      if (t.includes("blowout") || t.includes("dryer") || t.includes("styling") || t.includes("brush") || t.includes("flat iron") || t.includes("curling")) return "tools";
+      if (t.includes("wig") || t.includes("lace") || t.includes("frontal") || t.includes("glueless")) return "wig";
+      return "other";
+    };
+
+    const source = newestProducts.length > 0 ? newestProducts : products;
+    const wigs = source.filter(p => categorize(p) === "wig");
+    const bobs = source.filter(p => categorize(p) === "bob");
+    const boho = source.filter(p => categorize(p) === "boho");
+    const bundles = source.filter(p => categorize(p) === "bundles");
+    const tools = source.filter(p => categorize(p) === "tools");
+
+    // Pick a mix: 2 wigs, 2 bobs, 1 boho, 1 bundle, 1 styling tool, 1 extra
+    const mix: ShopifyProduct[] = [];
+    mix.push(...wigs.slice(0, 2));
+    mix.push(...bobs.slice(0, 2));
+    mix.push(...boho.slice(0, 1));
+    mix.push(...bundles.slice(0, 1));
+    mix.push(...tools.slice(0, 1));
+
+    // Fill remaining slots up to 8
+    const usedIds = new Set(mix.map(p => p.node.id));
+    const extras = [...wigs, ...bobs, ...boho, ...bundles, ...tools].filter(p => !usedIds.has(p.node.id));
+    while (mix.length < 8 && extras.length > 0) {
+      mix.push(extras.shift()!);
+    }
+
+    return mix.slice(0, 8);
   }, [newestProducts, products]);
 
   // Lace Wig Collection: lace front wigs (natural black, not colored, not bob, not headband)

@@ -46,7 +46,7 @@ const CATEGORY_TYPE_MAP: Record<string, string[]> = {
 
 function getCategoryFromHash(hash: string): string {
   const match = hash.match(/category=([^&]+)/);
-  return match ? match[1] : "lace-front-wigs";
+  return match ? match[1] : "all";
 }
 
 const PRODUCTS_PER_PAGE = 20;

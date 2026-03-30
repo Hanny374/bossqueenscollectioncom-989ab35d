@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct } from "@/lib/shopify";
+import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
@@ -53,7 +53,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
     product,
     variantId: selectedVariant!.id,
     variantTitle: selectedVariant!.title,
-    price: selectedVariant!.price,
+    price: { amount: (parseFloat(selectedVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
     quantity: 1,
     selectedOptions: selectedVariant!.selectedOptions || [],
   });
@@ -171,11 +171,11 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
             {/* Price */}
             <div className="flex items-baseline gap-2">
               <span className="font-display text-2xl font-bold text-primary">
-                ${parseFloat(selectedVariant?.price.amount || price.amount).toFixed(2)}
+                ${(parseFloat(selectedVariant?.price.amount || price.amount) + PRICE_MARKUP).toFixed(2)}
               </span>
               {isOnSale && (
                 <span className="text-sm text-muted-foreground line-through">
-                  ${parseFloat(compareAtPrice.amount).toFixed(2)}
+                  ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
                 </span>
               )}
             </div>
@@ -209,7 +209,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
                         {length}"
                         {variant && (
                           <span className="ml-1 text-primary font-semibold">
-                            ${parseFloat(variant.price.amount).toFixed(0)}
+                            ${(parseFloat(variant.price.amount) + PRICE_MARKUP).toFixed(0)}
                           </span>
                         )}
                       </button>

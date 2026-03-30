@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
+import { PRICE_MARKUP } from "@/lib/shopify";
 
 const STORAGE_KEY = "boss-queens-recently-viewed";
 const MAX_ITEMS = 8;
@@ -85,7 +86,7 @@ export const RecentlyViewed = ({ excludeHandle }: Props) => {
                   {item.title}
                 </p>
                 <p className="text-sm font-bold text-primary">
-                  ${parseFloat(item.price).toFixed(2)}
+                  ${(parseFloat(item.price) + PRICE_MARKUP).toFixed(2)}
                 </p>
               </Link>
             </motion.div>

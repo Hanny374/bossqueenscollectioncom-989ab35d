@@ -53,7 +53,7 @@ export const QuickViewModal = ({ product, open, onOpenChange }: QuickViewModalPr
     product,
     variantId: selectedVariant!.id,
     variantTitle: selectedVariant!.title,
-    price: selectedVariant!.price,
+    price: { amount: (parseFloat(selectedVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
     quantity: 1,
     selectedOptions: selectedVariant!.selectedOptions || [],
   });

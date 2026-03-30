@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct } from "@/lib/shopify";
+import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
@@ -224,7 +224,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     <span className="font-medium">{length}"</span>
                     {variantPrice && (
                       <span className="text-primary font-semibold">
-                        ${parseFloat(variantPrice).toFixed(0)}
+                        ${(parseFloat(variantPrice) + PRICE_MARKUP).toFixed(0)}
                       </span>
                     )}
                   </span>
@@ -266,11 +266,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-xs text-muted-foreground">from</span>
             )}
             <p className="font-display font-bold text-xl text-primary">
-              ${parseFloat(price.amount).toFixed(2)}
+              ${(parseFloat(price.amount) + PRICE_MARKUP).toFixed(2)}
             </p>
             {isOnSale && (
               <p className="text-sm text-muted-foreground line-through">
-                ${parseFloat(compareAtPrice.amount).toFixed(2)}
+                ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
               </p>
             )}
           </div>

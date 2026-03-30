@@ -85,7 +85,7 @@ export const RecentlyViewed = ({ excludeHandle }: Props) => {
                   {item.title}
                 </p>
                 <p className="text-sm font-bold text-primary">
-                  ${parseFloat(item.price).toFixed(2)}
+                  ${(parseFloat(item.price) + PRICE_MARKUP).toFixed(2)}
                 </p>
               </Link>
             </motion.div>

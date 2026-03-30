@@ -324,14 +324,15 @@ const ProductPage = () => {
                   <p className="text-3xl font-bold text-gradient-gold">
                     {selectedVariant?.price.currencyCode} ${adjustedPrice.toFixed(2)}
                   </p>
-                  {compareAtPrice && parseFloat(compareAtPrice.amount) > adjustedPrice && (
+                  {compareAtPrice && (parseFloat(compareAtPrice.amount) + PRICE_MARKUP) > adjustedPrice && (
                     <>
                       <p className="text-lg text-muted-foreground line-through">
                         ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
                       </p>
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-destructive/10 text-destructive text-sm font-bold">
                         <Tag className="w-3.5 h-3.5" />
-                        Save {Math.round(((parseFloat(compareAtPrice.amount) - adjustedPrice) / parseFloat(compareAtPrice.amount)) * 100)}%
+                        Save {Math.round((((parseFloat(compareAtPrice.amount) + PRICE_MARKUP) - adjustedPrice) / (parseFloat(compareAtPrice.amount) + PRICE_MARKUP)) * 100)}%
+                      </span>
                       </span>
                     </>
                   )}

@@ -44,7 +44,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     product,
     variantId: firstVariant!.id,
     variantTitle: firstVariant!.title,
-    price: firstVariant!.price,
+    price: { amount: (parseFloat(firstVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: firstVariant!.price.currencyCode },
     quantity: 1,
     selectedOptions: firstVariant!.selectedOptions || []
   });

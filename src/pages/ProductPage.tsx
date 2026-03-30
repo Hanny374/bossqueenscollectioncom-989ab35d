@@ -333,7 +333,6 @@ const ProductPage = () => {
                         <Tag className="w-3.5 h-3.5" />
                         Save {Math.round((((parseFloat(compareAtPrice.amount) + PRICE_MARKUP) - adjustedPrice) / (parseFloat(compareAtPrice.amount) + PRICE_MARKUP)) * 100)}%
                       </span>
-                      </span>
                     </>
                   )}
                 </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
+import { PRICE_MARKUP } from "@/lib/shopify";
 
 const STORAGE_KEY = "boss-queens-recently-viewed";
 const MAX_ITEMS = 8;

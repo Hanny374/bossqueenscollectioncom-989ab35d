@@ -117,7 +117,7 @@ const ProductPage = () => {
       handle: product.handle,
       title: product.title,
       image: product.images.edges[0]?.node?.url || "",
-      price: product.priceRange.minVariantPrice.amount,
+      price: (parseFloat(product.priceRange.minVariantPrice.amount) + PRICE_MARKUP).toFixed(2),
       currencyCode: product.priceRange.minVariantPrice.currencyCode,
     });
   }, [product]);
@@ -200,8 +200,8 @@ const ProductPage = () => {
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: selectedVariant?.price.currencyCode || "USD",
-      lowPrice: product.priceRange.minVariantPrice.amount,
-      highPrice: variants[variants.length - 1]?.node.price.amount || product.priceRange.minVariantPrice.amount,
+      lowPrice: (parseFloat(product.priceRange.minVariantPrice.amount) + PRICE_MARKUP).toFixed(2),
+      highPrice: ((parseFloat(variants[variants.length - 1]?.node.price.amount || product.priceRange.minVariantPrice.amount)) + PRICE_MARKUP).toFixed(2),
       availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       seller: { "@type": "Organization", name: "Boss Queens Collection" },
       shippingDetails: {
@@ -244,7 +244,7 @@ const ProductPage = () => {
         <meta property="og:url" content={`${storeUrl}/product/${product.handle}`} />
         <meta property="og:type" content="product" />
         <meta property="og:site_name" content="Boss Queens Collection" />
-        <meta property="product:price:amount" content={product.priceRange.minVariantPrice.amount} />
+        <meta property="product:price:amount" content={(parseFloat(product.priceRange.minVariantPrice.amount) + PRICE_MARKUP).toFixed(2)} />
         <meta property="product:price:currency" content={product.priceRange.minVariantPrice.currencyCode} />
         <meta property="product:availability" content={product.availableForSale ? "in stock" : "out of stock"} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -327,7 +327,7 @@ const ProductPage = () => {
                   {compareAtPrice && parseFloat(compareAtPrice.amount) > adjustedPrice && (
                     <>
                       <p className="text-lg text-muted-foreground line-through">
-                        ${parseFloat(compareAtPrice.amount).toFixed(2)}
+                        ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
                       </p>
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-destructive/10 text-destructive text-sm font-bold">
                         <Tag className="w-3.5 h-3.5" />

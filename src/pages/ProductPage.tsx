@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { fetchProductByHandle, ShopifyProduct } from "@/lib/shopify";
+import { fetchProductByHandle, ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -80,7 +80,7 @@ const ProductPage = () => {
 
   // Calculate dynamic price with markups for wig products
   const getAdjustedPrice = () => {
-    const basePrice = parseFloat(selectedVariant?.price.amount || "0");
+    const basePrice = parseFloat(selectedVariant?.price.amount || "0") + PRICE_MARKUP;
     if (!isWigProduct) return basePrice;
 
     const densityMarkup = DENSITY_OPTIONS.find(d => d.value === selectedDensity)?.markup || 0;

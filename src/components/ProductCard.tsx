@@ -329,6 +329,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
     </Link>
       <QuickViewModal product={product} open={quickViewOpen} onOpenChange={setQuickViewOpen} />
+      <HairDescriptionModal open={hairModalOpen} onOpenChange={setHairModalOpen} onConfirm={handleHairConfirm} />
     </>
   );
 };

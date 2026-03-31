@@ -511,7 +511,7 @@ const Index = () => {
           {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}
-          <section className="py-20 border-y border-border/50 bg-secondary/20">
+          <section className="py-12 md:py-20 border-y border-border/50 bg-secondary/20">
             <div className="container px-4 md:px-8">
               <motion.div
                 className="flex flex-col items-center text-center gap-8"

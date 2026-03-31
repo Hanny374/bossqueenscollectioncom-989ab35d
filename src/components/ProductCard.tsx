@@ -160,7 +160,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="absolute bottom-4 left-4 right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-2">
           <Button
-            onClick={handleAddToCart}
+            onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !firstVariant?.availableForSale}
             variant="outline"
             className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11"

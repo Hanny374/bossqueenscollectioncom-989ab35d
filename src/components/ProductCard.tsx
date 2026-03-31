@@ -45,6 +45,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const buyNow = useCartStore(state => state.buyNow);
   const addItem = useCartStore(state => state.addItem);
   const isCartLoading = useCartStore(state => state.isLoading);
+  const hairDescription = useCartStore(state => state.hairDescription);
   
   const { data: reviewStatsMap } = useAllReviewStats();
   const reviewStats = reviewStatsMap?.[node.handle];

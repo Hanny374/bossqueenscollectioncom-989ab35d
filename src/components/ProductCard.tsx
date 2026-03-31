@@ -216,14 +216,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <div className="flex items-center gap-2">
             <Palette className="w-3.5 h-3.5 text-primary shrink-0" />
             <div className="flex items-center gap-1.5">
-              {colorOption.values.slice(0, 6).map((color) => (
-                <span
-                  key={color}
-                  title={color}
-                  className="w-5 h-5 rounded-full border border-border/60 shadow-sm shrink-0"
-                  style={{ backgroundColor: colorNameToHex(color) }}
-                />
-              ))}
+              {colorOption.values.slice(0, 6).map((color) => {
+                const bg = colorNameToHex(color);
+                const isGradient = bg.startsWith("linear-gradient");
+                return (
+                  <span
+                    key={color}
+                    title={color}
+                    className="w-5 h-5 rounded-full border border-border/60 shadow-sm shrink-0"
+                    style={isGradient ? { background: bg } : { backgroundColor: bg }}
+                  />
+                );
+              })}
               {colorOption.values.length > 6 && (
                 <span className="text-xs text-muted-foreground ml-0.5">+{colorOption.values.length - 6}</span>
               )}

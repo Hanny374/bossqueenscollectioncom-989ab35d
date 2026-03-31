@@ -360,6 +360,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
           <ExternalLink className="w-3.5 h-3.5" />
         </Link>
       </div>
+      <HairDescriptionModal open={hairModalOpen} onOpenChange={setHairModalOpen} onConfirm={handleHairConfirm} />
     </>
   );
 }

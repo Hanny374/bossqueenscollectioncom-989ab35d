@@ -195,8 +195,8 @@ export const Footer = () => {
             <p>Powered by <a href="https://www.shopify.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors underline">Shopify</a></p>
           </div>
           <div className="flex gap-6 text-sm text-cream/50">
-            <Link to="/contact" className="hover:text-cream transition-colors">Privacy Policy</Link>
-            <Link to="/contact" className="hover:text-cream transition-colors">Terms of Service</Link>
+            <Link to="/privacy-policy" className="hover:text-cream transition-colors">Privacy Policy</Link>
+            <Link to="/shipping" className="hover:text-cream transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

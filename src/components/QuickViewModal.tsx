@@ -103,8 +103,10 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
     await buyNow(getCartItem());
   };
 
+  const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => t.toLowerCase().includes("accessor")));
+
   const handleAddToCart = () => {
-    if (!hairDescription || hairDescription.trim().length < 10) {
+    if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
       setPendingAction("add");
       setHairModalOpen(true);
     } else {
@@ -113,7 +115,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
   };
 
   const handleBuyNow = () => {
-    if (!hairDescription || hairDescription.trim().length < 10) {
+    if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
       setPendingAction("buy");
       setHairModalOpen(true);
     } else {

@@ -47,7 +47,7 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-cream leading-[0.95]">
+            <h1 className="font-display text-4xl md:text-7xl lg:text-8xl font-bold tracking-tight text-cream leading-[0.95]">
               Slay Every
               <br />
               <span className="text-gradient-gold">Day</span>

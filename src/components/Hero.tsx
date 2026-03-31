@@ -69,7 +69,7 @@ export const Hero = () => {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-gold hover:opacity-90 text-espresso shadow-glow text-base px-10 h-14 font-semibold tracking-wide"
+              className="bg-gradient-gold hover:opacity-90 text-espresso shadow-glow text-sm md:text-base px-8 md:px-10 h-12 md:h-14 font-semibold tracking-wide"
             >
               <Link to="/#products">Shop Collection</Link>
             </Button>
@@ -77,7 +77,7 @@ export const Hero = () => {
               asChild
               variant="outline"
               size="lg"
-              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold text-base px-10 h-14 border-none"
+              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold text-sm md:text-base px-8 md:px-10 h-12 md:h-14 border-none"
             >
               <a href="#categories">Explore</a>
             </Button>

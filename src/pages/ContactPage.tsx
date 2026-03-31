@@ -300,21 +300,25 @@ const ContactPage = () => {
                   Stay connected for styling tips, new arrivals, and exclusive offers!
                 </p>
                 <div className="grid grid-cols-2 gap-4">
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
+                  <a href="https://instagram.com/bossqueenscollection" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
                     <Instagram className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-foreground">Instagram</span>
                   </a>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
+                  <a href="https://facebook.com/bossqueenscollection" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
                     <Facebook className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-foreground">Facebook</span>
                   </a>
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
-                    <Twitter className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                    <span className="font-medium text-foreground">Twitter</span>
+                  <a href="https://tiktok.com/@bossqueenscollection" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
+                    <svg className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    <span className="font-medium text-foreground">TikTok</span>
                   </a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
+                  <a href="https://youtube.com/@bossqueenscollection" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group">
                     <Youtube className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-foreground">YouTube</span>
+                  </a>
+                  <a href="https://threads.net/@bossqueenscollection" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors group col-span-2">
+                    <svg className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.59 12c.025 3.086.718 5.496 2.057 7.164 1.432 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.96-.065-1.17.408-2.266 1.33-3.084.88-.781 2.132-1.246 3.621-1.345 1.095-.073 2.114.02 3.039.244.006-.678-.033-1.302-.117-1.876-.27-1.83-1.03-2.74-2.395-2.87-.09-.008-.182-.012-.275-.012-1.014.009-1.96.406-2.558 1.062l-1.544-1.321C9.584 4.1 11.063 3.5 12.602 3.48c.146 0 .29.005.436.015 1.062.1 3.48.726 3.947 4.453.116.925.163 1.975.14 3.12 1.283.676 2.253 1.633 2.774 2.834.744 1.715.801 4.58-1.378 6.714-1.834 1.797-4.097 2.588-7.335 2.608V24zM9.734 15.924c.05.893.688 1.504 1.737 1.504.063 0 .129-.002.197-.006 1.07-.058 2.543-.503 2.77-3.665-.894-.192-1.87-.264-2.898-.192-.988.066-2.563.452-1.806 2.36z"/></svg>
+                    <span className="font-medium text-foreground">Threads</span>
                   </a>
                 </div>
               </div>

@@ -57,7 +57,10 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
   const buyNow = useCartStore((s) => s.buyNow);
   const addItem = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
+  const hairDescription = useCartStore((s) => s.hairDescription);
   const isMobile = useIsMobile();
+  const [hairModalOpen, setHairModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
 
   const { node } = product;
   const images = node.images.edges;

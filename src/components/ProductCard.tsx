@@ -10,6 +10,26 @@ import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
 import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 
+const COLOR_MAP: Record<string, string> = {
+  black: "#1a1a1a", "natural black": "#1a1a1a", "1b": "#1a1a1a", "jet black": "#0a0a0a",
+  blonde: "#f5d08a", "613": "#f5deb3", "honey blonde": "#d4a84b", "honey": "#d4a84b", "ash blonde": "#c8b89a",
+  brown: "#6b4226", "dark brown": "#3e2723", "light brown": "#8b6542", "chocolate": "#5c3317",
+  burgundy: "#800020", wine: "#722f37", red: "#b22222", ginger: "#b06500",
+  pink: "#e8a0bf", "rose gold": "#b76e79", purple: "#6a1b9a",
+  ombre: "linear-gradient(135deg, #1a1a1a 40%, #d4a84b 100%)",
+  highlight: "linear-gradient(135deg, #3e2723 40%, #d4a84b 100%)",
+  "piano": "linear-gradient(135deg, #1a1a1a 40%, #6b4226 100%)",
+  grey: "#9e9e9e", gray: "#9e9e9e", silver: "#c0c0c0",
+};
+
+function colorNameToHex(name: string): string {
+  const key = name.toLowerCase().trim();
+  for (const [k, v] of Object.entries(COLOR_MAP)) {
+    if (key.includes(k)) return v;
+  }
+  return "#c4a882"; // warm fallback
+}
+
 interface ProductCardProps {
   product: ShopifyProduct;
 }

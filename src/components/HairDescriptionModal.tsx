@@ -111,7 +111,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
           </span>
           <div className="flex flex-wrap gap-1.5">
             {HAIR_OPTIONS[key].options.map((opt) => {
-              const selected = selections[key].includes(opt);
+              const selected = (selections[key] || []).includes(opt);
               return (
                 <button
                   key={opt}

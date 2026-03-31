@@ -8,6 +8,7 @@ import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
+import { HairDescriptionModal } from "./HairDescriptionModal";
 import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 
 const COLOR_MAP: Record<string, string> = {

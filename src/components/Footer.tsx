@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 // Social media links - Update these with your actual account URLs
 const SOCIAL_LINKS = {
   instagram: "https://instagram.com/bossqueenscollection",
-  facebook: "https://facebook.com/bossqueenscollection",
+  facebook: "https://www.facebook.com/profile.php?id=61575834938498",
   tiktok: "https://tiktok.com/@bossqueenscollection",
   youtube: "https://youtube.com/@bossqueenscollection",
   pinterest: "https://pinterest.com/bossqueenscollection",

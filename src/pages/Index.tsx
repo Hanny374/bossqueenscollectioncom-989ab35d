@@ -455,7 +455,7 @@ const Index = () => {
           <HomeReviewsSection />
 
           {/* Tag Us In Your Selfie Banner */}
-          <section className="py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
+          <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />
             <div className="container px-4 md:px-8 relative">
               <motion.div

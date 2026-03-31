@@ -50,8 +50,10 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
   const parseExisting = (): Record<CategoryKey, string[]> => {
     const result: Record<CategoryKey, string[]> = { density: [], length: [], wigCap: [], laceType: [], color: [] };
     if (!hairDescription) return result;
-    for (const key of Object.keys(HAIR_OPTIONS) as CategoryKey[]) {
-      for (const opt of HAIR_OPTIONS[key].options) {
+    for (const key of Object.keys(result) as CategoryKey[]) {
+      const opts = HAIR_OPTIONS[key]?.options;
+      if (!opts) continue;
+      for (const opt of opts) {
         if (hairDescription.includes(opt)) result[key].push(opt);
       }
     }

@@ -194,10 +194,20 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         
         {colorOption && colorOption.values.length > 0 && (
           <div className="flex items-center gap-2">
-            <Palette className="w-3.5 h-3.5 text-primary" />
-            <span className="text-sm text-foreground font-medium">
-              {colorOption.values.slice(0, 3).join(', ')}{colorOption.values.length > 3 ? ` +${colorOption.values.length - 3}` : ''}
-            </span>
+            <Palette className="w-3.5 h-3.5 text-primary shrink-0" />
+            <div className="flex items-center gap-1.5">
+              {colorOption.values.slice(0, 6).map((color) => (
+                <span
+                  key={color}
+                  title={color}
+                  className="w-5 h-5 rounded-full border border-border/60 shadow-sm shrink-0"
+                  style={{ backgroundColor: colorNameToHex(color) }}
+                />
+              ))}
+              {colorOption.values.length > 6 && (
+                <span className="text-xs text-muted-foreground ml-0.5">+{colorOption.values.length - 6}</span>
+              )}
+            </div>
           </div>
         )}
         

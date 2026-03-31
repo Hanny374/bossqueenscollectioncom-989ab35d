@@ -18,6 +18,7 @@ const Categories = lazy(() => import("@/components/Categories").then(m => ({ def
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
 const HomeReviewsSection = lazy(() => import("@/components/HomeReviewsSection").then(m => ({ default: m.HomeReviewsSection })));
+const TrustBar = lazy(() => import("@/components/TrustBar").then(m => ({ default: m.TrustBar })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const CATEGORY_FILTERS = [
@@ -447,6 +448,9 @@ const Index = () => {
         <RecentlyViewed />
 
         <Suspense fallback={null}>
+          {/* Trust Stats Bar */}
+          <TrustBar />
+
           {/* Customer Reviews */}
           <HomeReviewsSection />
 
@@ -507,44 +511,61 @@ const Index = () => {
           {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}
-          <section className="py-16 border-y border-border/50">
+          <section className="py-20 border-y border-border/50 bg-secondary/20">
             <div className="container px-4 md:px-8">
               <motion.div
-                className="flex flex-col items-center text-center gap-6"
+                className="flex flex-col items-center text-center gap-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                  Shop With Confidence
-                </h3>
-                <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+                <div>
+                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                    Your Purchase Is Protected
+                  </span>
+                  <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                    Shop With Confidence
+                  </h3>
+                  <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+                    Every order is backed by our satisfaction guarantee and protected by industry-leading security
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-3xl">
                   {[
-                    { icon: Truck, label: "Free Shipping Over $100" },
-                    { icon: Shield, label: "Secure Payments" },
-                    { icon: ShieldCheck, label: "100% Authentic Hair" },
+                    { icon: Truck, label: "Free Shipping", desc: "On orders over $100" },
+                    { icon: Shield, label: "Secure Checkout", desc: "256-bit SSL encryption" },
+                    { icon: ShieldCheck, label: "100% Authentic", desc: "Guaranteed human hair" },
+                    { icon: Package, label: "Easy Returns", desc: "30-day money back" },
                   ].map((badge) => (
-                    <div key={badge.label} className="flex flex-col items-center gap-2">
+                    <motion.div
+                      key={badge.label}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border/60 hover:border-primary/20 hover:shadow-soft transition-all duration-300"
+                      whileHover={{ y: -2 }}
+                    >
                       <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                         <badge.icon className="w-7 h-7" />
                       </div>
-                      <span className="text-sm font-medium text-muted-foreground">{badge.label}</span>
-                    </div>
+                      <span className="text-sm font-semibold text-foreground">{badge.label}</span>
+                      <span className="text-xs text-muted-foreground">{badge.desc}</span>
+                    </motion.div>
                   ))}
-                  {/* Payment logos */}
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-2">
-                      <VisaLogo className="h-10 w-auto" />
-                      <MastercardLogo className="h-10 w-auto" />
-                      <AmexLogo className="h-10 w-auto" />
-                      <DiscoverLogo className="h-10 w-auto" />
-                      <PayPalLogo className="h-10 w-auto" />
-                      <ApplePayLogo className="h-10 w-auto" />
-                      <GooglePayLogo className="h-10 w-auto" />
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground">Accepted Worldwide</span>
+                </div>
+
+                {/* Payment logos */}
+                <div className="flex flex-col items-center gap-3 pt-4">
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">We Accept</span>
+                  <div className="flex items-center gap-3 flex-wrap justify-center">
+                    <VisaLogo className="h-10 w-auto" />
+                    <MastercardLogo className="h-10 w-auto" />
+                    <AmexLogo className="h-10 w-auto" />
+                    <DiscoverLogo className="h-10 w-auto" />
+                    <PayPalLogo className="h-10 w-auto" />
+                    <ApplePayLogo className="h-10 w-auto" />
+                    <GooglePayLogo className="h-10 w-auto" />
                   </div>
+                  <span className="text-sm font-medium text-muted-foreground">Accepted Worldwide via Bank Account</span>
                 </div>
               </motion.div>
             </div>

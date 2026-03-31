@@ -224,7 +224,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Truck className="w-3.5 h-3.5 text-primary" />
-            <span>Ships Worldwide</span>
+            <span>5–10 days</span>
           </div>
         </div>
         

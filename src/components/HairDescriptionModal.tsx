@@ -62,7 +62,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
 
   const toggle = (category: CategoryKey, value: string) => {
     setSelections((prev) => {
-      const current = prev[category];
+      const current = prev[category] || [];
       // Single select for density, wigCap, laceType; multi for color
       if (category === "color") {
         const updated = current.includes(value)

@@ -307,18 +307,18 @@ const Index = () => {
         <section className="py-12 md:py-20 relative bg-secondary/30">
           <div className="container px-4 md:px-8">
             <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12 gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
             >
               <div>
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
                   <Flame className="w-5 h-5 text-primary" />
-                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
+                  <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
                 </div>
-                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
+                <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
             </motion.div>

@@ -72,19 +72,33 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     selectedOptions: firstVariant!.selectedOptions || []
   });
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
+  const requireHairDescription = (action: "add" | "buy", e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!firstVariant) return;
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction(action);
+      setHairModalOpen(true);
+    } else if (action === "add") {
+      doAddToCart();
+    } else {
+      doBuyNow();
+    }
+  };
+
+  const doAddToCart = async () => {
     await addItem(getCartItem());
     toast.success("Added to cart!", { description: node.title });
   };
 
-  const handleBuyNow = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!firstVariant) return;
+  const doBuyNow = async () => {
     await buyNow(getCartItem());
+  };
+
+  const handleHairConfirm = () => {
+    if (pendingAction === "add") doAddToCart();
+    else if (pendingAction === "buy") doBuyNow();
+    setPendingAction(null);
   };
 
   return (

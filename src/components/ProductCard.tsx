@@ -73,11 +73,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     selectedOptions: firstVariant!.selectedOptions || []
   });
 
+  const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => t.toLowerCase().includes("accessor")));
+
   const requireHairDescription = (action: "add" | "buy", e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!firstVariant) return;
-    if (!hairDescription || hairDescription.trim().length < 10) {
+    if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
       setPendingAction(action);
       setHairModalOpen(true);
     } else if (action === "add") {

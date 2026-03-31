@@ -112,7 +112,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-secondary/30 shadow-soft hover-lift shine-effect">
+      <div className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-xl bg-secondary/30 shadow-soft hover-lift shine-effect">
         {image ? (
           <img
             src={image.url}

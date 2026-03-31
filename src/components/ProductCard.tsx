@@ -161,7 +161,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        <div className="absolute bottom-4 left-4 right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-2">
+        <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-1.5 md:gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !firstVariant?.availableForSale}

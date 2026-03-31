@@ -180,7 +180,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             onClick={(e) => requireHairDescription("buy", e)}
             disabled={isBuyingNow || !firstVariant?.availableForSale}
-            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11"
+            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 md:h-11 text-xs md:text-sm"
           >
             {isBuyingNow ? (
               <Loader2 className="w-4 h-4 animate-spin" />

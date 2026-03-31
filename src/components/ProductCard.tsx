@@ -166,7 +166,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !firstVariant?.availableForSale}
             variant="outline"
-            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11"
+            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-9 md:h-11 text-xs md:text-sm"
           >
             {isCartLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />

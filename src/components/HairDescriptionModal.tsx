@@ -151,9 +151,12 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent className="max-h-[85vh] overflow-hidden">
-          <div className="overflow-y-auto max-h-[calc(85vh-2rem)] p-4 pb-safe">
+        <DrawerContent className="max-h-[90vh] overflow-hidden">
+          <div className="overflow-y-auto max-h-[calc(90vh-4rem)] px-4 pt-2 pb-2">
             {content}
+          </div>
+          <div className="px-4 pb-4 border-t border-border/40">
+            {actions}
           </div>
         </DrawerContent>
       </Drawer>
@@ -168,6 +171,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
           <DialogDescription>Select your wig preferences</DialogDescription>
         </DialogHeader>
         {content}
+        {actions}
       </DialogContent>
     </Dialog>
   );

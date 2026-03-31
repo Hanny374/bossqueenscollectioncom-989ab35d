@@ -10,6 +10,7 @@ import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { HairDescriptionModal } from "./HairDescriptionModal";
 
 interface QuickViewModalProps {
   product: ShopifyProduct | null;

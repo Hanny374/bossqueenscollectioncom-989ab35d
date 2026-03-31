@@ -38,6 +38,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { node } = product;
   const [isHovered, setIsHovered] = useState(false);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
+  const [hairModalOpen, setHairModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
   const buyNow = useCartStore(state => state.buyNow);

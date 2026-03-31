@@ -95,34 +95,34 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
   };
 
   const content = (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
-        <Scissors className="h-5 w-5 text-primary" />
+    <div className="space-y-3 md:space-y-4">
+      <div className="flex items-center gap-2 font-display text-base md:text-lg font-bold text-foreground">
+        <Scissors className="h-5 w-5 text-primary shrink-0" />
         Customize Your Wig
       </div>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-xs md:text-sm text-muted-foreground">
         Select your preferences so we can prepare the perfect wig for you.
       </p>
 
       {(Object.keys(HAIR_OPTIONS) as CategoryKey[]).map((key) => (
         <div key={key} className="space-y-1.5">
-          <span className="text-xs font-semibold text-foreground uppercase tracking-wide">
+          <span className="text-[11px] md:text-xs font-semibold text-foreground uppercase tracking-wide">
             {HAIR_OPTIONS[key].label}
           </span>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1 md:gap-1.5">
             {HAIR_OPTIONS[key].options.map((opt) => {
               const selected = (selections[key] || []).includes(opt);
               return (
                 <button
                   key={opt}
                   onClick={() => toggle(key, opt)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-all flex items-center gap-1 ${
+                  className={`text-[11px] md:text-xs px-2.5 py-1 md:px-3 md:py-1.5 rounded-full border transition-all flex items-center gap-0.5 ${
                     selected
-                      ? "border-primary bg-primary/10 text-primary font-semibold"
-                      : "border-border/60 text-foreground hover:border-primary/50"
+                      ? "border-primary bg-primary/10 text-primary font-semibold shadow-sm"
+                      : "border-border/60 text-foreground hover:border-primary/50 active:bg-secondary"
                   }`}
                 >
-                  {selected && <Check className="w-3 h-3" />}
+                  {selected && <Check className="w-3 h-3 shrink-0" />}
                   {opt}
                 </button>
               );
@@ -130,28 +130,33 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
           </div>
         </div>
       ))}
+    </div>
+  );
 
-      <div className="flex gap-3 pt-2">
-        <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
-          Cancel
-        </Button>
-        <Button
-          onClick={handleConfirm}
-          disabled={!isValid}
-          className="flex-1 bg-gradient-gold hover:opacity-90 text-primary-foreground"
-        >
-          Continue ({totalSelected} selected)
-        </Button>
-      </div>
+  const actions = (
+    <div className="flex gap-3 pt-2 sticky bottom-0 bg-background pb-2">
+      <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1 h-11">
+        Cancel
+      </Button>
+      <Button
+        onClick={handleConfirm}
+        disabled={!isValid}
+        className="flex-1 bg-gradient-gold hover:opacity-90 text-primary-foreground h-11"
+      >
+        Continue ({totalSelected} selected)
+      </Button>
     </div>
   );
 
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent className="max-h-[85vh] overflow-hidden">
-          <div className="overflow-y-auto max-h-[calc(85vh-2rem)] p-4 pb-safe">
+        <DrawerContent className="max-h-[90vh] overflow-hidden">
+          <div className="overflow-y-auto max-h-[calc(90vh-4rem)] px-4 pt-2 pb-2">
             {content}
+          </div>
+          <div className="px-4 pb-4 border-t border-border/40">
+            {actions}
           </div>
         </DrawerContent>
       </Drawer>
@@ -166,6 +171,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
           <DialogDescription>Select your wig preferences</DialogDescription>
         </DialogHeader>
         {content}
+        {actions}
       </DialogContent>
     </Dialog>
   );

@@ -374,7 +374,7 @@ const Index = () => {
 
             {/* Category Filter Tabs */}
             <motion.div
-              className="flex flex-wrap gap-2 mb-10"
+              className="flex gap-2 mb-6 md:mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

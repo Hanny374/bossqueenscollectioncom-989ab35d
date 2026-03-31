@@ -111,7 +111,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
 
-        <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-3 right-3 z-10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
           <button
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); setQuickViewOpen(true); }}
             className="flex items-center gap-1 bg-background/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-medium text-foreground shadow-soft hover:bg-background transition-colors"
@@ -121,7 +121,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        <div className="absolute bottom-4 left-4 right-4 opacity-0 translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 z-10 flex gap-2">
+        <div className="absolute bottom-4 left-4 right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-2">
           <Button
             onClick={handleAddToCart}
             disabled={isCartLoading || !firstVariant?.availableForSale}

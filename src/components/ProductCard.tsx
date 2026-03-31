@@ -175,7 +175,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </Button>
           <Button
-            onClick={handleBuyNow}
+            onClick={(e) => requireHairDescription("buy", e)}
             disabled={isBuyingNow || !firstVariant?.availableForSale}
             className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11"
           >

@@ -448,6 +448,9 @@ const Index = () => {
         <RecentlyViewed />
 
         <Suspense fallback={null}>
+          {/* Trust Stats Bar */}
+          <TrustBar />
+
           {/* Customer Reviews */}
           <HomeReviewsSection />
 

@@ -572,7 +572,7 @@ const Index = () => {
           </section>
 
           {/* About / Why Us Section */}
-          <section className="py-28 relative overflow-hidden">
+          <section className="py-14 md:py-28 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl -translate-x-1/2" />
 
             <div className="container px-4 md:px-8 relative">

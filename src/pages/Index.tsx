@@ -304,7 +304,7 @@ const Index = () => {
         <Categories />
 
         {/* Top Sellers Section */}
-        <section className="py-20 relative bg-secondary/30">
+        <section className="py-12 md:py-20 relative bg-secondary/30">
           <div className="container px-4 md:px-8">
             <motion.div
               className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"

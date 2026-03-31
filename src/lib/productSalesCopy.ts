@@ -122,5 +122,19 @@ export function generateSalesCopy(product: ProductAttributes): SalesCopy {
 
 /** Generates a short (1-2 line) card description */
 export function getCardDescription(product: ProductAttributes): string {
-  return generateSalesCopy(product).shortDescription;
+  const copy = generateSalesCopy(product);
+  let desc = copy.shortDescription;
+
+  // Append available colors for colored/blonde wigs
+  const attrs = detectAttributes(product);
+  if ((attrs.isColored || attrs.isBlonde) && product.options) {
+    const colorOption = product.options.find(o => o.name.toLowerCase() === "color");
+    if (colorOption && colorOption.values.length > 0) {
+      const colors = colorOption.values.slice(0, 4).join(", ");
+      const extra = colorOption.values.length > 4 ? ` +${colorOption.values.length - 4} more` : "";
+      desc += ` Available in: ${colors}${extra}.`;
+    }
+  }
+
+  return desc;
 }

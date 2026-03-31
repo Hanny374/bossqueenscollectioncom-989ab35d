@@ -85,7 +85,7 @@ export const Hero = () => {
 
           {/* Stats */}
           <motion.div
-            className="flex gap-10 pt-8"
+            className="flex gap-6 md:gap-10 pt-4 md:pt-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}

@@ -384,7 +384,7 @@ const Index = () => {
                 <button
                   key={cat.value}
                   onClick={() => handleCategoryChange(cat.value)}
-                  className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === cat.value
+                  className={`relative px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 whitespace-nowrap shrink-0 ${activeCategory === cat.value
                     ? "bg-primary text-primary-foreground shadow-glow"
                     : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
                     }`}

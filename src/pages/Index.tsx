@@ -350,20 +350,20 @@ const Index = () => {
         </section>
 
         {/* Products Section */}
-        <section id="products" className="py-28 relative">
+        <section id="products" className="py-14 md:py-28 relative">
           <div className="container px-4 md:px-8">
             <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-4"
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-16 gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
             >
               <div>
-                <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-2 md:mb-3 block">
                   Our Products
                 </span>
-                <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground">
+                <h2 className="font-display text-3xl md:text-6xl font-bold text-foreground">
                   The Collection
                 </h2>
               </div>

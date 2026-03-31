@@ -53,7 +53,7 @@ export const Hero = () => {
               <span className="text-gradient-gold">Day</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-cream/70 max-w-md leading-relaxed font-light">
+            <p className="text-base md:text-xl text-cream/70 max-w-md leading-relaxed font-light">
               Affordable luxury hair that looks natural and feels incredible.
               Crafted for queens who demand the best.
             </p>

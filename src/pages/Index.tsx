@@ -270,7 +270,7 @@ const Index = () => {
         <Hero />
         <Marquee />
         {/* Free Shipping Banner */}
-        <section className="py-6 bg-primary/5 border-y border-primary/10">
+        <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">
           <div className="container px-4 md:px-8">
             <motion.div
               className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-center"

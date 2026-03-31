@@ -19,21 +19,25 @@ interface HairDescriptionModalProps {
 }
 
 const HAIR_OPTIONS = {
-  texture: {
-    label: "Hair Texture",
-    options: ["Straight", "Wavy", "Curly", "Coily/Kinky"],
-  },
-  color: {
-    label: "Natural Hair Color",
-    options: ["Black", "Dark Brown", "Light Brown", "Blonde", "Red/Auburn", "Gray"],
+  density: {
+    label: "Density",
+    options: ["180%", "200%", "210%", "250%", "300%"],
   },
   length: {
-    label: "Current Length",
-    options: ["Short (0–6\")", "Medium (8–14\")", "Long (16–22\")", "Extra Long (24\"+)"],
+    label: "Length",
+    options: ["8\"", "10\"", "12\"", "14\"", "16\"", "18\"", "20\"", "22\"", "24\"", "26\"", "28\"", "30\"", "34\"", "36\"", "40\""],
   },
-  concern: {
-    label: "Main Concern",
-    options: ["Volume", "Edges/Hairline", "Color Match", "Comfort/Fit", "Heat Protection", "First-Time Buyer"],
+  wigCap: {
+    label: "Wig Cap Size",
+    options: ["Small (21\")", "Medium (22\")", "Large (23\")", "Average"],
+  },
+  laceType: {
+    label: "Lace Type",
+    options: ["13x4", "13x6", "4x4", "5x5", "360"],
+  },
+  color: {
+    label: "Color",
+    options: ["Natural Black", "1B", "613 Blonde", "Honey Blonde", "Brown", "Dark Brown", "Burgundy", "Ombre", "Highlight", "Ginger", "Red", "Piano"],
   },
 };
 
@@ -44,7 +48,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
   const isMobile = useIsMobile();
 
   const parseExisting = (): Record<CategoryKey, string[]> => {
-    const result: Record<CategoryKey, string[]> = { texture: [], color: [], length: [], concern: [] };
+    const result: Record<CategoryKey, string[]> = { density: [], length: [], wigCap: [], laceType: [], color: [] };
     if (!hairDescription) return result;
     for (const key of Object.keys(HAIR_OPTIONS) as CategoryKey[]) {
       for (const opt of HAIR_OPTIONS[key].options) {
@@ -59,10 +63,15 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
   const toggle = (category: CategoryKey, value: string) => {
     setSelections((prev) => {
       const current = prev[category];
-      const updated = current.includes(value)
-        ? current.filter((v) => v !== value)
-        : [...current, value];
-      return { ...prev, [category]: updated };
+      // Single select for density, wigCap, laceType; multi for color
+      if (category === "color") {
+        const updated = current.includes(value)
+          ? current.filter((v) => v !== value)
+          : [...current, value];
+        return { ...prev, [category]: updated };
+      }
+      // Single select toggle
+      return { ...prev, [category]: current.includes(value) ? [] : [value] };
     });
   };
 
@@ -87,25 +96,25 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
     <div className="space-y-4">
       <div className="flex items-center gap-2 font-display text-lg font-bold text-foreground">
         <Scissors className="h-5 w-5 text-primary" />
-        Describe Your Hair
+        Customize Your Wig
       </div>
       <p className="text-sm text-muted-foreground">
-        Select options that best describe your hair so we can ensure the perfect match.
+        Select your preferences so we can prepare the perfect wig for you.
       </p>
 
       {(Object.keys(HAIR_OPTIONS) as CategoryKey[]).map((key) => (
-        <div key={key} className="space-y-2">
+        <div key={key} className="space-y-1.5">
           <span className="text-xs font-semibold text-foreground uppercase tracking-wide">
             {HAIR_OPTIONS[key].label}
           </span>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {HAIR_OPTIONS[key].options.map((opt) => {
               const selected = selections[key].includes(opt);
               return (
                 <button
                   key={opt}
                   onClick={() => toggle(key, opt)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 ${
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-all flex items-center gap-1 ${
                     selected
                       ? "border-primary bg-primary/10 text-primary font-semibold"
                       : "border-border/60 text-foreground hover:border-primary/50"
@@ -149,10 +158,10 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto">
         <DialogHeader className="sr-only">
-          <DialogTitle>Describe Your Hair</DialogTitle>
-          <DialogDescription>Select options that describe your hair</DialogDescription>
+          <DialogTitle>Customize Your Wig</DialogTitle>
+          <DialogDescription>Select your wig preferences</DialogDescription>
         </DialogHeader>
         {content}
       </DialogContent>

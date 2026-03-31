@@ -10,6 +10,7 @@ import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { HairDescriptionModal } from "./HairDescriptionModal";
 
 interface QuickViewModalProps {
   product: ShopifyProduct | null;
@@ -56,7 +57,10 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
   const buyNow = useCartStore((s) => s.buyNow);
   const addItem = useCartStore((s) => s.addItem);
   const isCartLoading = useCartStore((s) => s.isLoading);
+  const hairDescription = useCartStore((s) => s.hairDescription);
   const isMobile = useIsMobile();
+  const [hairModalOpen, setHairModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
 
   const { node } = product;
   const images = node.images.edges;
@@ -88,15 +92,39 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
     selectedOptions: selectedVariant!.selectedOptions || [],
   });
 
-  const handleAddToCart = async () => {
+  const doAddToCart = async () => {
     if (!selectedVariant) return;
     await addItem(getCartItem());
     toast.success("Added to cart!", { description: node.title });
   };
 
-  const handleBuyNow = async () => {
+  const doBuyNow = async () => {
     if (!selectedVariant) return;
     await buyNow(getCartItem());
+  };
+
+  const handleAddToCart = () => {
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction("add");
+      setHairModalOpen(true);
+    } else {
+      doAddToCart();
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction("buy");
+      setHairModalOpen(true);
+    } else {
+      doBuyNow();
+    }
+  };
+
+  const handleHairConfirm = () => {
+    if (pendingAction === "add") doAddToCart();
+    else if (pendingAction === "buy") doBuyNow();
+    setPendingAction(null);
   };
 
   const nextImage = () => setCurrentImageIndex((i) => (i + 1) % images.length);
@@ -332,6 +360,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
           <ExternalLink className="w-3.5 h-3.5" />
         </Link>
       </div>
+      <HairDescriptionModal open={hairModalOpen} onOpenChange={setHairModalOpen} onConfirm={handleHairConfirm} />
     </>
   );
 }

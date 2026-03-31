@@ -8,6 +8,7 @@ import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
+import { HairDescriptionModal } from "./HairDescriptionModal";
 import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 
 const COLOR_MAP: Record<string, string> = {
@@ -38,11 +39,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const { node } = product;
   const [isHovered, setIsHovered] = useState(false);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
+  const [hairModalOpen, setHairModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
   const buyNow = useCartStore(state => state.buyNow);
   const addItem = useCartStore(state => state.addItem);
   const isCartLoading = useCartStore(state => state.isLoading);
+  const hairDescription = useCartStore(state => state.hairDescription);
   
   const { data: reviewStatsMap } = useAllReviewStats();
   const reviewStats = reviewStatsMap?.[node.handle];
@@ -69,19 +73,33 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     selectedOptions: firstVariant!.selectedOptions || []
   });
 
-  const handleAddToCart = async (e: React.MouseEvent) => {
+  const requireHairDescription = (action: "add" | "buy", e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!firstVariant) return;
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction(action);
+      setHairModalOpen(true);
+    } else if (action === "add") {
+      doAddToCart();
+    } else {
+      doBuyNow();
+    }
+  };
+
+  const doAddToCart = async () => {
     await addItem(getCartItem());
     toast.success("Added to cart!", { description: node.title });
   };
 
-  const handleBuyNow = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!firstVariant) return;
+  const doBuyNow = async () => {
     await buyNow(getCartItem());
+  };
+
+  const handleHairConfirm = () => {
+    if (pendingAction === "add") doAddToCart();
+    else if (pendingAction === "buy") doBuyNow();
+    setPendingAction(null);
   };
 
   return (
@@ -143,7 +161,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="absolute bottom-4 left-4 right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-2">
           <Button
-            onClick={handleAddToCart}
+            onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !firstVariant?.availableForSale}
             variant="outline"
             className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11"
@@ -158,7 +176,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </Button>
           <Button
-            onClick={handleBuyNow}
+            onClick={(e) => requireHairDescription("buy", e)}
             disabled={isBuyingNow || !firstVariant?.availableForSale}
             className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11"
           >
@@ -312,6 +330,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
     </Link>
       <QuickViewModal product={product} open={quickViewOpen} onOpenChange={setQuickViewOpen} />
+      <HairDescriptionModal open={hairModalOpen} onOpenChange={setHairModalOpen} onConfirm={handleHairConfirm} />
     </>
   );
 };

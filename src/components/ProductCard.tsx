@@ -112,7 +112,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden rounded-xl bg-secondary/30 shadow-soft hover-lift shine-effect">
+      <div className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-xl bg-secondary/30 shadow-soft hover-lift shine-effect">
         {image ? (
           <img
             src={image.url}
@@ -161,12 +161,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        <div className="absolute bottom-4 left-4 right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-2">
+        <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 opacity-100 translate-y-0 md:opacity-0 md:translate-y-3 transition-all duration-300 md:group-hover:opacity-100 md:group-hover:translate-y-0 z-10 flex gap-1.5 md:gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !firstVariant?.availableForSale}
             variant="outline"
-            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11"
+            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-9 md:h-11 text-xs md:text-sm"
           >
             {isCartLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -180,7 +180,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             onClick={(e) => requireHairDescription("buy", e)}
             disabled={isBuyingNow || !firstVariant?.availableForSale}
-            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11"
+            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 md:h-11 text-xs md:text-sm"
           >
             {isBuyingNow ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -198,8 +198,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
-      <div className="mt-4 space-y-2">
-        <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+      <div className="mt-3 md:mt-4 space-y-1.5 md:space-y-2">
+        <h3 className="font-display text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
           {node.title}
         </h3>
 

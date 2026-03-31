@@ -6,7 +6,7 @@ import heroImage from "@/assets/hero-beauty.webp";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden">
       {/* Background Image — always visible immediately */}
       <div className="absolute inset-0 z-0">
         <img
@@ -25,8 +25,8 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 px-4 md:px-8 pt-20">
-        <div className="max-w-2xl space-y-8">
+      <div className="container relative z-10 px-4 md:px-8 pt-12 md:pt-20">
+        <div className="max-w-2xl space-y-5 md:space-y-8">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,13 +47,13 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-cream leading-[0.95]">
+            <h1 className="font-display text-4xl md:text-7xl lg:text-8xl font-bold tracking-tight text-cream leading-[0.95]">
               Slay Every
               <br />
               <span className="text-gradient-gold">Day</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-cream/70 max-w-md leading-relaxed font-light">
+            <p className="text-base md:text-xl text-cream/70 max-w-md leading-relaxed font-light">
               Affordable luxury hair that looks natural and feels incredible.
               Crafted for queens who demand the best.
             </p>
@@ -69,7 +69,7 @@ export const Hero = () => {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-gold hover:opacity-90 text-espresso shadow-glow text-base px-10 h-14 font-semibold tracking-wide"
+              className="bg-gradient-gold hover:opacity-90 text-espresso shadow-glow text-sm md:text-base px-8 md:px-10 h-12 md:h-14 font-semibold tracking-wide"
             >
               <Link to="/#products">Shop Collection</Link>
             </Button>
@@ -77,7 +77,7 @@ export const Hero = () => {
               asChild
               variant="outline"
               size="lg"
-              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold text-base px-10 h-14 border-none"
+              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold text-sm md:text-base px-8 md:px-10 h-12 md:h-14 border-none"
             >
               <a href="#categories">Explore</a>
             </Button>
@@ -85,7 +85,7 @@ export const Hero = () => {
 
           {/* Stats */}
           <motion.div
-            className="flex gap-10 pt-8"
+            className="flex gap-6 md:gap-10 pt-4 md:pt-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}

@@ -270,7 +270,7 @@ const Index = () => {
         <Hero />
         <Marquee />
         {/* Free Shipping Banner */}
-        <section className="py-6 bg-primary/5 border-y border-primary/10">
+        <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">
           <div className="container px-4 md:px-8">
             <motion.div
               className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-center"
@@ -304,21 +304,21 @@ const Index = () => {
         <Categories />
 
         {/* Top Sellers Section */}
-        <section className="py-20 relative bg-secondary/30">
+        <section className="py-12 md:py-20 relative bg-secondary/30">
           <div className="container px-4 md:px-8">
             <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12 gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
             >
               <div>
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
                   <Flame className="w-5 h-5 text-primary" />
-                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
+                  <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
                 </div>
-                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
+                <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
             </motion.div>
@@ -327,21 +327,21 @@ const Index = () => {
         </section>
 
         {/* Newly Added Section */}
-        <section className="py-20 relative">
+        <section className="py-12 md:py-20 relative">
           <div className="container px-4 md:px-8">
             <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4"
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12 gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
             >
               <div>
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
                   <Sparkles className="w-5 h-5 text-primary" />
-                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase">Fresh Drops</span>
+                  <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Fresh Drops</span>
                 </div>
-                <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">Newly Added</h2>
+                <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Newly Added</h2>
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
             </motion.div>
@@ -350,20 +350,20 @@ const Index = () => {
         </section>
 
         {/* Products Section */}
-        <section id="products" className="py-28 relative">
+        <section id="products" className="py-14 md:py-28 relative">
           <div className="container px-4 md:px-8">
             <motion.div
-              className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-4"
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-16 gap-3 md:gap-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
             >
               <div>
-                <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-2 md:mb-3 block">
                   Our Products
                 </span>
-                <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground">
+                <h2 className="font-display text-3xl md:text-6xl font-bold text-foreground">
                   The Collection
                 </h2>
               </div>
@@ -374,7 +374,7 @@ const Index = () => {
 
             {/* Category Filter Tabs */}
             <motion.div
-              className="flex flex-wrap gap-2 mb-10"
+              className="flex gap-2 mb-6 md:mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -384,7 +384,7 @@ const Index = () => {
                 <button
                   key={cat.value}
                   onClick={() => handleCategoryChange(cat.value)}
-                  className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === cat.value
+                  className={`relative px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 whitespace-nowrap shrink-0 ${activeCategory === cat.value
                     ? "bg-primary text-primary-foreground shadow-glow"
                     : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
                     }`}
@@ -455,7 +455,7 @@ const Index = () => {
           <HomeReviewsSection />
 
           {/* Tag Us In Your Selfie Banner */}
-          <section className="py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
+          <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />
             <div className="container px-4 md:px-8 relative">
               <motion.div
@@ -511,7 +511,7 @@ const Index = () => {
           {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}
-          <section className="py-20 border-y border-border/50 bg-secondary/20">
+          <section className="py-12 md:py-20 border-y border-border/50 bg-secondary/20">
             <div className="container px-4 md:px-8">
               <motion.div
                 className="flex flex-col items-center text-center gap-8"
@@ -572,7 +572,7 @@ const Index = () => {
           </section>
 
           {/* About / Why Us Section */}
-          <section className="py-28 relative overflow-hidden">
+          <section className="py-14 md:py-28 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl -translate-x-1/2" />
 
             <div className="container px-4 md:px-8 relative">

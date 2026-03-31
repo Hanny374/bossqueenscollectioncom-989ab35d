@@ -92,15 +92,39 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
     selectedOptions: selectedVariant!.selectedOptions || [],
   });
 
-  const handleAddToCart = async () => {
+  const doAddToCart = async () => {
     if (!selectedVariant) return;
     await addItem(getCartItem());
     toast.success("Added to cart!", { description: node.title });
   };
 
-  const handleBuyNow = async () => {
+  const doBuyNow = async () => {
     if (!selectedVariant) return;
     await buyNow(getCartItem());
+  };
+
+  const handleAddToCart = () => {
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction("add");
+      setHairModalOpen(true);
+    } else {
+      doAddToCart();
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!hairDescription || hairDescription.trim().length < 10) {
+      setPendingAction("buy");
+      setHairModalOpen(true);
+    } else {
+      doBuyNow();
+    }
+  };
+
+  const handleHairConfirm = () => {
+    if (pendingAction === "add") doAddToCart();
+    else if (pendingAction === "buy") doBuyNow();
+    setPendingAction(null);
   };
 
   const nextImage = () => setCurrentImageIndex((i) => (i + 1) % images.length);

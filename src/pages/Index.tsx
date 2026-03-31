@@ -508,6 +508,47 @@ const Index = () => {
             </div>
           </section>
 
+          {/* Follow Us on TikTok */}
+          <section className="py-10 md:py-16 relative overflow-hidden bg-foreground text-background">
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+            <div className="container px-4 md:px-8 relative">
+              <motion.div
+                className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="flex items-center gap-4 md:gap-5 text-center md:text-left">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-background/10 flex items-center justify-center shrink-0 hidden md:flex">
+                    <svg viewBox="0 0 24 24" className="w-7 h-7 md:w-8 md:h-8 fill-current" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.89a8.28 8.28 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.3z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl font-bold">
+                      Follow Us on TikTok
+                    </h3>
+                    <p className="text-sm md:text-base opacity-70 mt-0.5">
+                      Tutorials, transformations & behind-the-scenes
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="https://www.tiktok.com/@bossqueenscollection"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-background text-foreground font-semibold text-sm hover:opacity-90 transition-all duration-300 shadow-lg shrink-0"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.89a8.28 8.28 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.3z"/>
+                  </svg>
+                  @bossqueenscollection
+                </a>
+              </motion.div>
+            </div>
+          </section>
+
           {/* Testimonials removed — real reviews shown in HomeReviewsSection above */}
 
           {/* Payment & Trust Banner */}

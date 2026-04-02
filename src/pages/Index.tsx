@@ -196,7 +196,7 @@ const Index = () => {
 
     if (activeCategory === "accessories") return products.filter(isAccessory);
     if (activeCategory === "bundles") return products.filter(p => isBundle(p) && !isAccessory(p));
-    if (activeCategory === "boho-braids") return products.filter(p => isBohoBraid(p) && !isAccessory(p));
+    if (activeCategory === "boho-braids") return products.filter(p => isBohoBraid(p) && !isAccessory(p) && !isBundle(p));
     if (activeCategory === "v-part-half-wigs") return products.filter(p => isVPart(p) && !isAccessory(p) && !isBundle(p));
     if (activeCategory === "headband-wigs") return products.filter(p => isHeadband(p) && !isAccessory(p) && !isBundle(p));
     if (activeCategory === "bob-wigs") return products.filter(p => isBob(p) && !isAccessory(p) && !isBundle(p) && !isHeadband(p) && !isVPart(p));

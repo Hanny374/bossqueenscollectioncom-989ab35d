@@ -340,9 +340,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                       </span>
                     )}
                   </button>
-                      </span>
-                    )}
-                  </span>
                 );
               })}
               {lengthOption.values.length > 4 && (

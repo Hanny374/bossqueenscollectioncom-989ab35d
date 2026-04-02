@@ -761,7 +761,6 @@ const Index = () => {
 };
 
 export default Index;
-              </div>
               <span className="text-muted-foreground text-sm md:text-base">
                 On all orders over <span className="font-semibold text-primary">$100</span> — delivered worldwide to your doorstep
               </span>

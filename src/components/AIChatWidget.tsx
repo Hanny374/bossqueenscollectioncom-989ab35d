@@ -1,9 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Crown, Loader2, ShoppingBag, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Crown, Loader2, ShoppingBag, Sparkles, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import { fetchProductByHandle, PRICE_MARKUP } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -78,6 +81,55 @@ const QUICK_PROMPTS = [
   { label: "📦 Shipping info", prompt: "How does shipping work?" },
   { label: "🎨 Custom order", prompt: "I want to order a custom wig" },
 ];
+
+/** Inline Add to Cart button for chatbot product links */
+const ChatAddToCartButton = ({ handle }: { handle: string }) => {
+  const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+  const addItem = useCartStore(s => s.addItem);
+
+  const handleAdd = useCallback(async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (state !== "idle") return;
+    setState("loading");
+    try {
+      const product = await fetchProductByHandle(handle);
+      if (!product) { toast.error("Product not found"); setState("idle"); return; }
+      const firstVariant = product.variants.edges[0]?.node;
+      if (!firstVariant?.availableForSale) { toast.error("Currently sold out"); setState("idle"); return; }
+      await addItem({
+        product: { node: product },
+        variantId: firstVariant.id,
+        variantTitle: firstVariant.title,
+        price: { amount: (parseFloat(firstVariant.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: firstVariant.price.currencyCode },
+        quantity: 1,
+        selectedOptions: firstVariant.selectedOptions || [],
+      });
+      toast.success("Added to cart!", { description: product.title });
+      setState("done");
+      setTimeout(() => setState("idle"), 2000);
+    } catch {
+      toast.error("Failed to add to cart");
+      setState("idle");
+    }
+  }, [handle, state, addItem]);
+
+  return (
+    <button
+      onClick={handleAdd}
+      disabled={state === "loading"}
+      className="inline-flex items-center gap-1 ml-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold transition-all border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 disabled:opacity-60"
+    >
+      {state === "loading" ? (
+        <Loader2 className="w-3 h-3 animate-spin" />
+      ) : state === "done" ? (
+        <><Check className="w-3 h-3" /> Added</>
+      ) : (
+        <><ShoppingCart className="w-3 h-3" /> Add to Cart</>
+      )}
+    </button>
+  );
+};
 
 export const AIChatWidget = () => {
   const navigate = useNavigate();
@@ -289,20 +341,26 @@ export const AIChatWidget = () => {
                           components={{
                             a: ({ href, children }) => {
                               // Check if this is an internal product link
-                              const internalPath = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)(\/product\/[^\s?#]+)/)?.[1];
-                              if (internalPath) {
+                              const internalMatch = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)\/product\/([^\s?#]+)/);
+                              const internalPath = internalMatch ? `/product/${internalMatch[1]}` : null;
+                              const productHandle = internalMatch?.[1];
+                              
+                              if (internalPath && productHandle) {
                                 return (
-                                  <a
-                                    href={internalPath}
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      setIsOpen(false);
-                                      navigate(internalPath);
-                                    }}
-                                    className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
-                                  >
-                                    {children}
-                                  </a>
+                                  <span className="inline-flex flex-wrap items-center gap-1">
+                                    <a
+                                      href={internalPath}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setIsOpen(false);
+                                        navigate(internalPath);
+                                      }}
+                                      className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
+                                    >
+                                      {children}
+                                    </a>
+                                    <ChatAddToCartButton handle={productHandle} />
+                                  </span>
                                 );
                               }
                               return (

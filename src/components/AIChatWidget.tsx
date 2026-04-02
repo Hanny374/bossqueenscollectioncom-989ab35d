@@ -401,6 +401,9 @@ export const AIChatWidget = () => {
               <div ref={messagesEndRef} />
             </div>
 
+            {/* View Cart bar */}
+            <ChatCartBar onCheckout={() => setIsOpen(false)} />
+
             {/* Input — larger touch targets for mobile */}
             <div className="border-t border-border p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shrink-0 bg-background">
               <form

@@ -288,11 +288,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {colorOption.values.slice(0, 6).map((color) => {
                 const bg = colorNameToHex(color);
                 const isGradient = bg.startsWith("linear-gradient");
+                const isSelected = selectedColor === color;
                 return (
-                  <span
+                  <button
                     key={color}
                     title={color}
-                    className="w-5 h-5 rounded-full border border-border/60 shadow-sm shrink-0"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedColor(isSelected ? null : color); }}
+                    className={`w-5 h-5 rounded-full border-2 shadow-sm shrink-0 transition-all cursor-pointer ${
+                      isSelected ? "border-primary ring-2 ring-primary/30 scale-110" : "border-border/60 hover:scale-110"
+                    }`}
                     style={isGradient ? { background: bg } : { backgroundColor: bg }}
                   />
                 );

@@ -146,16 +146,42 @@ const ProductPage = () => {
     selectedOptions: selectedVariant!.selectedOptions || []
   });
 
-  const handleAddToCart = async () => {
+  const isAccessory = product ? (
+    product.productType?.toLowerCase().includes("accessor") ||
+    product.tags?.some((t: string) => t.toLowerCase().includes("accessor"))
+  ) : false;
+
+  const requireHairDescription = useCallback((action: "add" | "buy") => {
+    if (!product || !selectedVariant) return;
+    if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
+      setPendingAction(action);
+      setHairModalOpen(true);
+    } else if (action === "add") {
+      doAddToCart();
+    } else {
+      doBuyNow();
+    }
+  }, [product, selectedVariant, isAccessory, hairDescription]);
+
+  const doAddToCart = async () => {
     if (!product || !selectedVariant) return;
     await addItem(getCartItem());
     toast.success("Added to cart!", { description: product.title });
   };
 
-  const handleBuyNow = async () => {
+  const doBuyNow = async () => {
     if (!product || !selectedVariant) return;
     await buyNow(getCartItem());
   };
+
+  const handleHairConfirm = () => {
+    if (pendingAction === "add") doAddToCart();
+    else if (pendingAction === "buy") doBuyNow();
+    setPendingAction(null);
+  };
+
+  const handleAddToCart = () => requireHairDescription("add");
+  const handleBuyNow = () => requireHairDescription("buy");
 
   if (isPageLoading) {
     return (

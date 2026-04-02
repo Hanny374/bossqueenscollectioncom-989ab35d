@@ -324,14 +324,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 const variantPrice = matchingVariant?.node.price.amount;
                 
                 return (
-                  <span 
-                    key={length} 
-                    className="text-xs bg-secondary text-foreground px-2.5 py-1 rounded-full flex items-center gap-1 border border-border/50"
+                  <button 
+                    key={length}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedLength(selectedLength === length ? null : length); }}
+                    className={`text-xs px-2.5 py-1 rounded-full flex items-center gap-1 border transition-all cursor-pointer ${
+                      selectedLength === length
+                        ? "border-primary bg-primary/10 text-primary font-semibold ring-1 ring-primary/30"
+                        : "bg-secondary text-foreground border-border/50 hover:border-primary/50"
+                    }`}
                   >
                     <span className="font-medium">{length}"</span>
                     {variantPrice && (
-                      <span className="text-primary font-semibold">
+                      <span className={`font-semibold ${selectedLength === length ? "text-primary" : "text-primary"}`}>
                         ${(parseFloat(variantPrice) + PRICE_MARKUP).toFixed(0)}
+                      </span>
+                    )}
+                  </button>
                       </span>
                     )}
                   </span>

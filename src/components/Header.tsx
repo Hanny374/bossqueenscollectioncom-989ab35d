@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { VerifiedSellerBadge } from "./VerifiedSellerBadge";
 import { AISearchBar } from "./AISearchBar";
 import { CartDrawer } from "./CartDrawer";
-import { Menu, X, Crown, Search } from "lucide-react";
+import { Menu, X, Crown, Search, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, AnimatePresence } from "framer-motion";

@@ -914,6 +914,7 @@ const ProductPage = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <HairDescriptionModal open={hairModalOpen} onOpenChange={setHairModalOpen} onConfirm={handleHairConfirm} />
     </div>
   );
 };

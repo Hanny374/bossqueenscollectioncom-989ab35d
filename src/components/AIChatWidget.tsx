@@ -80,6 +80,7 @@ const QUICK_PROMPTS = [
 ];
 
 export const AIChatWidget = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");

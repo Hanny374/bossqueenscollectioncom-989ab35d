@@ -202,15 +202,59 @@ const ProductPage = () => {
       priceCurrency: selectedVariant?.price.currencyCode || "USD",
       lowPrice: (parseFloat(product.priceRange.minVariantPrice.amount) + PRICE_MARKUP).toFixed(2),
       highPrice: ((parseFloat(variants[variants.length - 1]?.node.price.amount || product.priceRange.minVariantPrice.amount)) + PRICE_MARKUP).toFixed(2),
+      offerCount: variants.length,
       availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       seller: { "@type": "Organization", name: "Boss Queens Collection" },
-      shippingDetails: {
-        "@type": "OfferShippingDetails",
-        shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
-        shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
-        deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "d" }, transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "d" } }
-      }
-    }
+      shippingDetails: [
+        {
+          "@type": "OfferShippingDetails",
+          shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+          shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+          deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "d" }, transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "d" } }
+        },
+        {
+          "@type": "OfferShippingDetails",
+          shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+          shippingDestination: [
+            { "@type": "DefinedRegion", addressCountry: "SX" },
+            { "@type": "DefinedRegion", addressCountry: "JM" },
+            { "@type": "DefinedRegion", addressCountry: "TT" },
+            { "@type": "DefinedRegion", addressCountry: "BB" },
+            { "@type": "DefinedRegion", addressCountry: "GY" },
+            { "@type": "DefinedRegion", addressCountry: "BS" },
+            { "@type": "DefinedRegion", addressCountry: "CU" },
+            { "@type": "DefinedRegion", addressCountry: "DO" },
+            { "@type": "DefinedRegion", addressCountry: "HT" },
+            { "@type": "DefinedRegion", addressCountry: "AG" },
+            { "@type": "DefinedRegion", addressCountry: "LC" },
+            { "@type": "DefinedRegion", addressCountry: "VC" },
+            { "@type": "DefinedRegion", addressCountry: "GD" },
+            { "@type": "DefinedRegion", addressCountry: "KN" },
+            { "@type": "DefinedRegion", addressCountry: "DM" },
+            { "@type": "DefinedRegion", addressCountry: "BZ" },
+            { "@type": "DefinedRegion", addressCountry: "SR" },
+            { "@type": "DefinedRegion", addressCountry: "CW" },
+            { "@type": "DefinedRegion", addressCountry: "AW" },
+            { "@type": "DefinedRegion", addressCountry: "KY" },
+            { "@type": "DefinedRegion", addressCountry: "TC" },
+            { "@type": "DefinedRegion", addressCountry: "VG" },
+            { "@type": "DefinedRegion", addressCountry: "VI" },
+            { "@type": "DefinedRegion", addressCountry: "PR" },
+            { "@type": "DefinedRegion", addressCountry: "AN" }
+          ],
+          deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "d" }, transitTime: { "@type": "QuantitativeValue", minValue: 5, maxValue: 10, unitCode: "d" } }
+        },
+        {
+          "@type": "OfferShippingDetails",
+          shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+          shippingDestination: { "@type": "DefinedRegion", addressCountry: ["GB", "CA", "AU", "NL", "FR", "DE", "NG", "GH", "ZA", "KE"] },
+          deliveryTime: { "@type": "ShippingDeliveryTime", handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "d" }, transitTime: { "@type": "QuantitativeValue", minValue: 7, maxValue: 14, unitCode: "d" } }
+        }
+      ]
+    },
+    mpn: product.handle,
+    material: "100% Virgin Human Hair",
+    audience: { "@type": "PeopleAudience", suggestedGender: "female" }
   };
 
   const breadcrumbJsonLd = {

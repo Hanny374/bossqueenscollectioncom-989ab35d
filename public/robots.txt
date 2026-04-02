@@ -46,6 +46,42 @@ Allow: /
 User-agent: GoogleOther
 Allow: /
 
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: iaskspider
+Allow: /
+
+User-agent: PhindBot
+Allow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
 # Default
 User-agent: *
 Allow: /

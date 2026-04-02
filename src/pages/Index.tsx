@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { Helmet } from "react-helmet-async";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "@/components/Header";
@@ -265,6 +266,40 @@ const Index = () => {
         description="Shop premium 100% virgin human hair wigs, bundles, frontals & closures. Brazilian, Peruvian, Indian hair. Free worldwide shipping over $100. Founded in St. Maarten."
         path="/"
       />
+      {/* ItemList JSON-LD for AI search engines to discover top products */}
+      {topSellers.length > 0 && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: "Best Selling Hair Products",
+              description: "Top selling wigs, bundles and hair products from Boss Queens Collection",
+              numberOfItems: topSellers.length,
+              itemListElement: topSellers.map((p, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                url: `https://bossqueenscollection.com/product/${p.node.handle}`,
+                name: p.node.title,
+                image: p.node.images?.edges[0]?.node?.url || "",
+                item: {
+                  "@type": "Product",
+                  name: p.node.title,
+                  url: `https://bossqueenscollection.com/product/${p.node.handle}`,
+                  image: p.node.images?.edges[0]?.node?.url || "",
+                  brand: { "@type": "Brand", name: "Boss Queens Collection" },
+                  offers: {
+                    "@type": "Offer",
+                    priceCurrency: p.node.priceRange.minVariantPrice.currencyCode,
+                    price: (parseFloat(p.node.priceRange.minVariantPrice.amount) + 20).toFixed(2),
+                    availability: p.node.availableForSale !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                  }
+                }
+              }))
+            })}
+          </script>
+        </Helmet>
+      )}
       <main>
         <EasterBanner />
         <Hero />

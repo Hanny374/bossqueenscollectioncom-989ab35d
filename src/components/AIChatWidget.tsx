@@ -131,6 +131,43 @@ const ChatAddToCartButton = ({ handle }: { handle: string }) => {
   );
 };
 
+/** Sticky cart bar shown inside the chatbot when items are in cart */
+const ChatCartBar = ({ onCheckout }: { onCheckout: () => void }) => {
+  const items = useCartStore(s => s.items);
+  const getCheckoutUrl = useCartStore(s => s.getCheckoutUrl);
+  const setCartOpen = useCartStore(s => s.setCartOpen);
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+  const totalPrice = items.reduce((sum, i) => sum + parseFloat(i.price.amount) * i.quantity, 0);
+
+  if (totalItems === 0) return null;
+
+  return (
+    <div className="shrink-0 border-t border-primary/20 bg-primary/5 px-3 py-2 flex items-center gap-2">
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold text-foreground">
+          🛒 {totalItems} item{totalItems !== 1 ? "s" : ""} · ${totalPrice.toFixed(2)}
+        </p>
+      </div>
+      <button
+        onClick={() => { onCheckout(); setCartOpen(true); }}
+        className="text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/30 bg-background text-primary hover:bg-primary/10 transition-colors"
+      >
+        View Cart
+      </button>
+      <button
+        onClick={() => {
+          const url = getCheckoutUrl();
+          if (url) { window.open(url, "_blank"); onCheckout(); }
+          else { onCheckout(); setCartOpen(true); }
+        }}
+        className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
+        Checkout
+      </button>
+    </div>
+  );
+};
+
 export const AIChatWidget = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);

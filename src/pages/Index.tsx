@@ -754,10 +754,13 @@ const Index = () => {
         </Suspense>
       </main>
       <Suspense fallback={null}>
-                </div>
-                <span className="font-display text-lg md:text-xl font-bold text-foreground">
-                  Free Global Shipping
-                </span>
+        <Footer />
+      </Suspense>
+    </div>
+  );
+};
+
+export default Index;
               </div>
               <span className="text-muted-foreground text-sm md:text-base">
                 On all orders over <span className="font-semibold text-primary">$100</span> — delivered worldwide to your doorstep

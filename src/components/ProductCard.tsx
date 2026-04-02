@@ -231,7 +231,26 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <p className="text-muted-foreground text-sm line-clamp-2">
           {getCardDescription({ title: node.title, productType: node.productType, tags: node.tags, description: node.description, options: node.options })}
         </p>
-        
+
+        <div className="flex items-center justify-between pt-2">
+          <div className="flex items-baseline gap-1.5">
+            {variantCount > 1 && (
+              <span className="text-xs text-muted-foreground">from</span>
+            )}
+            <p className="font-display font-bold text-xl text-primary">
+              ${(parseFloat(price.amount) + PRICE_MARKUP).toFixed(2)}
+            </p>
+            {isOnSale && (
+              <p className="text-sm text-muted-foreground line-through">
+                ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Product Specifications - below buttons */}
+      <div className="mt-2 space-y-1.5">
         {colorOption && colorOption.values.length > 0 && (
           <div className="flex items-center gap-2">
             <Palette className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -313,22 +332,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </div>
           </div>
         )}
-
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-baseline gap-1.5">
-            {variantCount > 1 && (
-              <span className="text-xs text-muted-foreground">from</span>
-            )}
-            <p className="font-display font-bold text-xl text-primary">
-              ${(parseFloat(price.amount) + PRICE_MARKUP).toFixed(2)}
-            </p>
-            {isOnSale && (
-              <p className="text-sm text-muted-foreground line-through">
-                ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
-              </p>
-            )}
-          </div>
-        </div>
       </div>
     </Link>
       <QuickViewModal product={product} open={quickViewOpen} onOpenChange={setQuickViewOpen} />

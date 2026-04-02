@@ -424,7 +424,9 @@ const Index = () => {
               ))}
             </motion.div>
 
-            <ProductGrid products={visibleProducts} isLoading={isLoading} />
+            <Suspense fallback={null}>
+              <ProductGrid products={visibleProducts} isLoading={isLoading} />
+            </Suspense>
 
             {!isLoading && hasMore && (
               <motion.div

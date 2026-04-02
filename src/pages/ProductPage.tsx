@@ -13,6 +13,7 @@ import { ProductReviews } from "@/components/ProductReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
+import { HairDescriptionModal } from "@/components/HairDescriptionModal";
 import {
   Accordion,
   AccordionContent,

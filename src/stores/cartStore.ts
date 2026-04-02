@@ -187,7 +187,12 @@ export const useCartStore = create<CartStore>()(
         try {
           const result = await createShopifyCart({ ...item, lineId: null });
           if (result) {
-            window.open(result.checkoutUrl, '_blank');
+            // Use window.open first; if blocked by popup blocker (common on mobile),
+            // fall back to window.location.href for reliable redirect
+            const newWindow = window.open(result.checkoutUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+              window.location.href = result.checkoutUrl;
+            }
           }
         } catch (error) {
           console.error('Failed to buy now:', error);

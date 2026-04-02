@@ -71,15 +71,15 @@ export const Hero = () => {
               size="lg"
               className="bg-gradient-gold hover:opacity-90 text-espresso shadow-glow text-sm md:text-base px-8 md:px-10 h-12 md:h-14 font-semibold tracking-wide"
             >
-              <Link to="/#products">Shop Collection</Link>
+              <Link to="/#products">Shop Now</Link>
             </Button>
             <Button
               asChild
               variant="outline"
               size="lg"
-              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold text-sm md:text-base px-8 md:px-10 h-12 md:h-14 border-none"
+              className="border-cream/30 text-cream hover:bg-cream/10 hover:text-cream font-semibold text-sm md:text-base px-8 md:px-10 h-12 md:h-14 backdrop-blur-sm bg-cream/5"
             >
-              <a href="#categories">Explore</a>
+              <a href="#top-sellers">View Best Sellers</a>
             </Button>
           </motion.div>
 

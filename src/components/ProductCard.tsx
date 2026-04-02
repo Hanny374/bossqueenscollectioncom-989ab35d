@@ -117,6 +117,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <img
             src={image.url}
             alt={image.altText || node.title}
+            loading="lazy"
+            decoding="async"
             className={`w-full h-full object-cover transition-all duration-500 ${isHovered && secondImage ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
           />
         ) : (

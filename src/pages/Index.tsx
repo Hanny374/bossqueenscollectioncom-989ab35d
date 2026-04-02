@@ -273,9 +273,13 @@ const Index = () => {
       )}
 
       <main>
-        <EasterBanner />
+        <Suspense fallback={null}>
+          <EasterBanner />
+        </Suspense>
         <Hero />
-        <Marquee />
+        <Suspense fallback={null}>
+          <Marquee />
+        </Suspense>
 
         {/* Free Shipping Banner */}
         <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">
@@ -328,7 +332,9 @@ const Index = () => {
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
             </motion.div>
-            <ProductGrid products={topSellers} isLoading={isLoading} />
+            <Suspense fallback={null}>
+              <ProductGrid products={topSellers} isLoading={isLoading} />
+            </Suspense>
           </div>
         </section>
 
@@ -338,7 +344,9 @@ const Index = () => {
         </Suspense>
 
         {/* === STAGE 3: Help Users Find What They Want === */}
-        <Categories />
+        <Suspense fallback={null}>
+          <Categories />
+        </Suspense>
 
         {/* Newly Added Section */}
         <section className="py-12 md:py-20 relative">
@@ -359,7 +367,9 @@ const Index = () => {
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
             </motion.div>
-            <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
+            <Suspense fallback={null}>
+              <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
+            </Suspense>
           </div>
         </section>
 
@@ -414,7 +424,9 @@ const Index = () => {
               ))}
             </motion.div>
 
-            <ProductGrid products={visibleProducts} isLoading={isLoading} />
+            <Suspense fallback={null}>
+              <ProductGrid products={visibleProducts} isLoading={isLoading} />
+            </Suspense>
 
             {!isLoading && hasMore && (
               <motion.div

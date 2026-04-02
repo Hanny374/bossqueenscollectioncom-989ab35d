@@ -332,7 +332,9 @@ const Index = () => {
               </div>
               <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
             </motion.div>
-            <ProductGrid products={topSellers} isLoading={isLoading} />
+            <Suspense fallback={null}>
+              <ProductGrid products={topSellers} isLoading={isLoading} />
+            </Suspense>
           </div>
         </section>
 

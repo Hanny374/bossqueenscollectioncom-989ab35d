@@ -16,27 +16,9 @@ export const ExitIntentPopup = () => {
     const hasShown = localStorage.getItem(STORAGE_KEY);
     if (hasShown) return;
 
-    let triggered = false;
-
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (triggered) return;
-      // Only trigger when mouse moves to top of page (leaving)
-      if (e.clientY <= 5 && e.relatedTarget === null) {
-        triggered = true;
-        setOpen(true);
-        localStorage.setItem(STORAGE_KEY, "true");
-      }
-    };
-
-    // Delay activation so it doesn't fire immediately
-    const timer = setTimeout(() => {
-      document.addEventListener("mouseleave", handleMouseLeave);
-    }, 10000);
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
+    // Show immediately on page load
+    setOpen(true);
+    localStorage.setItem(STORAGE_KEY, "true");
   }, []);
 
   const handleCopy = async () => {

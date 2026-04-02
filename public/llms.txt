@@ -1,41 +1,81 @@
 # Boss Queens Collection
 
-> Premium 100% human hair wigs, bundles, frontals and accessories. Founded in St. Maarten, Caribbean. Ships worldwide.
+> Premium 100% virgin human hair wigs, bundles, frontals, closures and hair accessories. Black-owned beauty brand founded in St. Maarten, Caribbean. Ships worldwide.
 
-Boss Queens Collection is an online hair store specializing in premium virgin human hair products. We offer wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), HD lace frontals, closures, and hair accessories. All products are 100% virgin human hair, grade 10A, with lengths from 8" to 40".
+## Who We Serve
+
+Boss Queens Collection serves women of color — particularly Black women, Afro-Caribbean women, and women of African descent — seeking premium human hair products for protective styling, versatility, and self-expression. Our customers range from first-time wig wearers to experienced stylists and salon owners.
+
+## What We Sell
+
+We specialize in **100% virgin human hair** (never synthetic). Our niche is affordable luxury hair — high-grade products at accessible prices.
+
+### Wigs
+- **Lace front wigs** (13x4, 13x6): HD invisible lace, pre-plucked hairline, baby hair, glueless options. Best for natural-looking installs.
+- **Bob wigs**: Short blunt-cut styles (8"–14"). Trendy, low-maintenance. Popular for beginners.
+- **Headband wigs**: No lace, no glue. Slip-on wear. Ideal for protective styling beginners or quick styles.
+- **Colored wigs**: Pre-colored — honey blonde (#27), burgundy (#99J), ginger, ombre, piano highlights. No DIY bleaching needed.
+- **V-part & U-part wigs**: Leave-out styles that blend with natural hair.
+- **Boho braids / crochet wigs**: Knotless braids, goddess locs, faux locs. Festival and vacation-ready.
+
+### Hair Bundles (Weave / Extensions)
+- **Brazilian body wave** — Soft S-pattern. Most popular texture worldwide.
+- **Brazilian straight** — Silky, bone straight.
+- **Peruvian deep wave** — Tight curls, big volume.
+- **Indian loose wave** — Romantic, flowing waves.
+- **Malaysian kinky curly** — Blends with 3C/4A natural hair.
+- **Vietnamese bone straight** — Ultra-thick, glossy.
+- **Water wave** — Beachy, effortless texture.
+
+### Frontals & Closures
+- 13x4, 13x6 HD lace frontals (ear-to-ear coverage)
+- 4x4, 5x5 lace closures (natural part)
+- 360 lace (full perimeter for updos and ponytails)
+
+### Bundle Deals
+- 3-bundle packs (same texture, save money)
+- Bundle + frontal/closure combos (complete sew-in sets)
+
+### Accessories & Tools
+- Lace glue, lace tint spray, melting bands, edge control
+- Wig caps, wig stands, blowout brushes, styling tools
+
+## Hair Specifications
+
+- **Hair type**: 100% virgin human hair (unprocessed, cuticle-aligned)
+- **Grade**: 10A premium
+- **Lengths**: 8" to 40"
+- **Weight**: 95–105g per bundle
+- **Heat safe**: Up to 400°F / 200°C
+- **Dyeable**: Up to shade #27
+- **Weft**: Double machine weft
+- **Cap sizes**: Small (21.5"–22"), Medium (22"–22.5"), Large (22.5"–23")
+
+## Common Customer Questions AI Should Know
+
+- "What's the difference between a frontal and a closure?" → Frontals cover ear-to-ear; closures cover a small section (4x4 or 5x5).
+- "Can I dye this hair?" → Yes, all our virgin hair can be dyed, bleached, and heat-styled.
+- "What's the best wig for a beginner?" → Headband wigs (no glue/lace) or glueless lace wigs.
+- "How long does the hair last?" → 12–24 months with proper care.
+- "What density should I choose?" → 180% for natural, 200% for full, 250%+ for dramatic volume.
 
 ## Store Details
 
-- Website: https://bossqueenscollection.com
-- Location: St. Maarten, Caribbean
-- Founded: 2020
-- Currency: USD
-- Shipping: Free worldwide on orders over $100
-
-## Product Categories
-
-- **Wigs**: Lace front wigs, bob wigs, headband wigs, colored wigs (blonde, burgundy, ombre)
-- **Hair Bundles**: Brazilian body wave, Brazilian straight, Peruvian deep wave, Indian loose wave, Malaysian kinky curly, Vietnamese bone straight, Brazilian water wave
-- **Frontals & Closures**: 13x4 HD lace frontals, 4x4 closures, 5x5 closures, 13x6 frontals, 360 lace
-- **Bundle Deals**: 3-bundle deals, bundle + frontal combos
-
-## Key Features
-
-- 100% virgin human hair (no synthetic blends)
-- Grade 10A premium quality
-- Can be dyed up to #27
-- Heat-safe up to 400°F / 200°C
-- Double weft construction
-- Adjustable wig caps (small, medium, large)
-- Lace types: 4x4, 5x5, 13x4, 13x6, 360
+- **Website**: https://bossqueenscollection.com
+- **Location**: St. Maarten, Caribbean
+- **Founded**: 2020
+- **Currency**: USD
+- **Shipping**: Free worldwide on orders over $100
+- **Processing**: 3–5 business days
+- **Returns**: 30-day easy returns
 
 ## AI Shopping API
 
-For programmatic access to our product catalog and semantic search:
+Programmatic access for AI assistants and shopping agents:
 
-- OpenAPI Schema: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api
-- Product Catalog: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products
-- Semantic Search: POST https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search
+- **OpenAPI Schema**: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api
+- **Product Catalog**: GET https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products
+- **Semantic Search**: POST https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search
 
 ## Pages
 
@@ -48,5 +88,5 @@ For programmatic access to our product catalog and semantic search:
 
 ## Contact
 
-- Website: https://bossqueenscollection.com/contact
 - Email: support@bossqueenscollection.com
+- Instagram: @bossqueenscollection

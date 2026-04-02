@@ -58,21 +58,45 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const price = node.priceRange.minVariantPrice;
   const compareAtPrice = node.compareAtPriceRange?.maxVariantPrice;
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
-  const firstVariant = node.variants.edges[0]?.node;
-  
   const lengthOption = node.options?.find(opt => opt.name.toLowerCase().includes('length'));
   const colorOption = node.options?.find(opt => opt.name.toLowerCase() === 'color');
   const variantCount = node.variants.edges.length;
   const availableVariants = node.variants.edges.filter(v => v.node.availableForSale).length;
   const inStock = availableVariants > 0;
 
+  // Find best matching variant based on selected color/length
+  const findMatchingVariant = () => {
+    const variants = node.variants.edges;
+    if (!selectedColor && !selectedLength) return variants[0]?.node;
+    
+    // Try exact match first
+    const exact = variants.find(v => {
+      const opts = v.node.selectedOptions || [];
+      const colorMatch = !selectedColor || opts.some(o => o.name.toLowerCase() === 'color' && o.value === selectedColor);
+      const lengthMatch = !selectedLength || opts.some(o => o.name.toLowerCase().includes('length') && o.value === selectedLength);
+      return colorMatch && lengthMatch && v.node.availableForSale;
+    });
+    if (exact) return exact.node;
+
+    // Partial match
+    const partial = variants.find(v => {
+      const opts = v.node.selectedOptions || [];
+      const colorMatch = selectedColor && opts.some(o => o.name.toLowerCase() === 'color' && o.value === selectedColor);
+      const lengthMatch = selectedLength && opts.some(o => o.name.toLowerCase().includes('length') && o.value === selectedLength);
+      return (colorMatch || lengthMatch) && v.node.availableForSale;
+    });
+    return partial?.node || variants[0]?.node;
+  };
+
+  const activeVariant = findMatchingVariant();
+
   const getCartItem = () => ({
     product,
-    variantId: firstVariant!.id,
-    variantTitle: firstVariant!.title,
-    price: { amount: (parseFloat(firstVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: firstVariant!.price.currencyCode },
+    variantId: activeVariant!.id,
+    variantTitle: activeVariant!.title,
+    price: { amount: (parseFloat(activeVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: activeVariant!.price.currencyCode },
     quantity: 1,
-    selectedOptions: firstVariant!.selectedOptions || []
+    selectedOptions: activeVariant!.selectedOptions || []
   });
 
   const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => t.toLowerCase().includes("accessor")));

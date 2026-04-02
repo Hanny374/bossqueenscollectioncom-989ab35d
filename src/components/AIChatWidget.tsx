@@ -341,20 +341,26 @@ export const AIChatWidget = () => {
                           components={{
                             a: ({ href, children }) => {
                               // Check if this is an internal product link
-                              const internalPath = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)(\/product\/[^\s?#]+)/)?.[1];
-                              if (internalPath) {
+                              const internalMatch = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)\/product\/([^\s?#]+)/);
+                              const internalPath = internalMatch ? `/product/${internalMatch[1]}` : null;
+                              const productHandle = internalMatch?.[1];
+                              
+                              if (internalPath && productHandle) {
                                 return (
-                                  <a
-                                    href={internalPath}
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      setIsOpen(false);
-                                      navigate(internalPath);
-                                    }}
-                                    className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
-                                  >
-                                    {children}
-                                  </a>
+                                  <span className="inline-flex flex-wrap items-center gap-1">
+                                    <a
+                                      href={internalPath}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setIsOpen(false);
+                                        navigate(internalPath);
+                                      }}
+                                      className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
+                                    >
+                                      {children}
+                                    </a>
+                                    <ChatAddToCartButton handle={productHandle} />
+                                  </span>
                                 );
                               }
                               return (

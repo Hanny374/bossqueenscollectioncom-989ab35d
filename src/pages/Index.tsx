@@ -344,7 +344,9 @@ const Index = () => {
         </Suspense>
 
         {/* === STAGE 3: Help Users Find What They Want === */}
-        <Categories />
+        <Suspense fallback={null}>
+          <Categories />
+        </Suspense>
 
         {/* Newly Added Section */}
         <section className="py-12 md:py-20 relative">

@@ -104,7 +104,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const requireHairDescription = (action: "add" | "buy", e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!firstVariant) return;
+    if (!activeVariant) return;
     if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
       setPendingAction(action);
       setHairModalOpen(true);
@@ -194,7 +194,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 z-10 flex gap-1.5 md:gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
-            disabled={isCartLoading || !firstVariant?.availableForSale}
+            disabled={isCartLoading || !activeVariant?.availableForSale}
             variant="outline"
             className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-9 md:h-11 text-xs md:text-sm"
           >
@@ -209,12 +209,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </Button>
           <Button
             onClick={(e) => requireHairDescription("buy", e)}
-            disabled={isBuyingNow || !firstVariant?.availableForSale}
+            disabled={isBuyingNow || !activeVariant?.availableForSale}
             className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 md:h-11 text-xs md:text-sm"
           >
             {isBuyingNow ? (
               <Loader2 className="w-4 h-4 animate-spin" />
-            ) : !firstVariant?.availableForSale ? (
+            ) : !activeVariant?.availableForSale ? (
               "Sold Out"
             ) : (
               <>

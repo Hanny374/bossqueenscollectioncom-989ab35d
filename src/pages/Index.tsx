@@ -53,8 +53,8 @@ function getCategoryFromHash(hash: string): string {
 const PRODUCTS_PER_PAGE = 20;
 
 const Index = () => {
-  const { data: products = [], isLoading } = useProducts(50);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(10);
+  const { data: products = [], isLoading } = useProducts(500);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
   const location = useLocation();
   const navigate = useNavigate();
 

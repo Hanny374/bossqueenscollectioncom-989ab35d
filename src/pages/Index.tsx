@@ -336,6 +336,445 @@ const Index = () => {
           </div>
         </section>
 
+        {/* === STAGE 1: Immediate Product Exposure === */}
+        <section id="top-sellers" className="py-12 md:py-20 relative bg-secondary/30">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12 gap-3 md:gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
+                  <Flame className="w-5 h-5 text-primary" />
+                  <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Best Sellers</span>
+                </div>
+                <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Top Sellers</h2>
+              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">Our most popular picks loved by queens worldwide</p>
+            </motion.div>
+            <ProductGrid products={topSellers} isLoading={isLoading} />
+          </div>
+        </section>
+
+        {/* === STAGE 2: Social Proof Right After Products === */}
+        <Suspense fallback={null}>
+          <TrustBar />
+        </Suspense>
+
+        {/* === STAGE 3: Help Users Find What They Want === */}
+        <Categories />
+
+        {/* Newly Added Section */}
+        <section className="py-12 md:py-20 relative">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-12 gap-3 md:gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                  <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Fresh Drops</span>
+                </div>
+                <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Newly Added</h2>
+              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">The latest additions to our premium collection</p>
+            </motion.div>
+            <ProductGrid products={newestBundles} isLoading={isLoadingNewest} />
+          </div>
+        </section>
+
+        {/* === STAGE 4: Full Catalog Browse === */}
+        <section id="products" className="py-14 md:py-28 relative">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-16 gap-3 md:gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-2 md:mb-3 block">
+                  Our Products
+                </span>
+                <h2 className="font-display text-3xl md:text-6xl font-bold text-foreground">
+                  The Collection
+                </h2>
+              </div>
+              <p className="text-muted-foreground text-lg max-w-sm">
+                Premium human hair wigs and bundles, crafted for queens who demand the best
+              </p>
+            </motion.div>
+
+            {/* Category Filter Tabs */}
+            <motion.div
+              className="flex gap-2 mb-6 md:mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+            >
+              {CATEGORY_FILTERS.map((cat) => (
+                <button
+                  key={cat.value}
+                  onClick={() => handleCategoryChange(cat.value)}
+                  className={`relative px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 whitespace-nowrap shrink-0 ${activeCategory === cat.value
+                    ? "bg-primary text-primary-foreground shadow-glow"
+                    : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
+                    }`}
+                >
+                  {cat.label}
+                  {activeCategory === cat.value && (
+                    <motion.div
+                      layoutId="category-indicator"
+                      className="absolute inset-0 bg-primary rounded-full -z-10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                    />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+
+            <ProductGrid products={visibleProducts} isLoading={isLoading} />
+
+            {/* Load More Button */}
+            {!isLoading && hasMore && (
+              <motion.div
+                className="flex flex-col items-center gap-3 mt-12"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + PRODUCTS_PER_PAGE)}
+                  className="px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-medium text-sm shadow-glow hover:opacity-90 transition-all duration-300"
+                >
+                  Load More Products
+                </button>
+                <span className="text-xs text-muted-foreground">
+                  Showing {visibleProducts.length} of {filteredProducts.length} products
+                </span>
+              </motion.div>
+            )}
+
+            {/* No results message */}
+            {!isLoading && filteredProducts.length === 0 && products.length > 0 && (
+              <motion.div
+                className="text-center py-16"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <p className="text-muted-foreground text-lg mb-4">
+                  No products found in this category yet.
+                </p>
+                <button
+                  onClick={() => handleCategoryChange("all")}
+                  className="text-primary font-medium hover:underline"
+                >
+                  View all products
+                </button>
+              </motion.div>
+            )}
+          </div>
+        </section>
+
+        {/* Recently Viewed */}
+        <RecentlyViewed />
+
+        <Suspense fallback={null}>
+          {/* === STAGE 5: Social Proof & Reviews === */}
+          <HomeReviewsSection />
+
+          {/* === STAGE 6: Mid-Funnel Conversion CTA === */}
+          <section className="py-14 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-background">
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+            <div className="container px-4 md:px-8 relative">
+              <motion.div
+                className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="w-16 h-16 rounded-full bg-gradient-gold flex items-center justify-center shadow-glow">
+                  <Crown className="w-8 h-8 text-primary-foreground" />
+                </div>
+                <div className="space-y-3">
+                  <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
+                    Ready to Slay?
+                  </h2>
+                  <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                    Join 5,000+ queens who trust Boss Queens Collection for their premium hair needs. Your perfect look is just a click away.
+                  </p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-4 mt-2">
+                  <Link
+                    to="/#products"
+                    className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gradient-gold text-espresso font-semibold text-sm md:text-base shadow-glow hover:opacity-90 transition-all duration-300"
+                  >
+                    <ShoppingBag className="w-5 h-5" />
+                    Shop Now
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border-2 border-primary/30 text-foreground font-semibold text-sm md:text-base hover:bg-primary/5 transition-all duration-300"
+                  >
+                    Need Help Choosing?
+                  </Link>
+                </div>
+                <div className="flex items-center gap-6 mt-3 text-muted-foreground text-sm">
+                  <div className="flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-primary" />
+                    <span>Free shipping over $100</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-primary" />
+                    <span>30-day returns</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* === STAGE 7: Brand Story & Trust === */}
+          <section className="py-14 md:py-28 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl -translate-x-1/2" />
+            <div className="container px-4 md:px-8 relative">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <motion.div
+                  className="space-y-8"
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7 }}
+                >
+                  <div>
+                    <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                      Our Story
+                    </span>
+                    <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                      Born in the Caribbean,
+                      <br />
+                      <span className="text-gradient-gold">Made for Queens</span>
+                    </h2>
+                  </div>
+                  <div className="space-y-5 text-muted-foreground leading-relaxed">
+                    <p>
+                      From the beautiful island of <span className="text-foreground font-medium">St. Maarten</span> — a Caribbean gem of just 37 square miles — Boss Queens Collection was founded with a bold vision: to make premium, 100% human hair accessible to queens everywhere.
+                    </p>
+                    <p>
+                      We source only the finest virgin hair from around the world and deliver it straight to your doorstep. Our mission is simple: <span className="text-foreground font-medium">top quality, affordable luxury, worldwide</span>.
+                    </p>
+                  </div>
+                </motion.div>
+                <motion.div
+                  className="grid grid-cols-2 gap-4"
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.15 }}
+                >
+                  {[
+                    { icon: Crown, title: "100% Human Hair", desc: "No synthetic blends — only premium virgin hair" },
+                    { icon: ShieldCheck, title: "Affordable Luxury", desc: "Premium quality at prices that won't break the bank" },
+                    { icon: Globe, title: "Global Shipping", desc: "From the Caribbean to your doorstep worldwide" },
+                    { icon: Heart, title: "Caribbean Heart", desc: "Founded with island love and dedication to every queen" },
+                  ].map((feature) => (
+                    <div
+                      key={feature.title}
+                      className="bg-card border border-border/60 rounded-2xl p-6 space-y-3 hover:border-primary/20 hover:shadow-soft transition-all duration-300"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                        <feature.icon className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-display text-lg font-bold text-foreground">{feature.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{feature.desc}</p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* === STAGE 8: Payment Security === */}
+          <section className="py-12 md:py-20 border-y border-border/50 bg-secondary/20">
+            <div className="container px-4 md:px-8">
+              <motion.div
+                className="flex flex-col items-center text-center gap-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div>
+                  <span className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3 block">
+                    Your Purchase Is Protected
+                  </span>
+                  <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                    Shop With Confidence
+                  </h3>
+                  <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+                    Every order is backed by our satisfaction guarantee and protected by industry-leading security
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-3xl">
+                  {[
+                    { icon: Truck, label: "Free Shipping", desc: "On orders over $100" },
+                    { icon: Shield, label: "Secure Checkout", desc: "256-bit SSL encryption" },
+                    { icon: ShieldCheck, label: "100% Authentic", desc: "Guaranteed human hair" },
+                    { icon: Package, label: "Easy Returns", desc: "30-day money back" },
+                  ].map((badge) => (
+                    <motion.div
+                      key={badge.label}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border/60 hover:border-primary/20 hover:shadow-soft transition-all duration-300"
+                      whileHover={{ y: -2 }}
+                    >
+                      <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                        <badge.icon className="w-7 h-7" />
+                      </div>
+                      <span className="text-sm font-semibold text-foreground">{badge.label}</span>
+                      <span className="text-xs text-muted-foreground">{badge.desc}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                <div className="flex flex-col items-center gap-3 pt-4">
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">We Accept</span>
+                  <div className="flex items-center gap-3 flex-wrap justify-center">
+                    <VisaLogo className="h-10 w-auto" />
+                    <MastercardLogo className="h-10 w-auto" />
+                    <AmexLogo className="h-10 w-auto" />
+                    <DiscoverLogo className="h-10 w-auto" />
+                    <PayPalLogo className="h-10 w-auto" />
+                    <ApplePayLogo className="h-10 w-auto" />
+                    <GooglePayLogo className="h-10 w-auto" />
+                  </div>
+                  <span className="text-sm font-medium text-muted-foreground">Accepted Worldwide via Bank Account</span>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* === STAGE 9: Social (After Conversion) === */}
+          <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5">
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+            <div className="container px-4 md:px-8 relative">
+              <motion.div
+                className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="w-20 h-20 rounded-full bg-gradient-gold flex items-center justify-center shadow-glow">
+                  <Camera className="w-9 h-9 text-primary-foreground" />
+                </div>
+                <div className="space-y-3">
+                  <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
+                    Tag Us In Your Selfie
+                  </h2>
+                  <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                    Show off your Boss Queens hair! Tag us on Instagram for a chance to be featured and win a discount on your next order.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                  <a
+                    href="https://www.instagram.com/bossqueenscollection"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm shadow-glow hover:opacity-90 transition-all duration-300"
+                  >
+                    <Instagram className="w-5 h-5" />
+                    @bossqueenscollection
+                  </a>
+                  <span className="text-sm text-muted-foreground font-medium">
+                    Use <span className="text-primary font-bold">#BossQueensHair</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-6 mt-4 text-muted-foreground text-sm">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span>Get featured</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Heart className="w-4 h-4 text-primary" />
+                    <span>Win discounts</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-primary" />
+                    <span>Join 5K+ queens</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Follow Us on TikTok */}
+          <section className="py-10 md:py-16 relative overflow-hidden bg-foreground text-background">
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+            <div className="container px-4 md:px-8 relative">
+              <motion.div
+                className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="flex items-center gap-4 md:gap-5 text-center md:text-left">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-background/10 flex items-center justify-center shrink-0 hidden md:flex">
+                    <svg viewBox="0 0 24 24" className="w-7 h-7 md:w-8 md:h-8 fill-current" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.89a8.28 8.28 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.3z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl font-bold">Follow Us on TikTok</h3>
+                    <p className="text-sm md:text-base opacity-70 mt-0.5">Tutorials, transformations & behind-the-scenes</p>
+                  </div>
+                </div>
+                <a
+                  href="https://www.tiktok.com/@bossqueenscollection"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-background text-foreground font-semibold text-sm hover:opacity-90 transition-all duration-300 shadow-lg shrink-0"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.89a8.28 8.28 0 004.76 1.5v-3.4a4.85 4.85 0 01-1-.3z"/>
+                  </svg>
+                  @bossqueenscollection
+                </a>
+              </motion.div>
+            </div>
+          </section>
+        </Suspense>
+      </main>
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Truck className="w-5 h-5 text-primary" />
+                </div>
+                <span className="font-display text-lg md:text-xl font-bold text-foreground">
+                  Free Global Shipping
+                </span>
+              </div>
+              <span className="text-muted-foreground text-sm md:text-base">
+                On all orders over <span className="font-semibold text-primary">$100</span> — delivered worldwide to your doorstep
+              </span>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Globe className="w-4 h-4" />
+                <span>180+ Countries</span>
+                <span className="text-border">·</span>
+                <Package className="w-4 h-4" />
+                <span>Tracked & Insured</span>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Top Sellers Section */}
         <section className="py-12 md:py-20 relative bg-secondary/30">
           <div className="container px-4 md:px-8">

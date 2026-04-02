@@ -287,16 +287,35 @@ export const AIChatWidget = () => {
                       <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_a]:text-primary [&_a]:underline [&_a]:font-medium">
                         <ReactMarkdown
                           components={{
-                            a: ({ href, children }) => (
-                              <a
-                                href={href}
-                                target={href?.startsWith("http") ? "_blank" : undefined}
-                                rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                                className="text-primary underline font-medium hover:text-primary/80"
-                              >
-                                {children}
-                              </a>
-                            ),
+                            a: ({ href, children }) => {
+                              // Check if this is an internal product link
+                              const internalPath = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)(\/product\/[^\s?#]+)/)?.[1];
+                              if (internalPath) {
+                                return (
+                                  <a
+                                    href={internalPath}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      setIsOpen(false);
+                                      navigate(internalPath);
+                                    }}
+                                    className="text-primary underline font-medium hover:text-primary/80 cursor-pointer"
+                                  >
+                                    {children}
+                                  </a>
+                                );
+                              }
+                              return (
+                                <a
+                                  href={href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-primary underline font-medium hover:text-primary/80"
+                                >
+                                  {children}
+                                </a>
+                              );
+                            },
                           }}
                         >
                           {msg.content}

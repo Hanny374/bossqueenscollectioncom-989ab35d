@@ -264,11 +264,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-baseline gap-1.5">
-            {variantCount > 1 && (
+            {variantCount > 1 && !selectedColor && !selectedLength && (
               <span className="text-xs text-muted-foreground">from</span>
             )}
             <p className="font-display font-bold text-xl text-primary">
-              ${(parseFloat(price.amount) + PRICE_MARKUP).toFixed(2)}
+              ${(parseFloat(activeVariant?.price.amount || price.amount) + PRICE_MARKUP).toFixed(2)}
             </p>
             {isOnSale && (
               <p className="text-sm text-muted-foreground line-through">

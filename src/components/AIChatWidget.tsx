@@ -1,9 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Crown, Loader2, ShoppingBag, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Crown, Loader2, ShoppingBag, Sparkles, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
+import { fetchProductByHandle, PRICE_MARKUP } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
 
 type Msg = { role: "user" | "assistant"; content: string };
 

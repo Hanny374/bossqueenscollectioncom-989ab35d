@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { VerifiedSellerBadge } from "./VerifiedSellerBadge";
 import { AISearchBar } from "./AISearchBar";
 import { CartDrawer } from "./CartDrawer";
-import { Menu, X, Crown, Search } from "lucide-react";
+import { Menu, X, Crown, Search, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, AnimatePresence } from "framer-motion";
@@ -174,6 +174,7 @@ export const Header = () => {
               )}
             </AnimatePresence>
 
+            <div id="google_translate_element" className="notranslate [&_.goog-te-gadget]:!font-sans [&_.goog-te-combo]:!text-xs [&_.goog-te-combo]:!border [&_.goog-te-combo]:!border-border [&_.goog-te-combo]:!rounded-md [&_.goog-te-combo]:!bg-background [&_.goog-te-combo]:!text-foreground [&_.goog-te-combo]:!py-1 [&_.goog-te-combo]:!px-1.5 [&_.goog-te-combo]:!appearance-auto [&_.goog-te-gadget-simple]:!border-0 [&_.goog-te-gadget-simple]:!bg-transparent [&_.goog-te-gadget>span]:!hidden [&_a]:!hidden [&_.VIpgJd-ZVi9od-l4eHX-hSRGPd]:!hidden" />
             <CartDrawer />
             <VerifiedSellerBadge className="hidden lg:inline-flex" />
           </div>

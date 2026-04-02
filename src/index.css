@@ -308,3 +308,12 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+/* Google Translate widget cleanup */
+.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame {
+  display: none !important;
+}
+body { top: 0 !important; }
+.skiptranslate { display: none !important; }
+#google_translate_element .skiptranslate { display: block !important; }
+.goog-te-gadget { font-size: 0 !important; }

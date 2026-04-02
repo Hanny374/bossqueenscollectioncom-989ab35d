@@ -42,6 +42,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const [hairModalOpen, setHairModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedLength, setSelectedLength] = useState<string | null>(null);
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
   const buyNow = useCartStore(state => state.buyNow);
   const addItem = useCartStore(state => state.addItem);
@@ -56,21 +58,45 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const price = node.priceRange.minVariantPrice;
   const compareAtPrice = node.compareAtPriceRange?.maxVariantPrice;
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
-  const firstVariant = node.variants.edges[0]?.node;
-  
   const lengthOption = node.options?.find(opt => opt.name.toLowerCase().includes('length'));
   const colorOption = node.options?.find(opt => opt.name.toLowerCase() === 'color');
   const variantCount = node.variants.edges.length;
   const availableVariants = node.variants.edges.filter(v => v.node.availableForSale).length;
   const inStock = availableVariants > 0;
 
+  // Find best matching variant based on selected color/length
+  const findMatchingVariant = () => {
+    const variants = node.variants.edges;
+    if (!selectedColor && !selectedLength) return variants[0]?.node;
+    
+    // Try exact match first
+    const exact = variants.find(v => {
+      const opts = v.node.selectedOptions || [];
+      const colorMatch = !selectedColor || opts.some(o => o.name.toLowerCase() === 'color' && o.value === selectedColor);
+      const lengthMatch = !selectedLength || opts.some(o => o.name.toLowerCase().includes('length') && o.value === selectedLength);
+      return colorMatch && lengthMatch && v.node.availableForSale;
+    });
+    if (exact) return exact.node;
+
+    // Partial match
+    const partial = variants.find(v => {
+      const opts = v.node.selectedOptions || [];
+      const colorMatch = selectedColor && opts.some(o => o.name.toLowerCase() === 'color' && o.value === selectedColor);
+      const lengthMatch = selectedLength && opts.some(o => o.name.toLowerCase().includes('length') && o.value === selectedLength);
+      return (colorMatch || lengthMatch) && v.node.availableForSale;
+    });
+    return partial?.node || variants[0]?.node;
+  };
+
+  const activeVariant = findMatchingVariant();
+
   const getCartItem = () => ({
     product,
-    variantId: firstVariant!.id,
-    variantTitle: firstVariant!.title,
-    price: { amount: (parseFloat(firstVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: firstVariant!.price.currencyCode },
+    variantId: activeVariant!.id,
+    variantTitle: activeVariant!.title,
+    price: { amount: (parseFloat(activeVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: activeVariant!.price.currencyCode },
     quantity: 1,
-    selectedOptions: firstVariant!.selectedOptions || []
+    selectedOptions: activeVariant!.selectedOptions || []
   });
 
   const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => t.toLowerCase().includes("accessor")));
@@ -78,7 +104,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const requireHairDescription = (action: "add" | "buy", e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!firstVariant) return;
+    if (!activeVariant) return;
     if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {
       setPendingAction(action);
       setHairModalOpen(true);
@@ -168,7 +194,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 z-10 flex gap-1.5 md:gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
-            disabled={isCartLoading || !firstVariant?.availableForSale}
+            disabled={isCartLoading || !activeVariant?.availableForSale}
             variant="outline"
             className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-9 md:h-11 text-xs md:text-sm"
           >
@@ -183,12 +209,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </Button>
           <Button
             onClick={(e) => requireHairDescription("buy", e)}
-            disabled={isBuyingNow || !firstVariant?.availableForSale}
+            disabled={isBuyingNow || !activeVariant?.availableForSale}
             className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 md:h-11 text-xs md:text-sm"
           >
             {isBuyingNow ? (
               <Loader2 className="w-4 h-4 animate-spin" />
-            ) : !firstVariant?.availableForSale ? (
+            ) : !activeVariant?.availableForSale ? (
               "Sold Out"
             ) : (
               <>
@@ -238,11 +264,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="flex items-center justify-between pt-2">
           <div className="flex items-baseline gap-1.5">
-            {variantCount > 1 && (
+            {variantCount > 1 && !selectedColor && !selectedLength && (
               <span className="text-xs text-muted-foreground">from</span>
             )}
             <p className="font-display font-bold text-xl text-primary">
-              ${(parseFloat(price.amount) + PRICE_MARKUP).toFixed(2)}
+              ${(parseFloat(activeVariant?.price.amount || price.amount) + PRICE_MARKUP).toFixed(2)}
             </p>
             {isOnSale && (
               <p className="text-sm text-muted-foreground line-through">
@@ -262,11 +288,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {colorOption.values.slice(0, 6).map((color) => {
                 const bg = colorNameToHex(color);
                 const isGradient = bg.startsWith("linear-gradient");
+                const isSelected = selectedColor === color;
                 return (
-                  <span
+                  <button
                     key={color}
                     title={color}
-                    className="w-5 h-5 rounded-full border border-border/60 shadow-sm shrink-0"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedColor(isSelected ? null : color); }}
+                    className={`w-5 h-5 rounded-full border-2 shadow-sm shrink-0 transition-all cursor-pointer ${
+                      isSelected ? "border-primary ring-2 ring-primary/30 scale-110" : "border-border/60 hover:scale-110"
+                    }`}
                     style={isGradient ? { background: bg } : { backgroundColor: bg }}
                   />
                 );
@@ -294,17 +324,22 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 const variantPrice = matchingVariant?.node.price.amount;
                 
                 return (
-                  <span 
-                    key={length} 
-                    className="text-xs bg-secondary text-foreground px-2.5 py-1 rounded-full flex items-center gap-1 border border-border/50"
+                  <button 
+                    key={length}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedLength(selectedLength === length ? null : length); }}
+                    className={`text-xs px-2.5 py-1 rounded-full flex items-center gap-1 border transition-all cursor-pointer ${
+                      selectedLength === length
+                        ? "border-primary bg-primary/10 text-primary font-semibold ring-1 ring-primary/30"
+                        : "bg-secondary text-foreground border-border/50 hover:border-primary/50"
+                    }`}
                   >
                     <span className="font-medium">{length}"</span>
                     {variantPrice && (
-                      <span className="text-primary font-semibold">
+                      <span className={`font-semibold ${selectedLength === length ? "text-primary" : "text-primary"}`}>
                         ${(parseFloat(variantPrice) + PRICE_MARKUP).toFixed(0)}
                       </span>
                     )}
-                  </span>
+                  </button>
                 );
               })}
               {lengthOption.values.length > 4 && (

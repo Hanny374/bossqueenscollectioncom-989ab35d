@@ -429,66 +429,6 @@ const ProductPage = () => {
                 </div>
               </motion.div>
 
-              {/* Sales-optimized description */}
-              {(() => {
-                const salesCopy = generateSalesCopy({
-                  title: product.title,
-                  productType: product.productType,
-                  tags: product.tags,
-                  description: product.description,
-                  options: product.options,
-                });
-                return (
-                  <div className="space-y-5">
-                    {/* Compelling headline */}
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-primary shrink-0" />
-                      <p className="font-display text-lg font-semibold text-foreground">
-                        {salesCopy.headline}
-                      </p>
-                    </div>
-
-                    {/* Short sales pitch */}
-                    <p className="text-muted-foreground text-base leading-relaxed">
-                      {salesCopy.shortDescription}
-                    </p>
-
-                    {/* Shopify description (if exists) */}
-                    {product.descriptionHtml && (
-                      <div 
-                        className="text-muted-foreground text-sm leading-relaxed prose prose-stone max-w-none whitespace-pre-wrap
-                        [&>p]:mb-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-3 [&>li]:mb-1.5 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-4 [&>h3]:mb-2"
-                        dangerouslySetInnerHTML={{ __html: rebrandHtml(product.descriptionHtml) }}
-                      />
-                    )}
-
-                    {/* Key benefits */}
-                    <div className="p-4 rounded-xl bg-secondary/40 border border-border/50 space-y-2.5">
-                      <p className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-                        <Star className="w-4 h-4 text-primary" />
-                        Why You'll Love It
-                      </p>
-                      <ul className="space-y-2">
-                        {salesCopy.benefits.slice(0, 6).map((benefit, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Trust tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {["✨ Premium 10A Grade", "💎 100% Human Hair", "🔥 Best Seller", "🛡️ 30-Day Guarantee"].map((tag) => (
-                        <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })()}
 
               {/* Variants */}
               {variants.length > 1 && (

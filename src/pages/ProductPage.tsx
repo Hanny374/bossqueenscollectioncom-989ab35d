@@ -66,9 +66,12 @@ const ProductPage = () => {
   const [selectedHeadSize, setSelectedHeadSize] = useState<string>("medium");
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [hairModalOpen, setHairModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const addItem = useCartStore(state => state.addItem);
   const buyNow = useCartStore(state => state.buyNow);
+  const hairDescription = useCartStore(state => state.hairDescription);
   const isCartLoading = useCartStore(state => state.isLoading);
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
 

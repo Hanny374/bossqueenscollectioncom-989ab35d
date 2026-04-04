@@ -229,7 +229,40 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
-      <div className="mt-3 md:mt-4 space-y-1.5 md:space-y-2">
+      {/* Mobile buttons — below image */}
+      <div className="flex gap-2 mt-2 md:hidden">
+        <Button
+          onClick={(e) => requireHairDescription("add", e)}
+          disabled={isCartLoading || !activeVariant?.availableForSale}
+          variant="outline"
+          className="flex-1 border-primary text-primary hover:bg-primary/10 h-9 text-xs font-semibold"
+        >
+          {isCartLoading ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : (
+            <>
+              <ShoppingCart className="w-3.5 h-3.5 mr-1" />
+              Add to Cart
+            </>
+          )}
+        </Button>
+        <Button
+          onClick={(e) => requireHairDescription("buy", e)}
+          disabled={isBuyingNow || !activeVariant?.availableForSale}
+          className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 text-xs font-semibold"
+        >
+          {isBuyingNow ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : !activeVariant?.availableForSale ? (
+            "Sold Out"
+          ) : (
+            <>
+              <Zap className="w-3.5 h-3.5 mr-1" />
+              Buy Now
+            </>
+          )}
+        </Button>
+      </div>
         <h3 className="font-display text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
           {node.title}
         </h3>

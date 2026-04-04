@@ -105,6 +105,13 @@ const ProductImageCarousel = ({
     setTranslate({ x: 0, y: 0 });
   }, []);
 
+  const goToImage = useCallback((dir: 1 | -1) => {
+    const next = (selectedImage + dir + images.length) % images.length;
+    onSelectImage(next);
+    setZoomScale(1);
+    setTranslate({ x: 0, y: 0 });
+  }, [selectedImage, images.length, onSelectImage]);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;

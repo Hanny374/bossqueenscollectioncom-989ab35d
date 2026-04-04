@@ -1,0 +1,171 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Boss Queens Collection — AI Shopping API",
+    "description": "Search and browse premium 100% virgin human hair products from Boss Queens Collection. Wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, closures, and accessories. All products shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $100 USD.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Boss Queens Collection",
+      "email": "support@bossqueenscollection.com",
+      "url": "https://bossqueenscollection.com"
+    },
+    "x-logo": {
+      "url": "https://bossqueenscollection.com/icon-512.png"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api",
+      "description": "Production AI Shopping API"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "operationId": "listProducts",
+        "summary": "List all available hair products",
+        "description": "Returns a paginated list of available products from the Boss Queens Collection catalog. Supports filtering by product type (Wig, Bundles, Frontal, Closure, Accessories).",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of products to return (1-50)",
+            "schema": { "type": "integer", "default": 20, "minimum": 1, "maximum": 50 }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by product type. Examples: Wig, Bundles, Frontal, Closure, Accessories",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of available products with pricing, images, variants, and direct purchase links",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "store": { "type": "string", "example": "Boss Queens Collection" },
+                    "website": { "type": "string", "example": "https://bossqueenscollection.com" },
+                    "currency": { "type": "string", "example": "USD" },
+                    "products": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Product" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "operationId": "searchProducts",
+        "summary": "Semantic search for hair products using natural language",
+        "description": "Search the product catalog using natural language queries. Powered by vector embeddings for intelligent matching. Example queries: 'blonde bob wig for beginners', 'Brazilian body wave bundles 20 inch', 'glueless lace front wig under $100'.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["query"],
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Natural language search query describing the desired product",
+                    "example": "wavy hair for beach vacation"
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 5,
+                    "minimum": 1,
+                    "maximum": 20,
+                    "description": "Maximum number of results to return"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Semantically matched products ranked by relevance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "store": { "type": "string" },
+                    "query": { "type": "string" },
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/SearchResult" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "handle": { "type": "string", "description": "URL-safe product identifier" },
+          "url": { "type": "string", "format": "uri", "description": "Direct link to product page" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "type": { "type": "string", "description": "Product category (Wig, Bundles, Frontal, etc.)" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "price": { "type": "number", "description": "Starting price in USD" },
+          "compareAtPrice": { "type": "number", "nullable": true, "description": "Original price before discount" },
+          "inStock": { "type": "boolean" },
+          "image": { "type": "string", "format": "uri", "description": "Primary product image URL" },
+          "variants": {
+            "type": "array",
+            "description": "Available variants with size/color/density options",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "availableForSale": { "type": "boolean" },
+                "price": { "type": "object", "properties": { "amount": { "type": "string" }, "currencyCode": { "type": "string" } } },
+                "selectedOptions": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "value": { "type": "string" } } } }
+              }
+            }
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Option name (e.g. Length, Color, Density)" },
+                "values": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      },
+      "SearchResult": {
+        "allOf": [
+          { "$ref": "#/components/schemas/Product" },
+          {
+            "type": "object",
+            "properties": {
+              "similarity": { "type": "integer", "description": "Match confidence score (0-100)" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

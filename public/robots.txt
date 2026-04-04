@@ -90,9 +90,9 @@ Allow: /
 Sitemap: https://bossqueenscollection.com/sitemap.xml
 Sitemap: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/sitemap
 
-# AI Discovery — https://llmstxt.org
-# Structured store info for AI assistants (ChatGPT, Google AI, Perplexity, etc.)
-# llms.txt: https://bossqueenscollection.com/llms.txt
-# llms-full.txt: https://bossqueenscollection.com/llms-full.txt
-# AI Plugin: https://bossqueenscollection.com/.well-known/ai-plugin.json
-# AI Shopping API: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api
+# AI Discovery
+LLMs-Txt: https://bossqueenscollection.com/llms.txt
+LLMs-Full-Txt: https://bossqueenscollection.com/llms-full.txt
+AI-Plugin: https://bossqueenscollection.com/.well-known/ai-plugin.json
+OpenAPI: https://bossqueenscollection.com/.well-known/openapi.json
+AI-Shopping-API: https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api

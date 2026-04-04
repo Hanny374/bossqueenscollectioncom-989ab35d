@@ -1,0 +1,1 @@
+ALTER TABLE public.product_embeddings ADD COLUMN IF NOT EXISTS image_url text;

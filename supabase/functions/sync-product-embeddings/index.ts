@@ -30,6 +30,11 @@ const PRODUCTS_QUERY = `
           compareAtPriceRange {
             maxVariantPrice { amount currencyCode }
           }
+          images(first: 1) {
+            edges {
+              node { url altText }
+            }
+          }
           variants(first: 20) {
             edges {
               node {
@@ -128,6 +133,8 @@ serve(async (req) => {
         const price = product.priceRange?.minVariantPrice?.amount;
         const compareAt = product.compareAtPriceRange?.maxVariantPrice?.amount;
 
+        const imageUrl = product.images?.edges?.[0]?.node?.url || null;
+
         const row = {
           shopify_handle: product.handle,
           shopify_id: product.id,
@@ -140,6 +147,7 @@ serve(async (req) => {
           available_for_sale: product.availableForSale,
           variants: (product.variants?.edges || []).map((v: any) => v.node),
           options: product.options || [],
+          image_url: imageUrl,
           embedding_text: embeddingText,
           embedding: embedding,
           updated_at: new Date().toISOString(),

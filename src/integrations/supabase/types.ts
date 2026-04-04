@@ -53,6 +53,7 @@ export type Database = {
           embedding: string | null
           embedding_text: string
           id: string
+          image_url: string | null
           options: Json | null
           price: number | null
           product_type: string | null
@@ -71,6 +72,7 @@ export type Database = {
           embedding?: string | null
           embedding_text: string
           id?: string
+          image_url?: string | null
           options?: Json | null
           price?: number | null
           product_type?: string | null
@@ -89,6 +91,7 @@ export type Database = {
           embedding?: string | null
           embedding_text?: string
           id?: string
+          image_url?: string | null
           options?: Json | null
           price?: number | null
           product_type?: string | null

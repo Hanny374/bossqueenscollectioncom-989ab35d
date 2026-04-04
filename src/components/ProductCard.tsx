@@ -263,6 +263,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </Button>
       </div>
+      <div className="mt-3 md:mt-4 space-y-1.5 md:space-y-2">
         <h3 className="font-display text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
           {node.title}
         </h3>

@@ -9,8 +9,14 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
 
-    <!-- Preload critical hero image -->
+    <!-- Preload critical hero image (Vite injects hashed URL in production) -->
     <link rel="preload" as="image" href="/src/assets/hero-beauty.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Reserve hero space to prevent CLS -->
+    <style>
+      .hero-slot{min-height:85vh;contain:layout style}
+      @media(min-width:768px){.hero-slot{min-height:100vh}}
+    </style>
 
     <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />

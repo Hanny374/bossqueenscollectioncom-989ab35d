@@ -143,7 +143,7 @@ const ProductPage = () => {
     variantId: selectedVariant!.id,
     variantTitle: selectedVariant!.title,
     price: { amount: adjustedPrice.toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
-    quantity: 1,
+    quantity,
     selectedOptions: selectedVariant!.selectedOptions || []
   });
 

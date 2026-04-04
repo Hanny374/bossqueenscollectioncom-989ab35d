@@ -191,12 +191,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 z-10 flex gap-1.5 md:gap-2">
+        {/* Desktop overlay buttons */}
+        <div className="absolute bottom-4 left-4 right-4 z-10 hidden md:flex gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !activeVariant?.availableForSale}
             variant="outline"
-            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-9 md:h-11 text-xs md:text-sm"
+            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11 text-sm"
           >
             {isCartLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -210,7 +211,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <Button
             onClick={(e) => requireHairDescription("buy", e)}
             disabled={isBuyingNow || !activeVariant?.availableForSale}
-            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 md:h-11 text-xs md:text-sm"
+            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11 text-sm"
           >
             {isBuyingNow ? (
               <Loader2 className="w-4 h-4 animate-spin" />

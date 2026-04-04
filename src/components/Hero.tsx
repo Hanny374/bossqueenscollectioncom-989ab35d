@@ -6,7 +6,7 @@ import heroImage from "@/assets/hero-beauty.webp";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden" style={{ aspectRatio: '9/16' }}>
       {/* Background Image — always visible immediately */}
       <div className="absolute inset-0 z-0">
         <img

@@ -1,13 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts, fetchNewestProducts, ShopifyProduct } from "@/lib/shopify";
 
-export function useProducts(count: number = 500) {
+// Fetch initial batch (fast load for curated sections)
+export function useProducts(count: number = 50) {
   return useQuery<ShopifyProduct[]>({
     queryKey: ["shopify-products", count],
     queryFn: () => fetchProducts(count),
     staleTime: 5 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: false,
+  });
+}
+
+// Fetch full catalog (deferred, triggered when catalog section is visible)
+export function useFullCatalog(enabled: boolean = false) {
+  return useQuery<ShopifyProduct[]>({
+    queryKey: ["shopify-products", 500],
+    queryFn: () => fetchProducts(500),
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+    refetchOnWindowFocus: false,
+    enabled,
   });
 }
 

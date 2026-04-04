@@ -393,7 +393,7 @@ const Index = () => {
         </section>
 
         {/* === STAGE 4: Full Catalog Browse === */}
-        <section id="products" className="py-14 md:py-28 relative">
+        <section id="products" ref={catalogRef} className="py-14 md:py-28 relative">
           <div className="container px-4 md:px-8">
             <motion.div
               className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-16 gap-3 md:gap-4"

@@ -32,7 +32,16 @@ const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m
 const EasterBanner = lazy(() => import("./components/EasterBanner").then(m => ({ default: m.EasterBanner })));
 const CarnivalStickyWidget = lazy(() => import("./components/CarnivalStickyWidget").then(m => ({ default: m.CarnivalStickyWidget })));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const AppContent = () => {
   return (

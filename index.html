@@ -139,14 +139,24 @@
       }
     }
     </script>
-    <!-- AI Plugin Discovery -->
+    <!-- AI Plugin & Agent Discovery -->
     <link rel="manifest" href="/.well-known/ai-plugin.json" />
     <meta name="ai-plugin" content="/.well-known/ai-plugin.json" />
+    <meta name="ai-agent" content="/.well-known/agent.json" />
     <link rel="api_description" href="/.well-known/openapi.json" type="application/json" />
     <link rel="alternate" type="application/json" title="AI Agent Discovery" href="/.well-known/agent.json" />
+    <link rel="alternate" type="application/json" title="OpenAPI Spec" href="/.well-known/openapi.json" />
     <link rel="alternate" type="application/rss+xml" title="Google Shopping Feed" href="https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/google-shopping-feed" />
     <link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt" />
     <link rel="alternate" type="text/plain" title="LLMs Full" href="/llms-full.txt" />
+
+    <!-- AI-readable structured hints -->
+    <meta name="ai:shopping_api" content="https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api" />
+    <meta name="ai:product_search" content="POST https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search" />
+    <meta name="ai:product_catalog" content="GET https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products" />
+    <meta name="ai:categories" content="Wigs, Bundles, Frontals, Closures, Accessories, Boho Braids" />
+    <meta name="ai:currency" content="USD" />
+    <meta name="ai:free_shipping" content="Orders over $100 USD — worldwide" />
 
     <!-- Google Translate -->
     <script type="text/javascript">

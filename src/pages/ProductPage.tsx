@@ -147,14 +147,23 @@ const ProductImageCarousel = ({
     }
   }, [zoomScale]);
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    // Swipe navigation when not zoomed
+    if (isSwiping.current && zoomScale <= 1.05 && images.length > 1) {
+      const dx = (e.changedTouches[0]?.clientX || 0) - swipeStart.current.x;
+      const elapsed = Date.now() - swipeStart.current.time;
+      if (Math.abs(dx) > 50 && elapsed < 400) {
+        goToImage(dx < 0 ? 1 : -1);
+      }
+    }
     lastDistance.current = 0;
     isDragging.current = false;
+    isSwiping.current = false;
     if (zoomScale <= 1.05) {
       setZoomScale(1);
       setTranslate({ x: 0, y: 0 });
     }
-  }, [zoomScale]);
+  }, [zoomScale, images.length, goToImage]);
 
   const handleDoubleTap = useCallback(() => {
     if (zoomScale > 1) {

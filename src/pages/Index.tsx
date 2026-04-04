@@ -297,9 +297,7 @@ const Index = () => {
           <EasterBanner />
         </Suspense>
         <Hero />
-        <Suspense fallback={null}>
-          <Marquee />
-        </Suspense>
+        <Marquee />
 
         {/* Free Shipping Banner */}
         <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">

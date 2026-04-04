@@ -292,9 +292,7 @@ const Index = () => {
       )}
 
       <main>
-        <Suspense fallback={null}>
-          <EasterBanner />
-        </Suspense>
+        <EasterBanner />
         <Hero />
         <Marquee />
 

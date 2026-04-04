@@ -2,14 +2,14 @@
   "schema_version": "v1",
   "name_for_human": "Boss Queens Collection",
   "name_for_model": "boss_queens_hair",
-  "description_for_human": "Shop premium wigs, bundles, frontals and hair accessories from Boss Queens Collection. Free worldwide shipping on orders over $100.",
-  "description_for_model": "Search and browse premium human hair products including wigs (bob, lace front, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, and hair accessories. Supports natural language semantic search. All products are 100% virgin human hair shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $100 USD.",
+  "description_for_human": "Shop premium 100% virgin human hair wigs, bundles, frontals, closures and accessories from Boss Queens Collection. Free worldwide shipping on orders over $100.",
+  "description_for_model": "Search and browse premium 100% virgin human hair products from Boss Queens Collection, a Caribbean-born hair brand in St. Maarten. Product catalog includes: wigs (lace front 13x4/13x6, bob, headband, colored, V-part, U-part, boho braids, crochet), hair bundles (Brazilian body wave, Brazilian straight, Peruvian deep wave, Indian loose wave, Malaysian kinky curly, Vietnamese bone straight, water wave), lace frontals (13x4, 13x6, 360), lace closures (4x4, 5x5), bundle deals, and hair accessories/tools. All products are 100% virgin human hair, grade 10A, cuticle-aligned. Supports natural language semantic search. Prices in USD. Free worldwide shipping on orders over $100. Use the search endpoint for finding specific products by texture, length, color, style, or price range.",
   "auth": { "type": "none" },
   "api": {
     "type": "openapi",
-    "url": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api"
+    "url": "https://bossqueenscollection.com/.well-known/openapi.json"
   },
-  "logo_url": "https://bossqueenscollectioncom.lovable.app/favicon.ico",
-  "contact_email": "Bossqueenscollections@gmail.com",
-  "legal_info_url": "https://bossqueenscollectioncom.lovable.app/privacy-policy"
+  "logo_url": "https://bossqueenscollection.com/icon-512.png",
+  "contact_email": "support@bossqueenscollection.com",
+  "legal_info_url": "https://bossqueenscollection.com/privacy-policy"
 }

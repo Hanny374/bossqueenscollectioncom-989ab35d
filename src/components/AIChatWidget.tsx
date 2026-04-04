@@ -255,7 +255,7 @@ export const AIChatWidget = () => {
             initial={{ scale: 0, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0, y: 20 }}
-            className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-2"
+            className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-2 md:bottom-5"
           >
             {/* Attention-grabbing CTA bubble */}
             <motion.button

@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus } from "lucide-react";
+import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus, X } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
@@ -69,6 +69,13 @@ const ProductImageCarousel = ({
   productTitle: string;
 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: selectedImage });
+  const [zoomOpen, setZoomOpen] = useState(false);
+  const [zoomScale, setZoomScale] = useState(1);
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
+  const lastDistance = useRef(0);
+  const lastTouch = useRef({ x: 0, y: 0 });
+  const isDragging = useRef(false);
+  const zoomImgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -77,19 +84,89 @@ const ProductImageCarousel = ({
     return () => { emblaApi.off("select", onSelect); };
   }, [emblaApi, onSelectImage]);
 
-  // Sync external thumbnail clicks
   useEffect(() => {
     if (emblaApi && emblaApi.selectedScrollSnap() !== selectedImage) {
       emblaApi.scrollTo(selectedImage);
     }
   }, [selectedImage, emblaApi]);
 
+  const openZoom = useCallback((index: number) => {
+    onSelectImage(index);
+    setZoomScale(1);
+    setTranslate({ x: 0, y: 0 });
+    setZoomOpen(true);
+  }, [onSelectImage]);
+
+  const closeZoom = useCallback(() => {
+    setZoomOpen(false);
+    setZoomScale(1);
+    setTranslate({ x: 0, y: 0 });
+  }, []);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      lastDistance.current = Math.hypot(dx, dy);
+    } else if (e.touches.length === 1 && zoomScale > 1) {
+      isDragging.current = true;
+      lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }, [zoomScale]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.hypot(dx, dy);
+      if (lastDistance.current > 0) {
+        const delta = dist / lastDistance.current;
+        setZoomScale(s => Math.min(4, Math.max(1, s * delta)));
+      }
+      lastDistance.current = dist;
+    } else if (e.touches.length === 1 && isDragging.current && zoomScale > 1) {
+      const dx = e.touches[0].clientX - lastTouch.current.x;
+      const dy = e.touches[0].clientY - lastTouch.current.y;
+      lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      setTranslate(t => ({ x: t.x + dx, y: t.y + dy }));
+    }
+  }, [zoomScale]);
+
+  const handleTouchEnd = useCallback(() => {
+    lastDistance.current = 0;
+    isDragging.current = false;
+    if (zoomScale <= 1.05) {
+      setZoomScale(1);
+      setTranslate({ x: 0, y: 0 });
+    }
+  }, [zoomScale]);
+
+  const handleDoubleTap = useCallback(() => {
+    if (zoomScale > 1) {
+      setZoomScale(1);
+      setTranslate({ x: 0, y: 0 });
+    } else {
+      setZoomScale(2.5);
+    }
+  }, [zoomScale]);
+
+  // Desktop scroll-to-zoom
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    setZoomScale(s => Math.min(4, Math.max(1, s - e.deltaY * 0.002)));
+  }, []);
+
   return (
     <div className="space-y-4">
-      <div className="aspect-square rounded-2xl overflow-hidden bg-secondary/30 shadow-soft" ref={emblaRef}>
+      <div className="aspect-square rounded-2xl overflow-hidden bg-secondary/30 shadow-soft relative group" ref={emblaRef}>
         <div className="flex h-full">
           {images.map((img, i) => (
-            <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
+            <div
+              key={i}
+              className="flex-[0_0_100%] min-w-0 h-full cursor-zoom-in"
+              onClick={() => openZoom(i)}
+            >
               <img
                 src={img.node.url}
                 alt={img.node.altText || `${productTitle} ${i + 1}`}
@@ -99,9 +176,12 @@ const ProductImageCarousel = ({
             </div>
           ))}
         </div>
+        <div className="absolute bottom-3 right-3 bg-background/80 backdrop-blur-sm rounded-full px-2.5 py-1 text-[11px] text-muted-foreground font-medium opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Tap to zoom
+        </div>
       </div>
 
-      {/* Dot indicators */}
+      {/* Dot indicators — mobile */}
       {images.length > 1 && (
         <div className="flex justify-center gap-2 md:hidden">
           {images.map((_, i) => (
@@ -139,6 +219,75 @@ const ProductImageCarousel = ({
           ))}
         </div>
       )}
+
+      {/* Fullscreen zoom lightbox */}
+      <AnimatePresence>
+        {zoomOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
+            onClick={(e) => { if (e.target === e.currentTarget) closeZoom(); }}
+          >
+            <button
+              onClick={closeZoom}
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              aria-label="Close zoom"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Zoom hint */}
+            {zoomScale <= 1.05 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs font-medium z-10">
+                Pinch or double-tap to zoom
+              </div>
+            )}
+
+            {/* Image navigation dots */}
+            {images.length > 1 && (
+              <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      onSelectImage(i);
+                      setZoomScale(1);
+                      setTranslate({ x: 0, y: 0 });
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      selectedImage === i ? "bg-white w-5" : "bg-white/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+
+            <div
+              ref={zoomImgRef}
+              className="w-full h-full flex items-center justify-center overflow-hidden select-none"
+              style={{ touchAction: "none" }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onDoubleClick={handleDoubleTap}
+              onWheel={handleWheel}
+            >
+              <img
+                src={images[selectedImage]?.node.url}
+                alt={images[selectedImage]?.node.altText || productTitle}
+                className="max-w-full max-h-full object-contain transition-transform duration-100"
+                style={{
+                  transform: `scale(${zoomScale}) translate(${translate.x / zoomScale}px, ${translate.y / zoomScale}px)`,
+                }}
+                draggable={false}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

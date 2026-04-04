@@ -640,27 +640,12 @@ const ProductPage = () => {
               </div>
 
               {/* Mobile sticky CTA bar */}
-              <div className="fixed bottom-16 left-0 right-0 z-30 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/40 px-4 py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] safe-area-bottom">
-                <div className="flex gap-3">
-                  <Button
-                    onClick={handleAddToCart}
-                    disabled={isCartLoading || !selectedVariant?.availableForSale}
-                    variant="outline"
-                    className="flex-1 border-primary text-primary hover:bg-primary/10 py-3 text-sm font-semibold"
-                  >
-                    {isCartLoading ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <>
-                        <ShoppingCart className="w-4 h-4 mr-1.5" />
-                        Add to Cart
-                      </>
-                    )}
-                  </Button>
+              <div className="fixed bottom-16 left-0 right-0 z-30 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/40 px-4 py-2.5 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] safe-area-bottom">
+                <div className="flex flex-col gap-2">
                   <Button
                     onClick={handleBuyNow}
                     disabled={isBuyingNow || !selectedVariant?.availableForSale}
-                    className="flex-1 bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold py-3 text-sm font-semibold"
+                    className="w-full bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold py-3 text-sm font-semibold"
                   >
                     {isBuyingNow ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -669,7 +654,22 @@ const ProductPage = () => {
                     ) : (
                       <>
                         <Zap className="w-4 h-4 mr-1.5" />
-                        Buy Now
+                        Buy Now — ${adjustedPrice.toFixed(2)}
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={isCartLoading || !selectedVariant?.availableForSale}
+                    variant="outline"
+                    className="w-full border-primary text-primary hover:bg-primary/10 py-2.5 text-sm font-semibold"
+                  >
+                    {isCartLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <>
+                        <ShoppingCart className="w-4 h-4 mr-1.5" />
+                        Add to Cart
                       </>
                     )}
                   </Button>

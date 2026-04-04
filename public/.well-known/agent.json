@@ -1,0 +1,35 @@
+{
+  "name": "Boss Queens Collection",
+  "description": "Premium 100% virgin human hair wigs, bundles, frontals, closures and accessories. Caribbean-born hair brand shipping worldwide. Free shipping on orders over $100 USD.",
+  "url": "https://bossqueenscollection.com",
+  "logo": "https://bossqueenscollection.com/icon-512.png",
+  "contact_email": "support@bossqueenscollection.com",
+  "capabilities": {
+    "product_search": {
+      "description": "Search hair products using natural language",
+      "endpoint": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search",
+      "method": "POST"
+    },
+    "product_catalog": {
+      "description": "Browse the full product catalog",
+      "endpoint": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products",
+      "method": "GET"
+    }
+  },
+  "discovery": {
+    "openapi": "https://bossqueenscollection.com/.well-known/openapi.json",
+    "ai_plugin": "https://bossqueenscollection.com/.well-known/ai-plugin.json",
+    "llms_txt": "https://bossqueenscollection.com/llms.txt",
+    "llms_full_txt": "https://bossqueenscollection.com/llms-full.txt",
+    "google_shopping_feed": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/google-shopping-feed",
+    "sitemap": "https://bossqueenscollection.com/sitemap.xml"
+  },
+  "categories": ["Lace Front Wigs", "Bob Wigs", "Headband Wigs", "Colored Wigs", "Hair Bundles", "Lace Frontals", "Lace Closures", "Boho Braids", "Hair Accessories"],
+  "supported_currencies": ["USD"],
+  "shipping": {
+    "free_shipping_threshold": 100,
+    "worldwide": true,
+    "origin": "St. Maarten, Caribbean"
+  },
+  "auth": { "type": "none" }
+}

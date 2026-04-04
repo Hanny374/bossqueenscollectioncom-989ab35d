@@ -349,7 +349,6 @@ const ProductPage = () => {
               onSelectImage={setSelectedImage}
               productTitle={product.title}
             />
-            </div>
 
             {/* Product Info */}
             <div className="space-y-6">

@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo, lazy, Suspense } from "react";
+import { useState, useEffect, useMemo, lazy, Suspense, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { useProducts, useNewestProducts } from "@/hooks/useProducts";
+import { useProducts, useNewestProducts, useFullCatalog } from "@/hooks/useProducts";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
@@ -53,10 +53,29 @@ function getCategoryFromHash(hash: string): string {
 const PRODUCTS_PER_PAGE = 20;
 
 const Index = () => {
-  const { data: products = [], isLoading } = useProducts(500);
+  const { data: initialProducts = [], isLoading } = useProducts(50);
   const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Lazy-load full catalog when the catalog section becomes visible
+  const catalogRef = useRef<HTMLDivElement>(null);
+  const [catalogVisible, setCatalogVisible] = useState(false);
+  const { data: fullProducts } = useFullCatalog(catalogVisible);
+
+  // Use full catalog when available, otherwise fall back to initial batch
+  const products = fullProducts ?? initialProducts;
+
+  useEffect(() => {
+    const el = catalogRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setCatalogVisible(true); observer.disconnect(); } },
+      { rootMargin: "400px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const categoryFromUrl = getCategoryFromHash(location.hash);
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);
@@ -374,7 +393,7 @@ const Index = () => {
         </section>
 
         {/* === STAGE 4: Full Catalog Browse === */}
-        <section id="products" className="py-14 md:py-28 relative">
+        <section id="products" ref={catalogRef} className="py-14 md:py-28 relative">
           <div className="container px-4 md:px-8">
             <motion.div
               className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 md:mb-16 gap-3 md:gap-4"

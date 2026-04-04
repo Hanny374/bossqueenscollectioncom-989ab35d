@@ -43,6 +43,30 @@ const queryClient = new QueryClient({
   },
 });
 
+// Defer non-critical widgets until after initial paint + interaction idle
+const DeferredWidgets = () => {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = requestIdleCallback?.(() => setReady(true)) ?? setTimeout(() => setReady(true), 3000);
+    return () => {
+      if (typeof id === 'number' && 'cancelIdleCallback' in window) cancelIdleCallback(id);
+    };
+  }, []);
+  if (!ready) return null;
+  return (
+    <Suspense fallback={null}>
+      <WhatsAppButton />
+      <AIChatWidget />
+      <CookieConsent />
+      <WelcomePopup />
+      <SocialProofToast />
+      <ExitIntentPopup />
+      <MobileBottomNav />
+      <CarnivalStickyWidget />
+    </Suspense>
+  );
+};
+
 const AppContent = () => {
   return (
     <BrowserRouter>

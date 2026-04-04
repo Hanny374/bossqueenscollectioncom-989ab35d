@@ -609,7 +609,7 @@ const ProductPage = () => {
                   disabled={isCartLoading || !selectedVariant?.availableForSale}
                   size="lg"
                   variant="outline"
-                  className="w-full border-primary text-primary hover:bg-primary/10 text-lg py-6"
+                  className="w-full border-primary text-primary hover:bg-primary/10 text-base md:text-lg py-5 md:py-6"
                 >
                   {isCartLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -624,7 +624,7 @@ const ProductPage = () => {
                   onClick={handleBuyNow}
                   disabled={isBuyingNow || !selectedVariant?.availableForSale}
                   size="lg"
-                  className="w-full bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold text-lg py-6"
+                  className="w-full bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold text-base md:text-lg py-5 md:py-6"
                 >
                   {isBuyingNow ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -637,6 +637,43 @@ const ProductPage = () => {
                     </>
                   )}
                 </Button>
+              </div>
+
+              {/* Mobile sticky CTA bar */}
+              <div className="fixed bottom-16 left-0 right-0 z-30 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/40 px-4 py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] safe-area-bottom">
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={isCartLoading || !selectedVariant?.availableForSale}
+                    variant="outline"
+                    className="flex-1 border-primary text-primary hover:bg-primary/10 py-3 text-sm font-semibold"
+                  >
+                    {isCartLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <>
+                        <ShoppingCart className="w-4 h-4 mr-1.5" />
+                        Add to Cart
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    onClick={handleBuyNow}
+                    disabled={isBuyingNow || !selectedVariant?.availableForSale}
+                    className="flex-1 bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold py-3 text-sm font-semibold"
+                  >
+                    {isBuyingNow ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : !selectedVariant?.availableForSale ? (
+                      "Sold Out"
+                    ) : (
+                      <>
+                        <Zap className="w-4 h-4 mr-1.5" />
+                        Buy Now
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
 
               {/* Sales-optimized description */}

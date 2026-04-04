@@ -1,35 +1,74 @@
 {
+  "schema_version": "v1",
   "name": "Boss Queens Collection",
-  "description": "Premium 100% virgin human hair wigs, bundles, frontals, closures and accessories. Caribbean-born hair brand shipping worldwide. Free shipping on orders over $100 USD.",
+  "description": "Premium 100% virgin human hair wigs, bundles, frontals, closures and accessories. Caribbean-born hair brand shipping worldwide from St. Maarten. Free shipping on orders over $100 USD.",
   "url": "https://bossqueenscollection.com",
   "logo": "https://bossqueenscollection.com/icon-512.png",
   "contact_email": "support@bossqueenscollection.com",
+  "provider": {
+    "name": "Boss Queens Collection",
+    "url": "https://bossqueenscollection.com"
+  },
   "capabilities": {
     "product_search": {
-      "description": "Search hair products using natural language",
+      "description": "Search hair products using natural language queries. Supports queries like 'blonde bob wig', 'Brazilian body wave bundles 20 inch', 'glueless lace front wig under $100'.",
       "endpoint": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/search",
-      "method": "POST"
+      "method": "POST",
+      "content_type": "application/json",
+      "request_body": {
+        "query": "string (required) — natural language search",
+        "limit": "integer (optional, default 5, max 20)"
+      }
     },
     "product_catalog": {
-      "description": "Browse the full product catalog",
+      "description": "Browse the full product catalog with optional filtering by product type",
       "endpoint": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/products",
+      "method": "GET",
+      "parameters": {
+        "limit": "integer (optional, default 20, max 50)",
+        "type": "string (optional) — filter by: Wig, Bundles, Frontal, Closure, Accessories"
+      }
+    },
+    "product_categories": {
+      "description": "List all product categories with counts",
+      "endpoint": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/ai-shopping-api/categories",
       "method": "GET"
     }
   },
   "discovery": {
     "openapi": "https://bossqueenscollection.com/.well-known/openapi.json",
     "ai_plugin": "https://bossqueenscollection.com/.well-known/ai-plugin.json",
+    "agent_json": "https://bossqueenscollection.com/.well-known/agent.json",
     "llms_txt": "https://bossqueenscollection.com/llms.txt",
     "llms_full_txt": "https://bossqueenscollection.com/llms-full.txt",
     "google_shopping_feed": "https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/google-shopping-feed",
     "sitemap": "https://bossqueenscollection.com/sitemap.xml"
   },
-  "categories": ["Lace Front Wigs", "Bob Wigs", "Headband Wigs", "Colored Wigs", "Hair Bundles", "Lace Frontals", "Lace Closures", "Boho Braids", "Hair Accessories"],
+  "categories": [
+    "Lace Front Wigs",
+    "Bob Wigs",
+    "Headband Wigs",
+    "Colored Wigs",
+    "V-Part & U-Part Wigs",
+    "Boho Braids & Crochet Wigs",
+    "Hair Bundles",
+    "Lace Frontals",
+    "Lace Closures",
+    "Bundle Deals",
+    "Hair Accessories & Tools"
+  ],
   "supported_currencies": ["USD"],
   "shipping": {
     "free_shipping_threshold": 100,
     "worldwide": true,
-    "origin": "St. Maarten, Caribbean"
+    "origin": "St. Maarten, Caribbean",
+    "processing_days": "3-5",
+    "delivery_days": "5-21"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/bossqueenscollection",
+    "tiktok": "https://www.tiktok.com/@bossqueenscollection",
+    "facebook": "https://www.facebook.com/bossqueenscollection"
   },
   "auth": { "type": "none" }
 }

@@ -160,7 +160,7 @@
     <meta name="ai:currency" content="USD" />
     <meta name="ai:free_shipping" content="Orders over $100 USD — worldwide" />
 
-    <!-- Google Translate -->
+    <!-- Google Translate (deferred to not block rendering) -->
     <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({
@@ -171,7 +171,7 @@
         }, 'google_translate_element');
       }
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script defer type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </head>
 
   <body>

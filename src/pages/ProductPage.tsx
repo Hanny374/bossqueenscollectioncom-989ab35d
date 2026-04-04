@@ -143,6 +143,7 @@ const ProductImageCarousel = ({
   );
 };
 
+const ProductPage = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [isPageLoading, setIsPageLoading] = useState(true);

@@ -13,8 +13,7 @@ import { motion } from "framer-motion";
 import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram, ShoppingBag } from "lucide-react";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
-// Lazy load below-fold sections
-const EasterBanner = lazy(() => import("@/components/EasterBanner").then(m => ({ default: m.EasterBanner })));
+import { EasterBanner } from "@/components/EasterBanner";
 
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));

@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
+import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";

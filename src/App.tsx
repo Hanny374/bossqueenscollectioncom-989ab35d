@@ -65,17 +65,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Suspense fallback={null}>
-        <WhatsAppButton />
-        <AIChatWidget />
-        <CookieConsent />
-        <WelcomePopup />
-        <SocialProofToast />
-        <ExitIntentPopup />
-        <MobileBottomNav />
-        <CarnivalStickyWidget />
-        
-      </Suspense>
+      <DeferredWidgets />
     </BrowserRouter>
   );
 };

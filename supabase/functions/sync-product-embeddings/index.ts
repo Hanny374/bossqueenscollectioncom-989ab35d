@@ -30,6 +30,11 @@ const PRODUCTS_QUERY = `
           compareAtPriceRange {
             maxVariantPrice { amount currencyCode }
           }
+          images(first: 1) {
+            edges {
+              node { url altText }
+            }
+          }
           variants(first: 20) {
             edges {
               node {

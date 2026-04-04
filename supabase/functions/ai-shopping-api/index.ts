@@ -139,6 +139,13 @@ serve(async (req) => {
 
       if (error) throw error;
 
+      // Fetch image URLs for search results
+      const handles = (data || []).map((p: any) => p.shopify_handle);
+      const { data: imageData } = handles.length > 0
+        ? await supabase.from("product_embeddings").select("shopify_handle, image_url").in("shopify_handle", handles)
+        : { data: [] };
+      const imageMap = new Map((imageData || []).map((r: any) => [r.shopify_handle, r.image_url]));
+
       return new Response(
         JSON.stringify({
           store: "Boss Queens Collection",
@@ -152,6 +159,7 @@ serve(async (req) => {
             price: p.price,
             compareAtPrice: p.compare_at_price,
             inStock: p.available_for_sale,
+            image: imageMap.get(p.shopify_handle) || null,
             similarity: Math.round(p.similarity * 100),
           })),
         }),

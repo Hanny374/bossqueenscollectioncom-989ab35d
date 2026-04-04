@@ -8,7 +8,7 @@ export const Hero = () => {
   return (
     <section className="hero-slot relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden">
       {/* Background Image — always visible immediately */}
-      <div className="absolute inset-0 z-0">
+       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
           alt="Beautiful woman with luxurious human hair wig"
@@ -18,6 +18,7 @@ export const Hero = () => {
           decoding="async"
           width={1200}
           height={686}
+          style={{ aspectRatio: '1200/686' }}
         />
         {/* Cinematic overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent" />

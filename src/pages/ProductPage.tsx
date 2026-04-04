@@ -924,8 +924,8 @@ const ProductPage = () => {
                     </p>
                     {product.descriptionHtml && (
                       <div 
-                        className="text-muted-foreground text-sm leading-relaxed prose prose-stone max-w-none whitespace-pre-wrap
-                        [&>p]:mb-3 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-3 [&>li]:mb-1.5 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-4 [&>h3]:mb-2"
+                        className="text-muted-foreground text-sm leading-relaxed prose prose-stone max-w-none
+                        [&>p]:mb-4 [&>p+p]:mt-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>ul]:mt-2 [&>ol]:mb-4 [&>li]:mb-2 [&>strong]:text-foreground [&>h3]:text-foreground [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3 [&>h4]:mt-4 [&>h4]:mb-2 [&>br+br]:hidden [&>div]:mb-3"
                         dangerouslySetInnerHTML={{ __html: rebrandHtml(product.descriptionHtml) }}
                       />
                     )}

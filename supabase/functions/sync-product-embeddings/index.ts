@@ -7,14 +7,17 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// Shopify config
 const SHOPIFY_STORE_DOMAIN = Deno.env.get("VITE_SHOPIFY_STORE_DOMAIN") || "boss-queens-collection-8295.myshopify.com";
 const SHOPIFY_API_VERSION = "2025-07";
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 
 const PRODUCTS_QUERY = `
-  query GetProducts($first: Int!) {
-    products(first: $first, sortKey: BEST_SELLING) {
+  query GetProducts($first: Int!, $after: String) {
+    products(first: $first, after: $after, sortKey: BEST_SELLING) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           id
@@ -77,13 +80,49 @@ async function generateEmbedding(text: string): Promise<number[]> {
   return Array.from(output);
 }
 
+async function fetchAllProducts(token: string): Promise<any[]> {
+  const allProducts: any[] = [];
+  let hasNextPage = true;
+  let cursor: string | null = null;
+
+  while (hasNextPage) {
+    const variables: any = { first: 250 };
+    if (cursor) variables.after = cursor;
+
+    console.log(`Fetching products page... cursor=${cursor || 'start'}, total so far=${allProducts.length}`);
+    const resp = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": token,
+      },
+      body: JSON.stringify({ query: PRODUCTS_QUERY, variables }),
+    });
+
+    if (!resp.ok) throw new Error(`Shopify API error: ${resp.status}`);
+    const data = await resp.json();
+    if (data.errors) throw new Error(`Shopify GQL errors: ${JSON.stringify(data.errors)}`);
+
+    const edges = data?.data?.products?.edges || [];
+    const pageInfo = data?.data?.products?.pageInfo || {};
+
+    for (const edge of edges) {
+      allProducts.push(edge.node);
+    }
+
+    hasNextPage = pageInfo.hasNextPage || false;
+    cursor = pageInfo.endCursor || null;
+  }
+
+  return allProducts;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    // Parse optional batch params
     const body = await req.json().catch(() => ({}));
     const batchSize = body.batch_size || 5;
     const batchOffset = body.batch_offset || 0;
@@ -99,40 +138,26 @@ serve(async (req) => {
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // Fetch all products from Shopify
-    console.log("Fetching products from Shopify...");
-    const shopifyResp = await fetch(SHOPIFY_STOREFRONT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": SHOPIFY_TOKEN,
-      },
-      body: JSON.stringify({ query: PRODUCTS_QUERY, variables: { first: 50 } }),
-    });
+    // Fetch ALL products from Shopify (paginated)
+    console.log("Fetching all products from Shopify...");
+    const allProducts = await fetchAllProducts(SHOPIFY_TOKEN);
+    console.log(`Total products fetched: ${allProducts.length}`);
 
-    if (!shopifyResp.ok) throw new Error(`Shopify API error: ${shopifyResp.status}`);
-
-    const shopifyData = await shopifyResp.json();
-    if (shopifyData.errors) throw new Error(`Shopify GQL errors: ${JSON.stringify(shopifyData.errors)}`);
-
-    const allEdges = shopifyData?.data?.products?.edges || [];
-    const batch = allEdges.slice(batchOffset, batchOffset + batchSize);
-    console.log(`Processing batch: offset=${batchOffset}, size=${batch.length}, total=${allEdges.length}`);
+    const batch = allProducts.slice(batchOffset, batchOffset + batchSize);
+    console.log(`Processing batch: offset=${batchOffset}, size=${batch.length}, total=${allProducts.length}`);
 
     let processed = 0;
     let errors = 0;
 
-    for (const edge of batch) {
-      const product = edge.node;
+    for (const product of batch) {
       try {
         const embeddingText = buildEmbeddingText(product);
         console.log(`Generating embedding for: ${product.title}`);
-        
+
         const embedding = await generateEmbedding(embeddingText);
 
         const price = product.priceRange?.minVariantPrice?.amount;
         const compareAt = product.compareAtPriceRange?.maxVariantPrice?.amount;
-
         const imageUrl = product.images?.edges?.[0]?.node?.url || null;
 
         const row = {
@@ -169,13 +194,13 @@ serve(async (req) => {
       }
     }
 
-    const hasMore = batchOffset + batchSize < allEdges.length;
+    const hasMore = batchOffset + batchSize < allProducts.length;
     const nextOffset = hasMore ? batchOffset + batchSize : null;
 
     return new Response(
       JSON.stringify({
         success: true,
-        total: allEdges.length,
+        total: allProducts.length,
         batch_offset: batchOffset,
         batch_processed: processed,
         batch_errors: errors,

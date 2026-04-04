@@ -262,7 +262,26 @@ const ProductImageCarousel = ({
               <X className="w-5 h-5" />
             </button>
 
-            {/* Zoom hint */}
+            {/* Left/Right arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => goToImage(-1)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => goToImage(1)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+
             {zoomScale <= 1.05 && (
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs font-medium z-10">
                 Pinch or double-tap to zoom

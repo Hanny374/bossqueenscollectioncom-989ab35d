@@ -176,6 +176,27 @@ export type Database = {
         }
         Relationships: []
       }
+      sync_progress: {
+        Row: {
+          current_offset: number | null
+          id: string
+          last_run_at: string | null
+          total_products: number | null
+        }
+        Insert: {
+          current_offset?: number | null
+          id?: string
+          last_run_at?: string | null
+          total_products?: number | null
+        }
+        Update: {
+          current_offset?: number | null
+          id?: string
+          last_run_at?: string | null
+          total_products?: number | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string

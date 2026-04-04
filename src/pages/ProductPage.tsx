@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star } from "lucide-react";
+import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
@@ -66,6 +66,7 @@ const ProductPage = () => {
   const [selectedHeadSize, setSelectedHeadSize] = useState<string>("medium");
   const [selectedDensity, setSelectedDensity] = useState<string>("200%");
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const [hairModalOpen, setHairModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<"add" | "buy" | null>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -142,7 +143,7 @@ const ProductPage = () => {
     variantId: selectedVariant!.id,
     variantTitle: selectedVariant!.title,
     price: { amount: adjustedPrice.toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
-    quantity: 1,
+    quantity,
     selectedOptions: selectedVariant!.selectedOptions || []
   });
 
@@ -642,22 +643,42 @@ const ProductPage = () => {
               {/* Mobile sticky CTA bar */}
               <div className="fixed bottom-16 left-0 right-0 z-30 md:hidden bg-background/95 backdrop-blur-lg border-t border-border/40 px-4 py-2.5 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] safe-area-bottom">
                 <div className="flex flex-col gap-2">
-                  <Button
-                    onClick={handleBuyNow}
-                    disabled={isBuyingNow || !selectedVariant?.availableForSale}
-                    className="w-full bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold py-3 text-sm font-semibold"
-                  >
-                    {isBuyingNow ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    ) : !selectedVariant?.availableForSale ? (
-                      "Sold Out"
-                    ) : (
-                      <>
-                        <Zap className="w-4 h-4 mr-1.5" />
-                        Buy Now — ${adjustedPrice.toFixed(2)}
-                      </>
-                    )}
-                  </Button>
+                  {/* Quantity + Buy Now row */}
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center border border-border rounded-lg overflow-hidden shrink-0">
+                      <button
+                        onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                        className="w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-secondary transition-colors"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <span className="w-8 text-center text-sm font-semibold text-foreground">{quantity}</span>
+                      <button
+                        onClick={() => setQuantity(q => Math.min(10, q + 1))}
+                        className="w-9 h-9 flex items-center justify-center text-muted-foreground hover:bg-secondary transition-colors"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <Button
+                      onClick={handleBuyNow}
+                      disabled={isBuyingNow || !selectedVariant?.availableForSale}
+                      className="flex-1 bg-gradient-gold hover:opacity-90 text-primary-foreground shadow-gold py-3 text-sm font-semibold"
+                    >
+                      {isBuyingNow ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : !selectedVariant?.availableForSale ? (
+                        "Sold Out"
+                      ) : (
+                        <>
+                          <Zap className="w-4 h-4 mr-1.5" />
+                          Buy Now — ${(adjustedPrice * quantity).toFixed(2)}
+                        </>
+                      )}
+                    </Button>
+                  </div>
                   <Button
                     onClick={handleAddToCart}
                     disabled={isCartLoading || !selectedVariant?.availableForSale}

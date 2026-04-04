@@ -53,10 +53,29 @@ function getCategoryFromHash(hash: string): string {
 const PRODUCTS_PER_PAGE = 20;
 
 const Index = () => {
-  const { data: products = [], isLoading } = useProducts(500);
+  const { data: initialProducts = [], isLoading } = useProducts(50);
   const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Lazy-load full catalog when the catalog section becomes visible
+  const catalogRef = useRef<HTMLDivElement>(null);
+  const [catalogVisible, setCatalogVisible] = useState(false);
+  const { data: fullProducts } = useFullCatalog(catalogVisible);
+
+  // Use full catalog when available, otherwise fall back to initial batch
+  const products = fullProducts ?? initialProducts;
+
+  useEffect(() => {
+    const el = catalogRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setCatalogVisible(true); observer.disconnect(); } },
+      { rootMargin: "400px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const categoryFromUrl = getCategoryFromHash(location.hash);
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);

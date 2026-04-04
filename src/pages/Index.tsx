@@ -4,6 +4,7 @@ import { RecentlyViewed } from "@/components/RecentlyViewed";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
 import { useProducts, useNewestProducts, useFullCatalog } from "@/hooks/useProducts";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
@@ -12,9 +13,8 @@ import { motion } from "framer-motion";
 import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram, ShoppingBag } from "lucide-react";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
-// Lazy load below-fold sections
-const EasterBanner = lazy(() => import("@/components/EasterBanner").then(m => ({ default: m.EasterBanner })));
-const Marquee = lazy(() => import("@/components/Marquee").then(m => ({ default: m.Marquee })));
+import { EasterBanner } from "@/components/EasterBanner";
+
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
@@ -292,13 +292,9 @@ const Index = () => {
       )}
 
       <main>
-        <Suspense fallback={null}>
-          <EasterBanner />
-        </Suspense>
+        <EasterBanner />
         <Hero />
-        <Suspense fallback={null}>
-          <Marquee />
-        </Suspense>
+        <Marquee />
 
         {/* Free Shipping Banner */}
         <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">

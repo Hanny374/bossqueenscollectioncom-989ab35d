@@ -146,33 +146,22 @@ export const Header = () => {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
-            {/* Desktop search toggle */}
-            <AnimatePresence mode="wait">
+            {/* Desktop search toggle — fixed width container to prevent CLS */}
+            <div className="hidden md:block relative" style={{ width: searchOpen ? 320 : 40, transition: 'width 0.25s ease' }}>
               {searchOpen ? (
-                <motion.div
-                  key="search-bar"
-                  initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: 320, opacity: 1 }}
-                  exit={{ width: 0, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="hidden md:block overflow-visible"
-                >
-                  <AISearchBar onClose={() => setSearchOpen(false)} />
-                </motion.div>
+                <AISearchBar onClose={() => setSearchOpen(false)} />
               ) : (
-                <motion.div key="search-icon" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="hidden md:flex shrink-0"
-                    onClick={() => setSearchOpen(true)}
-                  >
-                    <Search className="h-5 w-5" />
-                    <span className="sr-only">Search products</span>
-                  </Button>
-                </motion.div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="shrink-0"
+                  onClick={() => setSearchOpen(true)}
+                >
+                  <Search className="h-5 w-5" />
+                  <span className="sr-only">Search products</span>
+                </Button>
               )}
-            </AnimatePresence>
+            </div>
 
             <div id="google_translate_element" className="notranslate [&_.goog-te-gadget]:!font-sans [&_.goog-te-combo]:!text-xs [&_.goog-te-combo]:!border [&_.goog-te-combo]:!border-border [&_.goog-te-combo]:!rounded-md [&_.goog-te-combo]:!bg-background [&_.goog-te-combo]:!text-foreground [&_.goog-te-combo]:!py-1 [&_.goog-te-combo]:!px-1.5 [&_.goog-te-combo]:!appearance-auto [&_.goog-te-gadget-simple]:!border-0 [&_.goog-te-gadget-simple]:!bg-transparent [&_.goog-te-gadget>span]:!hidden [&_a]:!hidden [&_.VIpgJd-ZVi9od-l4eHX-hSRGPd]:!hidden" />
             <CartDrawer />

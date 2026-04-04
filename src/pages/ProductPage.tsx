@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
@@ -14,6 +14,7 @@ import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { HairDescriptionModal } from "@/components/HairDescriptionModal";
+import useEmblaCarousel from "embla-carousel-react";
 import {
   Accordion,
   AccordionContent,
@@ -56,7 +57,92 @@ const HEAD_SIZES = [
 
 const isLengthOption = (name: string) => name.toLowerCase().includes('length');
 
-const ProductPage = () => {
+const ProductImageCarousel = ({
+  images,
+  selectedImage,
+  onSelectImage,
+  productTitle,
+}: {
+  images: Array<{ node: { url: string; altText: string | null } }>;
+  selectedImage: number;
+  onSelectImage: (i: number) => void;
+  productTitle: string;
+}) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: selectedImage });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => onSelectImage(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi, onSelectImage]);
+
+  // Sync external thumbnail clicks
+  useEffect(() => {
+    if (emblaApi && emblaApi.selectedScrollSnap() !== selectedImage) {
+      emblaApi.scrollTo(selectedImage);
+    }
+  }, [selectedImage, emblaApi]);
+
+  return (
+    <div className="space-y-4">
+      <div className="aspect-square rounded-2xl overflow-hidden bg-secondary/30 shadow-soft" ref={emblaRef}>
+        <div className="flex h-full">
+          {images.map((img, i) => (
+            <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
+              <img
+                src={img.node.url}
+                alt={img.node.altText || `${productTitle} ${i + 1}`}
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dot indicators */}
+      {images.length > 1 && (
+        <div className="flex justify-center gap-2 md:hidden">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => onSelectImage(i)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                selectedImage === i ? "bg-primary w-5" : "bg-border"
+              }`}
+              aria-label={`Go to image ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Thumbnail strip — desktop */}
+      {images.length > 1 && (
+        <div className="hidden md:flex gap-3 overflow-x-auto pb-2">
+          {images.map((img, index) => (
+            <button
+              key={index}
+              onClick={() => onSelectImage(index)}
+              className={`w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
+                selectedImage === index
+                  ? "border-primary shadow-gold"
+                  : "border-transparent hover:border-primary/30"
+              }`}
+            >
+              <img
+                src={img.node.url}
+                alt={img.node.altText || `${productTitle} ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -342,43 +428,12 @@ const ProductPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Images */}
-            <div className="space-y-4">
-              <div className="aspect-square rounded-2xl overflow-hidden bg-secondary/30 shadow-soft">
-                {images[selectedImage]?.node ? (
-                  <img
-                    src={images[selectedImage].node.url}
-                    alt={images[selectedImage].node.altText || product.title}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-muted-foreground font-display">No Image</span>
-                  </div>
-                )}
-              </div>
-              
-              {images.length > 1 && (
-                <div className="flex gap-3 overflow-x-auto pb-2">
-                  {images.map((img, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
-                        selectedImage === index 
-                          ? "border-primary shadow-gold" 
-                          : "border-transparent hover:border-primary/30"
-                      }`}
-                    >
-                      <img
-                        src={img.node.url}
-                        alt={img.node.altText || `${product.title} ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductImageCarousel
+              images={images}
+              selectedImage={selectedImage}
+              onSelectImage={setSelectedImage}
+              productTitle={product.title}
+            />
 
             {/* Product Info */}
             <div className="space-y-6">

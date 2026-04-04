@@ -74,7 +74,9 @@ const ProductImageCarousel = ({
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const lastDistance = useRef(0);
   const lastTouch = useRef({ x: 0, y: 0 });
+  const swipeStart = useRef({ x: 0, y: 0, time: 0 });
   const isDragging = useRef(false);
+  const isSwiping = useRef(false);
   const zoomImgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -32,7 +32,40 @@ const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m
 const EasterBanner = lazy(() => import("./components/EasterBanner").then(m => ({ default: m.EasterBanner })));
 const CarnivalStickyWidget = lazy(() => import("./components/CarnivalStickyWidget").then(m => ({ default: m.CarnivalStickyWidget })));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
+
+// Defer non-critical widgets until after initial paint + interaction idle
+const DeferredWidgets = () => {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const id = requestIdleCallback?.(() => setReady(true)) ?? setTimeout(() => setReady(true), 3000);
+    return () => {
+      if (typeof id === 'number' && 'cancelIdleCallback' in window) cancelIdleCallback(id);
+    };
+  }, []);
+  if (!ready) return null;
+  return (
+    <Suspense fallback={null}>
+      <WhatsAppButton />
+      <AIChatWidget />
+      <CookieConsent />
+      <WelcomePopup />
+      <SocialProofToast />
+      <ExitIntentPopup />
+      <MobileBottomNav />
+      <CarnivalStickyWidget />
+    </Suspense>
+  );
+};
 
 const AppContent = () => {
   return (
@@ -56,17 +89,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Suspense fallback={null}>
-        <WhatsAppButton />
-        <AIChatWidget />
-        <CookieConsent />
-        <WelcomePopup />
-        <SocialProofToast />
-        <ExitIntentPopup />
-        <MobileBottomNav />
-        <CarnivalStickyWidget />
-        
-      </Suspense>
+      <DeferredWidgets />
     </BrowserRouter>
   );
 };

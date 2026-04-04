@@ -14,6 +14,7 @@ import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { HairDescriptionModal } from "@/components/HairDescriptionModal";
+import useEmblaCarousel from "embla-carousel-react";
 import {
   Accordion,
   AccordionContent,

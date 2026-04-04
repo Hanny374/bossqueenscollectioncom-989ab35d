@@ -85,7 +85,7 @@ serve(async (req) => {
 
       let query = supabase
         .from("product_embeddings")
-        .select("shopify_handle, title, description, product_type, tags, price, compare_at_price, available_for_sale, variants, options")
+        .select("shopify_handle, title, description, product_type, tags, price, compare_at_price, available_for_sale, variants, options, image_url")
         .eq("available_for_sale", true)
         .limit(Math.min(limit, 50));
 
@@ -101,7 +101,7 @@ serve(async (req) => {
           store: "Boss Queens Collection",
           website: "https://bossqueenscollection.com",
           currency: "USD",
-          products: (data || []).map((p) => ({
+          products: (data || []).map((p: any) => ({
             handle: p.shopify_handle,
             url: `https://bossqueenscollection.com/product/${p.shopify_handle}`,
             title: p.title,
@@ -111,6 +111,7 @@ serve(async (req) => {
             price: p.price,
             compareAtPrice: p.compare_at_price,
             inStock: p.available_for_sale,
+            image: p.image_url,
             variants: p.variants,
             options: p.options,
           })),

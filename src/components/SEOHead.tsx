@@ -27,11 +27,16 @@ export const SEOHead = ({
   const fullTitle = `${title} | Boss Queens Collection`;
   const url = `${SITE_URL}${path}`;
 
+  const canonicalUrl = url.endsWith("/") ? url : `${url}/`;
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={canonicalUrl} />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+      <meta name="publisher" content="Boss Queens Collection" />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />

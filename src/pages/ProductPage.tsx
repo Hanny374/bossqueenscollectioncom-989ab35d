@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { fetchProductByHandle, ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
-import { ChevronLeft, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus, X } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
@@ -74,7 +74,9 @@ const ProductImageCarousel = ({
   const [translate, setTranslate] = useState({ x: 0, y: 0 });
   const lastDistance = useRef(0);
   const lastTouch = useRef({ x: 0, y: 0 });
+  const swipeStart = useRef({ x: 0, y: 0, time: 0 });
   const isDragging = useRef(false);
+  const isSwiping = useRef(false);
   const zoomImgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,14 +105,26 @@ const ProductImageCarousel = ({
     setTranslate({ x: 0, y: 0 });
   }, []);
 
+  const goToImage = useCallback((dir: 1 | -1) => {
+    const next = (selectedImage + dir + images.length) % images.length;
+    onSelectImage(next);
+    setZoomScale(1);
+    setTranslate({ x: 0, y: 0 });
+  }, [selectedImage, images.length, onSelectImage]);
+
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       lastDistance.current = Math.hypot(dx, dy);
-    } else if (e.touches.length === 1 && zoomScale > 1) {
-      isDragging.current = true;
-      lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    } else if (e.touches.length === 1) {
+      swipeStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now() };
+      if (zoomScale > 1) {
+        isDragging.current = true;
+        lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else {
+        isSwiping.current = true;
+      }
     }
   }, [zoomScale]);
 
@@ -133,14 +147,23 @@ const ProductImageCarousel = ({
     }
   }, [zoomScale]);
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    // Swipe navigation when not zoomed
+    if (isSwiping.current && zoomScale <= 1.05 && images.length > 1) {
+      const dx = (e.changedTouches[0]?.clientX || 0) - swipeStart.current.x;
+      const elapsed = Date.now() - swipeStart.current.time;
+      if (Math.abs(dx) > 50 && elapsed < 400) {
+        goToImage(dx < 0 ? 1 : -1);
+      }
+    }
     lastDistance.current = 0;
     isDragging.current = false;
+    isSwiping.current = false;
     if (zoomScale <= 1.05) {
       setZoomScale(1);
       setTranslate({ x: 0, y: 0 });
     }
-  }, [zoomScale]);
+  }, [zoomScale, images.length, goToImage]);
 
   const handleDoubleTap = useCallback(() => {
     if (zoomScale > 1) {
@@ -239,7 +262,26 @@ const ProductImageCarousel = ({
               <X className="w-5 h-5" />
             </button>
 
-            {/* Zoom hint */}
+            {/* Left/Right arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => goToImage(-1)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => goToImage(1)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
+
             {zoomScale <= 1.05 && (
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs font-medium z-10">
                 Pinch or double-tap to zoom

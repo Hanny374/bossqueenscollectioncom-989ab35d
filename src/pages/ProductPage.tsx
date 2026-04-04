@@ -117,9 +117,14 @@ const ProductImageCarousel = ({
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       lastDistance.current = Math.hypot(dx, dy);
-    } else if (e.touches.length === 1 && zoomScale > 1) {
-      isDragging.current = true;
-      lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    } else if (e.touches.length === 1) {
+      swipeStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now() };
+      if (zoomScale > 1) {
+        isDragging.current = true;
+        lastTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else {
+        isSwiping.current = true;
+      }
     }
   }, [zoomScale]);
 

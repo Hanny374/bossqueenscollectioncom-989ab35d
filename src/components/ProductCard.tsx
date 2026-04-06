@@ -191,8 +191,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        {/* Desktop overlay buttons */}
-        <div className="absolute bottom-4 left-4 right-4 z-10 hidden md:flex gap-2">
+        {/* Desktop overlay buttons — only on large screens */}
+        <div className="absolute bottom-4 left-4 right-4 z-10 hidden lg:flex gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !activeVariant?.availableForSale}
@@ -229,36 +229,36 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
-      {/* Mobile buttons — below image */}
-      <div className="flex gap-2 mt-2 md:hidden">
-        <Button
-          onClick={(e) => requireHairDescription("add", e)}
-          disabled={isCartLoading || !activeVariant?.availableForSale}
-          variant="outline"
-          className="flex-1 border-primary text-primary hover:bg-primary/10 h-9 text-xs font-semibold"
-        >
-          {isCartLoading ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-          ) : (
-            <>
-              <ShoppingCart className="w-3.5 h-3.5 mr-1" />
-              Add to Cart
-            </>
-          )}
-        </Button>
+      {/* Mobile & tablet buttons — stacked vertically below image */}
+      <div className="flex flex-col gap-2 mt-2 lg:hidden">
         <Button
           onClick={(e) => requireHairDescription("buy", e)}
           disabled={isBuyingNow || !activeVariant?.availableForSale}
-          className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-9 text-xs font-semibold"
+          className="w-full bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11 text-sm font-semibold"
         >
           {isBuyingNow ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            <Loader2 className="w-4 h-4 animate-spin" />
           ) : !activeVariant?.availableForSale ? (
             "Sold Out"
           ) : (
             <>
-              <Zap className="w-3.5 h-3.5 mr-1" />
+              <Zap className="w-4 h-4 mr-1.5" />
               Buy Now
+            </>
+          )}
+        </Button>
+        <Button
+          onClick={(e) => requireHairDescription("add", e)}
+          disabled={isCartLoading || !activeVariant?.availableForSale}
+          variant="outline"
+          className="w-full border-primary text-primary hover:bg-primary/10 h-11 text-sm font-semibold"
+        >
+          {isCartLoading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <>
+              <ShoppingCart className="w-4 h-4 mr-1.5" />
+              Add to Cart
             </>
           )}
         </Button>

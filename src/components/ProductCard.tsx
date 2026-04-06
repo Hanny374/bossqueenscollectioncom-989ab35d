@@ -191,8 +191,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        {/* Desktop overlay buttons */}
-        <div className="absolute bottom-4 left-4 right-4 z-10 hidden md:flex gap-2">
+        {/* Desktop overlay buttons — only on large screens */}
+        <div className="absolute bottom-4 left-4 right-4 z-10 hidden lg:flex gap-2">
           <Button
             onClick={(e) => requireHairDescription("add", e)}
             disabled={isCartLoading || !activeVariant?.availableForSale}

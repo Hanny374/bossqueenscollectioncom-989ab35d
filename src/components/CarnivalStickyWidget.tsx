@@ -8,7 +8,9 @@ export const CarnivalStickyWidget = () => {
     return sessionStorage.getItem("carnival-widget-dismissed") === "true";
   });
 
-  const dismiss = () => {
+  const dismiss = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
     setDismissed(true);
     sessionStorage.setItem("carnival-widget-dismissed", "true");
   };

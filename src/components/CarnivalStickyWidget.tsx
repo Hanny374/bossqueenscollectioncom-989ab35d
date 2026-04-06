@@ -34,10 +34,10 @@ export const CarnivalStickyWidget = () => {
             <div className="relative bg-gradient-to-br from-primary via-[hsl(20,85%,50%)] to-[hsl(50,90%,50%)] p-4">
               <button
                 onClick={dismiss}
-                className="absolute top-2 right-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors rounded-full hover:bg-primary-foreground/20 p-1"
+                className="absolute top-2 right-2 z-20 text-primary-foreground/60 hover:text-primary-foreground transition-colors rounded-full hover:bg-primary-foreground/20 p-2 min-w-[32px] min-h-[32px] flex items-center justify-center"
                 aria-label="Close"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
 
               <div className="flex items-center gap-2 mb-1.5">

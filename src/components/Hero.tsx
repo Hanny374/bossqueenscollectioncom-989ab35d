@@ -1,28 +1,87 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Crown, Sparkles, ArrowDown } from "lucide-react";
-import { motion } from "framer-motion";
+import { Crown, Sparkles, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
 import heroImage from "@/assets/hero-beauty.webp";
+import modelStraight from "@/assets/model-straight-black-wig.jpg";
+import modelBlonde from "@/assets/model-blonde-bodywave-wig.jpg";
+import modelBurgundy from "@/assets/model-burgundy-deepwave-wig.jpg";
+
+const slides = [
+  { img: heroImage, alt: "Beautiful woman with luxurious human hair wig" },
+  { img: modelStraight, alt: "Sleek straight jet black lace front wig" },
+  { img: modelBlonde, alt: "Honey blonde body wave lace front wig" },
+  { img: modelBurgundy, alt: "Burgundy deep wave lace front wig" },
+];
 
 export const Hero = () => {
+  const [current, setCurrent] = useState(0);
+
+  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
+  const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
+
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
   return (
     <section className="hero-slot relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden">
-      {/* Background Image — always visible immediately */}
-       <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Beautiful woman with luxurious human hair wig"
-          className="w-full h-full object-cover object-top"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          width={1200}
-          height={686}
-          style={{ aspectRatio: '1200/686' }}
-        />
+      {/* Preload all images */}
+      {slides.map((s, i) => (
+        <link key={i} rel="preload" as="image" href={s.img} />
+      ))}
+
+      {/* Background Carousel */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={current}
+            src={slides[current].img}
+            alt={slides[current].alt}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            loading={current === 0 ? "eager" : "lazy"}
+            fetchPriority={current === 0 ? "high" : undefined}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
         {/* Cinematic overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-espresso/60 via-transparent to-espresso/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-espresso/80 via-espresso/40 to-transparent z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso/60 via-transparent to-espresso/20 z-[1]" />
+      </div>
+
+      {/* Carousel Controls */}
+      <button
+        onClick={prev}
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-cream/10 backdrop-blur-sm border border-cream/20 flex items-center justify-center text-cream/70 hover:text-cream hover:bg-cream/20 transition-all"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button
+        onClick={next}
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-cream/10 backdrop-blur-sm border border-cream/20 flex items-center justify-center text-cream/70 hover:text-cream hover:bg-cream/20 transition-all"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
+      {/* Dot Indicators */}
+      <div className="absolute bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+              i === current ? "bg-primary w-8" : "bg-cream/40 hover:bg-cream/60"
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
       </div>
 
       {/* Content */}

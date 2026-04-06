@@ -28,15 +28,16 @@ export const CarnivalStickyWidget = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
           transition={{ type: "spring", damping: 20, stiffness: 200 }}
-          className="fixed bottom-20 left-4 z-40 w-[300px] max-w-[calc(100vw-2rem)]"
+          className="fixed bottom-20 left-4 z-[60] w-[300px] max-w-[calc(100vw-2rem)] lg:z-40"
         >
           <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-300/60">
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-[hsl(50,90%,55%)] to-primary opacity-50 blur-md animate-pulse pointer-events-none" />
 
             <div className="relative bg-gradient-to-br from-primary via-[hsl(20,85%,50%)] to-[hsl(50,90%,50%)] p-4">
               <button
+                type="button"
                 onClick={dismiss}
-                className="absolute top-2 right-2 z-20 text-primary-foreground/60 hover:text-primary-foreground transition-colors rounded-full hover:bg-primary-foreground/20 p-2 min-w-[32px] min-h-[32px] flex items-center justify-center"
+                className="absolute top-2 right-2 z-20 touch-manipulation text-primary-foreground/60 hover:text-primary-foreground transition-colors rounded-full hover:bg-primary-foreground/20 p-2 min-w-[32px] min-h-[32px] flex items-center justify-center"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />

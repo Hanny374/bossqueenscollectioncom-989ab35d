@@ -28,7 +28,7 @@ export const CarnivalStickyWidget = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 80 }}
           transition={{ type: "spring", damping: 20, stiffness: 200 }}
-          className="fixed bottom-20 left-4 z-[60] w-[300px] max-w-[calc(100vw-2rem)] lg:z-40"
+          className="fixed bottom-36 left-4 z-[60] w-[280px] max-w-[calc(100vw-2rem)] md:bottom-20 lg:z-40 lg:w-[300px]"
         >
           <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-yellow-300/60">
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-[hsl(50,90%,55%)] to-primary opacity-50 blur-md animate-pulse pointer-events-none" />

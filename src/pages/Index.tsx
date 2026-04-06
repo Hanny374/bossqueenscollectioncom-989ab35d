@@ -11,6 +11,9 @@ import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram, ShoppingBag } from "lucide-react";
+import modelStraight from "@/assets/model-straight-black-wig.jpg";
+import modelBlonde from "@/assets/model-blonde-bodywave-wig.jpg";
+import modelBurgundy from "@/assets/model-burgundy-deepwave-wig.jpg";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 import { EasterBanner } from "@/components/EasterBanner";

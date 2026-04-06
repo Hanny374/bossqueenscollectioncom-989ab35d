@@ -11,6 +11,9 @@ import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { Crown, Globe, Heart, ShieldCheck, Truck, Shield, Package, Flame, Sparkles, Camera, Instagram, ShoppingBag } from "lucide-react";
+import modelStraight from "@/assets/model-straight-black-wig.jpg";
+import modelBlonde from "@/assets/model-blonde-bodywave-wig.jpg";
+import modelBurgundy from "@/assets/model-burgundy-deepwave-wig.jpg";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
 import { EasterBanner } from "@/components/EasterBanner";
@@ -296,7 +299,62 @@ const Index = () => {
         <Hero />
         <Marquee />
 
-        {/* Free Shipping Banner */}
+        {/* Model Showcase */}
+        <section className="py-12 md:py-20 bg-secondary/20">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="text-center mb-8 md:mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-2 md:mb-3">
+                <Crown className="w-5 h-5 text-primary" />
+                <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Find Your Look</span>
+              </div>
+              <h2 className="font-display text-2xl md:text-5xl font-bold text-foreground">Style Inspiration</h2>
+              <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-lg mx-auto">Explore our most popular lace wig styles — which queen are you?</p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+              {[
+                { img: modelStraight, title: "Sleek Straight", desc: "Jet Black Lace Front", link: "/#products?category=lace-front-wigs" },
+                { img: modelBlonde, title: "Honey Blonde Waves", desc: "Body Wave Lace Front", link: "/#products?category=colored-wigs" },
+                { img: modelBurgundy, title: "Burgundy Deep Wave", desc: "Deep Wave Lace Front", link: "/#products?category=colored-wigs" },
+              ].map((model, i) => (
+                <motion.div
+                  key={model.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.15 }}
+                >
+                  <Link to={model.link} className="group block relative rounded-2xl overflow-hidden aspect-[3/4] shadow-lg hover:shadow-2xl transition-shadow duration-500">
+                    <img
+                      src={model.img}
+                      alt={`${model.title} lace wig style`}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                      width={800}
+                      height={1000}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-espresso/70 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+                      <h3 className="font-display text-xl md:text-2xl font-bold text-cream">{model.title}</h3>
+                      <p className="text-cream/70 text-sm mt-1">{model.desc}</p>
+                      <span className="inline-flex items-center gap-1.5 mt-3 text-primary text-sm font-medium group-hover:gap-2.5 transition-all">
+                        Shop This Style <ShoppingBag className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
         <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">
           <div className="container px-4 md:px-8">
             <motion.div

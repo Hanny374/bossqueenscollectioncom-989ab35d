@@ -14,11 +14,21 @@ export const ExitIntentPopup = () => {
 
   useEffect(() => {
     const hasShown = localStorage.getItem(STORAGE_KEY);
-    if (hasShown) return;
+    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-    // Show immediately on page load
-    setOpen(true);
-    localStorage.setItem(STORAGE_KEY, "true");
+    if (hasShown || isTouchDevice) return;
+
+    const handleMouseLeave = (event: MouseEvent) => {
+      if (event.clientY > 0) return;
+
+      setOpen(true);
+      localStorage.setItem(STORAGE_KEY, "true");
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => document.removeEventListener("mouseleave", handleMouseLeave);
   }, []);
 
   const handleCopy = async () => {

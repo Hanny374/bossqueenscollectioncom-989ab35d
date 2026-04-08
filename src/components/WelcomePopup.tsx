@@ -14,10 +14,12 @@ export const WelcomePopup = () => {
 
   useEffect(() => {
     const hasSeenWelcome = localStorage.getItem(STORAGE_KEY);
-    if (!hasSeenWelcome) {
-      const timer = setTimeout(() => setOpen(true), 3000);
-      return () => clearTimeout(timer);
-    }
+    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    if (hasSeenWelcome || isTouchDevice) return;
+
+    const timer = window.setTimeout(() => setOpen(true), 3000);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleClose = () => {

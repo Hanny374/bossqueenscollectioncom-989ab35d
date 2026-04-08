@@ -46,13 +46,33 @@ const queryClient = new QueryClient({
 // Defer non-critical widgets until after initial paint + interaction idle
 const DeferredWidgets = () => {
   const [ready, setReady] = useState(false);
+
   useEffect(() => {
-    const id = requestIdleCallback?.(() => setReady(true)) ?? setTimeout(() => setReady(true), 3000);
+    const idleWindow = window as Window & typeof globalThis & {
+      requestIdleCallback?: (callback: () => void) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    let idleId: number | null = null;
+    const timeoutId = window.setTimeout(() => setReady(true), 3000);
+
+    if (typeof idleWindow.requestIdleCallback === "function") {
+      idleId = idleWindow.requestIdleCallback(() => {
+        window.clearTimeout(timeoutId);
+        setReady(true);
+      });
+    }
+
     return () => {
-      if (typeof id === 'number' && 'cancelIdleCallback' in window) cancelIdleCallback(id);
+      window.clearTimeout(timeoutId);
+      if (idleId !== null && typeof idleWindow.cancelIdleCallback === "function") {
+        idleWindow.cancelIdleCallback(idleId);
+      }
     };
   }, []);
+
   if (!ready) return null;
+
   return (
     <Suspense fallback={null}>
       <WhatsAppButton />

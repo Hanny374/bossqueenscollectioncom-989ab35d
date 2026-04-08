@@ -122,6 +122,7 @@ const App = () => (
         <AuthProvider>
           <Toaster />
           <Sonner />
+          <EmailGate />
           <AppContent />
         </AuthProvider>
       </TooltipProvider>

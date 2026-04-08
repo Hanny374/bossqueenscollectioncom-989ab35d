@@ -44,6 +44,27 @@ export type Database = {
         }
         Relationships: []
       }
+      email_captures: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          source: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          source?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
       product_embeddings: {
         Row: {
           available_for_sale: boolean | null

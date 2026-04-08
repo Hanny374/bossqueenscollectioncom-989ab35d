@@ -295,7 +295,7 @@ const Index = () => {
       )}
 
       <main>
-        <EasterBanner />
+        
         <Hero />
         <Marquee />
 

@@ -29,7 +29,7 @@ const WelcomePopup = lazy(() => import("./components/WelcomePopup").then(m => ({
 const SocialProofToast = lazy(() => import("./components/SocialProofToast").then(m => ({ default: m.SocialProofToast })));
 const ExitIntentPopup = lazy(() => import("./components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m => ({ default: m.MobileBottomNav })));
-const EasterBanner = lazy(() => import("./components/EasterBanner").then(m => ({ default: m.EasterBanner })));
+
 const CarnivalStickyWidget = lazy(() => import("./components/CarnivalStickyWidget").then(m => ({ default: m.CarnivalStickyWidget })));
 
 const queryClient = new QueryClient({

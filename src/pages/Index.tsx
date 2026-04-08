@@ -16,7 +16,7 @@ import modelBlonde from "@/assets/model-blonde-bodywave-wig.jpg";
 import modelBurgundy from "@/assets/model-burgundy-deepwave-wig.jpg";
 import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, GooglePayLogo } from "@/components/PaymentLogos";
 
-import { EasterBanner } from "@/components/EasterBanner";
+
 
 const Categories = lazy(() => import("@/components/Categories").then(m => ({ default: m.Categories })));
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
@@ -295,7 +295,7 @@ const Index = () => {
       )}
 
       <main>
-        <EasterBanner />
+        
         <Hero />
         <Marquee />
 

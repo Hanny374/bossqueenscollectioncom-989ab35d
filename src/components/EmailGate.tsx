@@ -35,6 +35,10 @@ export const EmailGate = () => {
     setLoading(true);
     try {
       await supabase.from("email_captures").insert({ email: trimmed, source: "gate" });
+      // Sync to Mailchimp in background (don't block the UI)
+      supabase.functions.invoke("sync-mailchimp", {
+        body: { email: trimmed },
+      }).catch((err) => console.error("Mailchimp sync error:", err));
       localStorage.setItem(STORAGE_KEY, "1");
       document.body.style.overflow = "";
       setShow(false);

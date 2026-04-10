@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
-import { Crown, Sparkles } from "lucide-react";
+import { Crown, Sparkles, X } from "lucide-react";
 
 const STORAGE_KEY = "bqc_email_captured";
 
@@ -63,8 +63,21 @@ export const EmailGate = () => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
-            className="w-full max-w-md rounded-2xl bg-gradient-to-br from-background via-background to-secondary/30 border border-primary/20 shadow-2xl p-8 text-center"
+            className="relative w-full max-w-md rounded-2xl bg-gradient-to-br from-background via-background to-secondary/30 border border-primary/20 shadow-2xl p-8 text-center"
           >
+            {/* Close button */}
+            <button
+              onClick={() => {
+                localStorage.setItem(STORAGE_KEY, "1");
+                document.body.style.overflow = "";
+                setShow(false);
+              }}
+              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors p-1"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
             <div className="flex justify-center mb-4">
               <div className="relative">
                 <Crown className="w-12 h-12 text-primary" />

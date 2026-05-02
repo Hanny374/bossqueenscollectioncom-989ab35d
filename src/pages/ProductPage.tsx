@@ -880,7 +880,6 @@ const ProductPage = () => {
                     "Sold Out"
                   ) : (
                     <>
-                      <Zap className="w-5 h-5 mr-2" />
                       Buy Now
                     </>
                   )}
@@ -920,7 +919,6 @@ const ProductPage = () => {
                         "Sold Out"
                       ) : (
                         <>
-                          <Zap className="w-4 h-4 mr-1.5" />
                           Buy Now — ${(adjustedPrice * quantity).toFixed(2)}
                         </>
                       )}
@@ -1210,7 +1208,6 @@ const ProductPage = () => {
               >
                 {isBuyingNow ? <Loader2 className="w-4 h-4 animate-spin" /> : (
                   <>
-                    <Zap className="w-4 h-4 mr-1" />
                     Buy Now
                   </>
                 )}

@@ -345,7 +345,6 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <>
-                <Zap className="w-4 h-4 mr-1.5" />
                 Buy Now
               </>
             )}

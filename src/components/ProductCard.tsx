@@ -219,7 +219,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               "Sold Out"
             ) : (
               <>
-                <Zap className="w-4 h-4 mr-1.5" />
                 Buy Now
               </>
             )}
@@ -242,7 +241,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             "Sold Out"
           ) : (
             <>
-              <Zap className="w-4 h-4 mr-1.5" />
               Buy Now
             </>
           )}

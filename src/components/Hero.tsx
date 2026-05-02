@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Crown, Sparkles, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useLayoutEffect } from "react";
 import heroImage from "@/assets/hero-beauty.webp";
 import modelStraight from "@/assets/model-straight-black-wig.jpg";
 import modelBlonde from "@/assets/model-blonde-bodywave-wig.jpg";
@@ -18,6 +18,21 @@ const slides = [
 export const Hero = () => {
   const [current, setCurrent] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Inject a high-priority preload for the LCP hero image using the hashed URL.
+  // Runs synchronously before paint so the browser starts the fetch ASAP.
+  useLayoutEffect(() => {
+    if (typeof document === "undefined") return;
+    if (document.querySelector('link[data-hero-preload]')) return;
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = heroImage;
+    link.type = "image/webp";
+    (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = "high";
+    link.setAttribute("data-hero-preload", "true");
+    document.head.appendChild(link);
+  }, []);
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);

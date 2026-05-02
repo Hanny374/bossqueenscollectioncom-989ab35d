@@ -10,8 +10,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
 
-    <!-- Preload critical hero image (Vite injects hashed URL in production) -->
-    <link rel="preload" as="image" href="/src/assets/hero-beauty.webp" type="image/webp" fetchpriority="high" />
+    <!-- Hero image preload is injected at runtime in Hero.tsx with the Vite-hashed URL -->
 
     <!-- Reserve hero space to prevent CLS -->
     <style>

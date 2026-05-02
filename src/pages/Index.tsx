@@ -68,8 +68,8 @@ const Index = () => {
       else window.clearTimeout(t as number);
     };
   }, []);
-  const { data: initialProducts = [], isLoading } = useProducts(productsEnabled ? 50 : 0);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(productsEnabled ? 30 : 0);
+  const { data: initialProducts = [], isLoading } = useProducts(50, productsEnabled);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30, undefined, productsEnabled);
   const location = useLocation();
   const navigate = useNavigate();
 

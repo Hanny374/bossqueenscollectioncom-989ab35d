@@ -17,22 +17,44 @@ const slides = [
 
 export const Hero = () => {
   const [current, setCurrent] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + slides.length) % slides.length), []);
 
+  // Defer auto-rotate until after LCP/first paint settles to protect LCP.
   useEffect(() => {
-    const timer = setInterval(next, 2000);
-    return () => clearInterval(timer);
+    const start = window.setTimeout(() => {
+      const timer = window.setInterval(next, 4000);
+      (start as unknown as { _t?: number })._t = timer;
+    }, 4000);
+    return () => {
+      window.clearTimeout(start);
+      const t = (start as unknown as { _t?: number })._t;
+      if (t) window.clearInterval(t);
+    };
   }, [next]);
+
+  // Lazily preload non-LCP slides during browser idle time so they don't
+  // contend with the hero image for bandwidth during the LCP window.
+  useEffect(() => {
+    const ric: (cb: () => void) => number =
+      (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback ||
+      ((cb) => window.setTimeout(cb, 1500));
+    const id = ric(() => {
+      slides.slice(1).forEach((s) => {
+        const img = new Image();
+        img.src = s.img;
+      });
+    });
+    return () => {
+      const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+      if (cancel) cancel(id);
+    };
+  }, []);
 
   return (
     <section className="hero-slot relative min-h-[85vh] md:min-h-[100vh] flex items-center overflow-hidden">
-      {/* Preload all images */}
-      {slides.map((s, i) => (
-        <link key={i} rel="preload" as="image" href={s.img} />
-      ))}
-
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence initial={false}>
@@ -43,8 +65,10 @@ export const Hero = () => {
             className="absolute inset-0 w-full h-full object-cover object-top"
             loading={current === 0 ? "eager" : "lazy"}
             fetchPriority={current === 0 ? "high" : undefined}
-            initial={{ opacity: 0, scale: 1.05 }}
+            decoding={current === 0 ? "sync" : "async"}
+            initial={current === 0 && !hasInteracted ? false : { opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
+            onAnimationComplete={() => setHasInteracted(true)}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           />

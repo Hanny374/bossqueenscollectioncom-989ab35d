@@ -57,8 +57,19 @@ function getCategoryFromHash(hash: string): string {
 const PRODUCTS_PER_PAGE = 20;
 
 const Index = () => {
-  const { data: initialProducts = [], isLoading } = useProducts(50);
-  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30);
+  // Defer product fetches until after first paint to protect hero LCP.
+  const [productsEnabled, setProductsEnabled] = useState(false);
+  useEffect(() => {
+    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    const t = idle ? idle(() => setProductsEnabled(true)) : window.setTimeout(() => setProductsEnabled(true), 600);
+    return () => {
+      const cancel = (window as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+      if (cancel && idle) cancel(t as number);
+      else window.clearTimeout(t as number);
+    };
+  }, []);
+  const { data: initialProducts = [], isLoading } = useProducts(productsEnabled ? 50 : 0);
+  const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(productsEnabled ? 30 : 0);
   const location = useLocation();
   const navigate = useNavigate();
 

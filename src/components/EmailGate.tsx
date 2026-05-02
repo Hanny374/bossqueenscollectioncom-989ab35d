@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Crown, Sparkles, X } from "lucide-react";
 
 const STORAGE_KEY = "bqc_email_captured";
+const SHOW_DELAY_MS = 20000; // Wait 20s before showing — let visitors browse first
 
 export const EmailGate = () => {
   const [show, setShow] = useState(false);
@@ -13,11 +14,16 @@ export const EmailGate = () => {
 
   useEffect(() => {
     const captured = localStorage.getItem(STORAGE_KEY);
-    if (!captured) {
+    if (captured) return;
+
+    // Delay popup so visitors can browse products first (better conversions)
+    const timer = window.setTimeout(() => {
       setShow(true);
       document.body.style.overflow = "hidden";
-    }
+    }, SHOW_DELAY_MS);
+
     return () => {
+      window.clearTimeout(timer);
       document.body.style.overflow = "";
     };
   }, []);

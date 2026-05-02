@@ -42,11 +42,14 @@ export const Header = () => {
   return (
     <>
       {/* Announcement bar */}
-      <div className="bg-espresso text-cream text-center py-2 text-xs sm:text-sm font-medium tracking-wider">
+      <Link
+        to="/mothers-day-sale"
+        className="block bg-espresso text-cream text-center py-2 text-xs sm:text-sm font-medium tracking-wider hover:bg-espresso/90 transition-colors"
+      >
         <div className="container px-4">
-          ✨ Use code <span className="font-bold underline">WELCOME10</span> for 10% off your first order · FREE SHIPPING OVER $100 ✨
+          💐 Mother's Day Sale · 20% OFF with code <span className="font-bold underline">MOM20</span> · Free Shipping Over $100 →
         </div>
-      </div>
+      </Link>
 
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-500 ${

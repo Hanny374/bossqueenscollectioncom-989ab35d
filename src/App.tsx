@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage"));
+const MothersDaySalePage = lazy(() => import("./pages/MothersDaySalePage"));
 
 // Lazy load below-fold widgets
 const WhatsAppButton = lazy(() => import("./components/WhatsAppButton").then(m => ({ default: m.WhatsAppButton })));
@@ -106,6 +107,8 @@ const AppContent = () => {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
+          <Route path="/mothers-day-sale" element={<MothersDaySalePage />} />
+          <Route path="/mothers-day" element={<Navigate to="/mothers-day-sale" replace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

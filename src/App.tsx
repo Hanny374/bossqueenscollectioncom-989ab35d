@@ -32,8 +32,6 @@ const SocialProofToast = lazy(() => import("./components/SocialProofToast").then
 const ExitIntentPopup = lazy(() => import("./components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m => ({ default: m.MobileBottomNav })));
 
-const CarnivalStickyWidget = lazy(() => import("./components/CarnivalStickyWidget").then(m => ({ default: m.CarnivalStickyWidget })));
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -84,7 +82,6 @@ const DeferredWidgets = () => {
       <SocialProofToast />
       <ExitIntentPopup />
       <MobileBottomNav />
-      <CarnivalStickyWidget />
     </Suspense>
   );
 };

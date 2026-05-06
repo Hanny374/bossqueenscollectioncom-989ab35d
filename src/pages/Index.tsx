@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
-import { useProducts, useNewestProducts, useFullCatalog } from "@/hooks/useProducts";
+import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";

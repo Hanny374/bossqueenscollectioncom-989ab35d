@@ -28,7 +28,6 @@ const WhatsAppButton = lazy(() => import("./components/WhatsAppButton").then(m =
 const AIChatWidget = lazy(() => import("./components/AIChatWidget").then(m => ({ default: m.AIChatWidget })));
 const CookieConsent = lazy(() => import("./components/CookieConsent").then(m => ({ default: m.CookieConsent })));
 const WelcomePopup = lazy(() => import("./components/WelcomePopup").then(m => ({ default: m.WelcomePopup })));
-const SocialProofToast = lazy(() => import("./components/SocialProofToast").then(m => ({ default: m.SocialProofToast })));
 const ExitIntentPopup = lazy(() => import("./components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 const MobileBottomNav = lazy(() => import("./components/MobileBottomNav").then(m => ({ default: m.MobileBottomNav })));
 
@@ -79,7 +78,6 @@ const DeferredWidgets = () => {
       <AIChatWidget />
       <CookieConsent />
       <WelcomePopup />
-      <SocialProofToast />
       <ExitIntentPopup />
       <MobileBottomNav />
     </Suspense>

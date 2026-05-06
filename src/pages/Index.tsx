@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
-import { useProducts, useNewestProducts, useFullCatalog } from "@/hooks/useProducts";
+import { useProducts, useNewestProducts } from "@/hooks/useProducts";
 import { ShopifyProduct } from "@/lib/shopify";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
@@ -68,29 +68,15 @@ const Index = () => {
       else window.clearTimeout(t as number);
     };
   }, []);
-  const { data: initialProducts = [], isLoading } = useProducts(50, productsEnabled);
+  // Only load top-selling products (BEST_SELLING sortKey from Shopify)
+  const { data: initialProducts = [], isLoading } = useProducts(24, productsEnabled);
   const { data: newestProducts = [], isLoading: isLoadingNewest } = useNewestProducts(30, undefined, productsEnabled);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Lazy-load full catalog when the catalog section becomes visible
+  // Only display top sellers — no full catalog fetch
   const catalogRef = useRef<HTMLDivElement>(null);
-  const [catalogVisible, setCatalogVisible] = useState(false);
-  const { data: fullProducts } = useFullCatalog(catalogVisible);
-
-  // Use full catalog when available, otherwise fall back to initial batch
-  const products = fullProducts ?? initialProducts;
-
-  useEffect(() => {
-    const el = catalogRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setCatalogVisible(true); observer.disconnect(); } },
-      { rootMargin: "400px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const products = initialProducts;
 
   const categoryFromUrl = getCategoryFromHash(location.hash);
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);

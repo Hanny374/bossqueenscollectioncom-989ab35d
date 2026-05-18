@@ -40,8 +40,7 @@ export const Header = () => {
   }, [location.pathname]);
 
   return (
-
-      <header
+    <header
         className={`sticky top-0 z-50 w-full transition-all duration-500 ${
           scrolled
             ? "glass border-b border-border/40 shadow-soft"

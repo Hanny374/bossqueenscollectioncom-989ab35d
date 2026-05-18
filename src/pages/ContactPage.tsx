@@ -146,6 +146,31 @@ const ContactPage = () => {
             ))}
           </div>
 
+          {/* Google Map */}
+          <div className="max-w-6xl mx-auto mb-12">
+            <div className="bg-card rounded-2xl overflow-hidden shadow-soft border border-border">
+              <div className="p-6 border-b border-border flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="font-display text-lg font-bold text-foreground">Find Us</h2>
+                  <p className="text-xs text-muted-foreground">St. Maarten, Caribbean</p>
+                </div>
+              </div>
+              <iframe
+                title="Boss Queens Collection — St. Maarten"
+                src="https://www.google.com/maps?q=Sint+Maarten&output=embed"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
             <div className="space-y-8">

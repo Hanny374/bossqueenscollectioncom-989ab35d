@@ -101,8 +101,8 @@ const AppContent = () => {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
-          <Route path="/mothers-day-sale" element={<MothersDaySalePage />} />
-          <Route path="/mothers-day" element={<Navigate to="/mothers-day-sale" replace />} />
+          <Route path="/admin/reviews" element={<AdminReviewsPage />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

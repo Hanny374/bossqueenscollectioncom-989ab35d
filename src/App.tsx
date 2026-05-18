@@ -21,7 +21,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage"));
-const MothersDaySalePage = lazy(() => import("./pages/MothersDaySalePage"));
 
 // Lazy load below-fold widgets
 const WhatsAppButton = lazy(() => import("./components/WhatsAppButton").then(m => ({ default: m.WhatsAppButton })));

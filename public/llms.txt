@@ -79,12 +79,12 @@ Programmatic access for AI assistants and shopping agents:
 
 ## Pages
 
-- Shop: https://bossqueenscollection.com/#products
-- About Us: https://bossqueenscollection.com/about
-- Shipping Info: https://bossqueenscollection.com/shipping
-- FAQ: https://bossqueenscollection.com/faq
-- Contact: https://bossqueenscollection.com/contact
-- Privacy Policy: https://bossqueenscollection.com/privacy-policy
+- [Shop](/#products): Browse our full catalog of 100% virgin human hair wigs, bundles, frontals, and accessories.
+- [About Us](/about): Boss Queens Collection's story — Black-owned, founded in St. Maarten in 2020.
+- [Shipping Info](/shipping): Worldwide shipping rates, processing times, and free shipping over $100.
+- [FAQ](/faq): Answers to common questions about hair care, sizing, dyeing, and orders.
+- [Contact](/contact): Customer support, wholesale inquiries, and custom wig requests.
+- [Privacy Policy](/privacy-policy): How we handle your data and protect your privacy.
 
 ## Contact
 

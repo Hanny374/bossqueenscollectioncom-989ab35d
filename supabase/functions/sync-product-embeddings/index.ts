@@ -123,11 +123,21 @@ serve(async (req) => {
   }
 
   try {
+    // Require admin shared secret to prevent unauthenticated abuse
+    const SYNC_SECRET = Deno.env.get("SYNC_SECRET");
+    const provided = req.headers.get("x-sync-secret");
+    if (!SYNC_SECRET || provided !== SYNC_SECRET) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const body = await req.json().catch(() => ({}));
     const batchSize = body.batch_size || 5;
     const batchOffset = body.batch_offset || 0;
 
-    const SHOPIFY_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN") || "0e942a6ba1a520b2bd97819256fe60c5";
+    const SHOPIFY_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN");
     if (!SHOPIFY_TOKEN) throw new Error("SHOPIFY_STOREFRONT_ACCESS_TOKEN not configured");
 
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");

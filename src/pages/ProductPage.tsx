@@ -1060,27 +1060,27 @@ const ProductPage = () => {
                           <div className="text-center p-2 bg-background rounded">
                             <p className="font-medium text-foreground">4x4 Closure</p>
                             <p className="text-muted-foreground">4" x 4" lace area</p>
-                            <p className="text-muted-foreground/70">Natural part</p>
+                            <p className="text-muted-foreground">Natural part</p>
                           </div>
                           <div className="text-center p-2 bg-background rounded">
                             <p className="font-medium text-foreground">5x5 Closure</p>
                             <p className="text-muted-foreground">5" x 5" lace area</p>
-                            <p className="text-muted-foreground/70">More parting space</p>
+                            <p className="text-muted-foreground">More parting space</p>
                           </div>
                           <div className="text-center p-2 bg-background rounded">
                             <p className="font-medium text-foreground">13x4 Frontal</p>
                             <p className="text-muted-foreground">13" x 4" ear to ear</p>
-                            <p className="text-muted-foreground/70">Natural hairline</p>
+                            <p className="text-muted-foreground">Natural hairline</p>
                           </div>
                           <div className="text-center p-2 bg-background rounded">
                             <p className="font-medium text-foreground">13x6 Frontal</p>
                             <p className="text-muted-foreground">13" x 6" deep part</p>
-                            <p className="text-muted-foreground/70">Deeper parting</p>
+                            <p className="text-muted-foreground">Deeper parting</p>
                           </div>
                           <div className="text-center p-2 bg-background rounded col-span-2 md:col-span-1">
                             <p className="font-medium text-foreground">360 Lace</p>
                             <p className="text-muted-foreground">Full perimeter lace</p>
-                            <p className="text-muted-foreground/70">High ponytails & updos</p>
+                            <p className="text-muted-foreground">High ponytails & updos</p>
                           </div>
                         </div>
                       </div>

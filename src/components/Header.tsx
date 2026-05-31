@@ -104,8 +104,8 @@ export const Header = () => {
               <span className="font-display text-[10px] sm:text-xs tracking-[0.25em] uppercase text-muted-foreground">
                 Collection
               </span>
-              <span className="text-muted-foreground/40 text-[10px]">·</span>
-              <span className="font-display text-[10px] sm:text-xs tracking-[0.2em] uppercase text-muted-foreground/60">
+              <span className="text-muted-foreground text-[10px]">·</span>
+              <span className="font-display text-[10px] sm:text-xs tracking-[0.2em] uppercase text-muted-foreground">
                 Est. 2020
               </span>
             </div>

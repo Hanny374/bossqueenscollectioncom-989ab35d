@@ -72,7 +72,7 @@ export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
   const candidates = useMemo(
-    () => products.map(p => ({ handle: p.handle, title: p.title })),
+    () => products.map(p => ({ handle: p.node.handle, title: p.node.title })),
     [products]
   );
 

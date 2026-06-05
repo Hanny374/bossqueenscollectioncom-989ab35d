@@ -26,3 +26,6 @@ verify_jwt = false
 
 [functions.import-review-photos]
 verify_jwt = false
+
+[functions.extract-reviews-from-image]
+verify_jwt = false

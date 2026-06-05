@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Star, Check, X, Loader2, Shield, Plus, Upload, Trash2 } from "lucide-react";
 import { DSersCSVImporter } from "@/components/DSersCSVImporter";
+import { ScreenshotReviewImporter } from "@/components/ScreenshotReviewImporter";
 
 interface ReviewRow {
   id: string;
@@ -51,7 +52,7 @@ const AdminReviewsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<"pending" | "approved" | "rejected">("pending");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"manage" | "import" | "csv">("manage");
+  const [activeTab, setActiveTab] = useState<"manage" | "import" | "csv" | "screenshot">("manage");
 
   // Import state
   const [importReviews, setImportReviews] = useState<ImportReview[]>([{ ...EMPTY_IMPORT }]);
@@ -228,10 +229,22 @@ const AdminReviewsPage = () => {
               <Upload className="w-4 h-4 mr-2" />
               DSers CSV Import
             </Button>
+            <Button
+              variant={activeTab === "screenshot" ? "default" : "ghost"}
+              onClick={() => setActiveTab("screenshot")}
+              className={activeTab === "screenshot" ? "bg-primary text-primary-foreground" : ""}
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Screenshot Import
+            </Button>
           </div>
 
           {activeTab === "csv" && (
             <DSersCSVImporter onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }} />
+          )}
+
+          {activeTab === "screenshot" && (
+            <ScreenshotReviewImporter onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }} />
           )}
 
           {activeTab === "manage" && (

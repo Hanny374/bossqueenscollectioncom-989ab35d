@@ -282,7 +282,7 @@ const Index = () => {
                   offers: {
                     "@type": "Offer",
                     priceCurrency: p.node.priceRange.minVariantPrice.currencyCode,
-                    price: (parseFloat(p.node.priceRange.minVariantPrice.amount) + 20).toFixed(2),
+                    price: (parseFloat(p.node.priceRange.minVariantPrice.amount) + PRICE_MARKUP).toFixed(2),
                     availability: p.node.availableForSale !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
                   }
                 }

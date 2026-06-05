@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.sync-mailchimp]
 verify_jwt = false
+
+[functions.import-review-photos]
+verify_jwt = false

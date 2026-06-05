@@ -7,7 +7,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { useProducts, useNewestProducts } from "@/hooks/useProducts";
-import { ShopifyProduct } from "@/lib/shopify";
+import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useScrollToHash } from "@/hooks/useScrollToHash";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";

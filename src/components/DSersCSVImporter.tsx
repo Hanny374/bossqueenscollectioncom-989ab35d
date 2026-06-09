@@ -65,7 +65,7 @@ function fuzzyMatch(target: string, candidates: { handle: string; title: string 
   return best.score >= 2 ? best.handle : "";
 }
 
-export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
+export function DSersCSVImporter({ onDone, source = "dsers", title = "Import DSers CSV", description }: { onDone: () => void; source?: string; title?: string; description?: string }) {
   const { data: products = [], isLoading: loadingProducts } = useFullCatalog(true);
   const [rows, setRows] = useState<ParsedRow[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -126,9 +126,6 @@ export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
       toast.error("No reviews ready. Match each row to a product first.");
       return;
     }
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) { toast.error("Not signed in"); return; }
-
     setSubmitting(true);
     setProgress({ done: 0, total: valid.length });
 
@@ -146,7 +143,7 @@ export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
       }
       const matchedTitle = candidates.find(c => c.handle === r.product_handle)?.title || r.product_title;
       const { error } = await supabase.from("reviews").insert({
-        user_id: user.id,
+        user_id: null,
         rating: r.rating,
         title: r.title || null,
         body: r.body,
@@ -155,7 +152,10 @@ export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
         is_verified_purchase: true,
         status: "approved",
         photos: hosted,
-      });
+        reviewer_name: r.reviewer_name,
+        source,
+        source_id: `${source}-${r.reviewer_name}-${r.product_handle}-${r.body.slice(0, 40)}`,
+      } as any);
       if (!error) inserted++;
       setProgress({ done: i + 1, total: valid.length });
     }
@@ -180,9 +180,9 @@ export function DSersCSVImporter({ onDone }: { onDone: () => void }) {
   return (
     <div className="bg-card rounded-xl p-6 border border-border space-y-5">
       <div>
-        <h3 className="font-display text-xl font-bold text-foreground mb-2">Import DSers CSV</h3>
+        <h3 className="font-display text-xl font-bold text-foreground mb-2">{title}</h3>
         <p className="text-sm text-muted-foreground">
-          Upload the CSV exported from DSers → Marketing → Product Reviews. We'll auto-match each review to a product using the CSV's <code className="text-xs bg-secondary px-1 rounded">product_handle</code> / <code className="text-xs bg-secondary px-1 rounded">product_id</code> / product name column, then download any photos to your own storage.
+          {description || <>Upload the CSV exported from DSers → Marketing → Product Reviews. We'll auto-match each review to a product using the CSV's <code className="text-xs bg-secondary px-1 rounded">product_handle</code> / <code className="text-xs bg-secondary px-1 rounded">product_id</code> / product name column, then download any photos to your own storage.</>}
         </p>
       </div>
 

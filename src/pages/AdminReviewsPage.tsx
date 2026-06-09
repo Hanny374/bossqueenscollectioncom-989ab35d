@@ -52,7 +52,7 @@ const AdminReviewsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<"pending" | "approved" | "rejected">("pending");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"manage" | "import" | "csv" | "screenshot">("manage");
+  const [activeTab, setActiveTab] = useState<"manage" | "import" | "csv" | "loox" | "screenshot">("manage");
 
   // Import state
   const [importReviews, setImportReviews] = useState<ImportReview[]>([{ ...EMPTY_IMPORT }]);
@@ -230,6 +230,14 @@ const AdminReviewsPage = () => {
               DSers CSV Import
             </Button>
             <Button
+              variant={activeTab === "loox" ? "default" : "ghost"}
+              onClick={() => setActiveTab("loox")}
+              className={activeTab === "loox" ? "bg-primary text-primary-foreground" : ""}
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Loox CSV Import
+            </Button>
+            <Button
               variant={activeTab === "screenshot" ? "default" : "ghost"}
               onClick={() => setActiveTab("screenshot")}
               className={activeTab === "screenshot" ? "bg-primary text-primary-foreground" : ""}
@@ -241,6 +249,21 @@ const AdminReviewsPage = () => {
 
           {activeTab === "csv" && (
             <DSersCSVImporter onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }} />
+          )}
+
+          {activeTab === "loox" && (
+            <DSersCSVImporter
+              source="loox"
+              title="Import Loox Reviews CSV"
+              description={
+                <>
+                  In your Loox dashboard go to <strong>Manage Reviews → Export → CSV</strong> and upload the file here.
+                  Reviewer names, ratings, titles, bodies, product handles, and photo URLs are auto-detected and inserted as approved reviews.
+                  Re-uploading the same file won't create duplicates.
+                </> as any
+              }
+              onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }}
+            />
           )}
 
           {activeTab === "screenshot" && (

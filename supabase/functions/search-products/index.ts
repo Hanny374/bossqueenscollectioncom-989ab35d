@@ -52,7 +52,7 @@ serve(async (req) => {
 
     if (error) {
       console.error("Search error:", error);
-      throw new Error(`Search failed: ${error.message}`);
+      throw new Error("Search failed");
     }
 
     const results = (data || []).map((p: any) => ({
@@ -76,7 +76,7 @@ serve(async (req) => {
   } catch (e) {
     console.error("search error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: "An unexpected error occurred. Please try again." }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

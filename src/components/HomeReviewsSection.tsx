@@ -32,22 +32,25 @@ export const HomeReviewsSection = () => {
     const fetchReviews = async () => {
       const { data } = await supabase
         .from("reviews")
-        .select("id, rating, title, body, product_handle, product_title, is_verified_purchase, created_at, user_id")
+        .select("id, rating, title, body, product_handle, product_title, is_verified_purchase, created_at, user_id, reviewer_name")
         .eq("status", "approved")
         .order("created_at", { ascending: false })
         .limit(6);
 
       if (data && data.length > 0) {
-        const userIds = data.map(r => r.user_id);
-        const { data: profiles } = await supabase
-          .from("profiles")
-          .select("id, display_name")
-          .in("id", userIds);
-        const profileMap = new Map(profiles?.map(p => [p.id, p.display_name]) || []);
+        const userIds = data.map(r => r.user_id).filter((id): id is string => !!id);
+        let profileMap = new Map<string, string | null>();
+        if (userIds.length) {
+          const { data: profiles } = await supabase
+            .from("profiles")
+            .select("id, display_name")
+            .in("id", userIds);
+          profileMap = new Map((profiles || []).map((p) => [p.id, p.display_name]));
+        }
 
-        setReviews(data.map(r => ({
+        setReviews(data.map((r) => ({
           ...r,
-          display_name: profileMap.get(r.user_id) || null,
+          display_name: (r.user_id ? profileMap.get(r.user_id) : null) || (r as any).reviewer_name || null,
         })));
       } else {
         setReviews(FALLBACK_REVIEWS);

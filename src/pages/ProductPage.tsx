@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight, Loader2, Zap, Check, ChevronDown, ShoppingCa
 import { ShareButtons } from "@/components/ShareButtons";
 import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
+import { LooxReviews } from "@/components/LooxReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1167,6 +1168,7 @@ const ProductPage = () => {
         {/* Product Reviews */}
         {product && (
           <div className="container px-4 md:px-8 pb-16">
+            <LooxReviews productId={product.id} />
             <ProductReviews productHandle={product.handle} productTitle={product.title} />
           </div>
         )}

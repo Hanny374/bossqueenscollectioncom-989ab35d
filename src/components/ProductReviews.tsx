@@ -38,15 +38,24 @@ export const ProductReviews = ({ productHandle, productTitle }: ProductReviewsPr
     if (data && data.length > 0) {
       // Fetch profiles for native review authors (imported reviews have null user_id)
       const userIds = data.map(r => r.user_id).filter((id): id is string => !!id);
-      const { data: profiles } = userIds.length ? await supabase
-        .from("profiles")
-        .select("id, display_name")
-        .in("id", userIds) : { data: [] as any[] };
+      let profileMap = new Map<string, { display_name: string | null }>();
+      if (userIds.length) {
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("id, display_name")
+          .in("id", userIds);
+        profileMap = new Map((profiles || []).map((p) => [p.id, { display_name: p.display_name }]));
+      }
 
-      const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
-      
-      const reviewsWithProfiles = data.map(r => ({
-        ...r,
+      const reviewsWithProfiles: Review[] = data.map((r) => ({
+        id: r.id,
+        rating: r.rating,
+        title: r.title,
+        body: r.body,
+        photos: r.photos || [],
+        is_verified_purchase: r.is_verified_purchase,
+        created_at: r.created_at,
+        reviewer_name: (r as any).reviewer_name ?? null,
         profiles: r.user_id ? (profileMap.get(r.user_id) || null) : null,
       }));
       

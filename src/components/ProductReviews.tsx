@@ -12,6 +12,7 @@ interface Review {
   photos: string[];
   is_verified_purchase: boolean;
   created_at: string;
+  reviewer_name?: string | null;
   profiles: { display_name: string | null } | null;
 }
 
@@ -29,24 +30,24 @@ export const ProductReviews = ({ productHandle, productTitle }: ProductReviewsPr
     setIsLoading(true);
     const { data } = await supabase
       .from("reviews")
-      .select("id, rating, title, body, photos, is_verified_purchase, created_at, user_id")
+      .select("id, rating, title, body, photos, is_verified_purchase, created_at, user_id, reviewer_name")
       .eq("product_handle", productHandle)
       .eq("status", "approved")
       .order("created_at", { ascending: false });
 
     if (data && data.length > 0) {
-      // Fetch profiles for review authors
-      const userIds = data.map(r => r.user_id);
-      const { data: profiles } = await supabase
+      // Fetch profiles for native review authors (imported reviews have null user_id)
+      const userIds = data.map(r => r.user_id).filter((id): id is string => !!id);
+      const { data: profiles } = userIds.length ? await supabase
         .from("profiles")
         .select("id, display_name")
-        .in("id", userIds);
+        .in("id", userIds) : { data: [] as any[] };
 
       const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
       
       const reviewsWithProfiles = data.map(r => ({
         ...r,
-        profiles: profileMap.get(r.user_id) || null,
+        profiles: r.user_id ? (profileMap.get(r.user_id) || null) : null,
       }));
       
       setReviews(reviewsWithProfiles);
@@ -109,12 +110,12 @@ export const ProductReviews = ({ productHandle, productTitle }: ProductReviewsPr
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
                     <span className="font-display text-sm font-bold text-primary">
-                      {(review.profiles?.display_name || "Q")[0].toUpperCase()}
+                      {(review.profiles?.display_name || review.reviewer_name || "Q")[0].toUpperCase()}
                     </span>
                   </div>
                   <div>
                     <span className="font-semibold text-foreground text-sm">
-                      {review.profiles?.display_name || "Queen"}
+                      {review.profiles?.display_name || review.reviewer_name || "Verified Buyer"}
                     </span>
                     {review.is_verified_purchase && (
                       <span className="inline-flex items-center gap-1 ml-2 text-xs text-primary font-medium">

@@ -260,7 +260,7 @@ const AdminReviewsPage = () => {
                   In your Loox dashboard go to <strong>Manage Reviews → Export → CSV</strong> and upload the file here.
                   Reviewer names, ratings, titles, bodies, product handles, and photo URLs are auto-detected and inserted as approved reviews.
                   Re-uploading the same file won't create duplicates.
-                </> as any
+                </>
               }
               onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }}
             />

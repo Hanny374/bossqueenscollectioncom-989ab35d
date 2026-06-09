@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import Papa from "papaparse";
 import { supabase } from "@/integrations/supabase/client";
 import { useFullCatalog } from "@/hooks/useProducts";
@@ -65,7 +65,7 @@ function fuzzyMatch(target: string, candidates: { handle: string; title: string 
   return best.score >= 2 ? best.handle : "";
 }
 
-export function DSersCSVImporter({ onDone, source = "dsers", title = "Import DSers CSV", description }: { onDone: () => void; source?: string; title?: string; description?: string }) {
+export function DSersCSVImporter({ onDone, source = "dsers", title = "Import DSers CSV", description }: { onDone: () => void; source?: string; title?: string; description?: ReactNode }) {
   const { data: products = [], isLoading: loadingProducts } = useFullCatalog(true);
   const [rows, setRows] = useState<ParsedRow[]>([]);
   const [submitting, setSubmitting] = useState(false);

@@ -160,10 +160,14 @@ export type Database = {
           product_handle: string
           product_title: string
           rating: number
+          review_date: string | null
+          reviewer_name: string | null
+          source: string
+          source_id: string | null
           status: string
           title: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           admin_notes?: string | null
@@ -175,10 +179,14 @@ export type Database = {
           product_handle: string
           product_title: string
           rating: number
+          review_date?: string | null
+          reviewer_name?: string | null
+          source?: string
+          source_id?: string | null
           status?: string
           title?: string | null
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           admin_notes?: string | null
@@ -190,10 +198,14 @@ export type Database = {
           product_handle?: string
           product_title?: string
           rating?: number
+          review_date?: string | null
+          reviewer_name?: string | null
+          source?: string
+          source_id?: string | null
           status?: string
           title?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }

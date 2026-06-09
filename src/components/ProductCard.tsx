@@ -268,21 +268,29 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         {/* Star Rating & Shipping */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className="flex gap-0.5">
-              {[1, 2, 3, 4, 5].map(s => (
-                <Star
-                  key={s}
-                  className={`w-3.5 h-3.5 ${
-                    reviewStats && s <= Math.round(reviewStats.avgRating)
-                      ? "fill-primary text-primary"
-                      : "text-border"
-                  }`}
-                />
-              ))}
-            </div>
+          <div className="flex items-center gap-1.5 min-h-[1.25rem]">
+            {/* Loox auto-renders star rating + count into this element */}
+            <div
+              className="loox-rating"
+              data-id={node.id.replace(/^gid:\/\/shopify\/Product\//, "")}
+            />
+            {/* Fallback to Supabase stats if Loox hasn't rendered yet */}
             {reviewStats && reviewStats.count > 0 && (
-              <span className="text-xs text-muted-foreground">({reviewStats.count})</span>
+              <span className="loox-fallback flex items-center gap-1.5">
+                <span className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <Star
+                      key={s}
+                      className={`w-3.5 h-3.5 ${
+                        s <= Math.round(reviewStats.avgRating)
+                          ? "fill-primary text-primary"
+                          : "text-border"
+                      }`}
+                    />
+                  ))}
+                </span>
+                <span className="text-xs text-muted-foreground">({reviewStats.count})</span>
+              </span>
             )}
           </div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">

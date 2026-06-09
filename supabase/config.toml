@@ -29,3 +29,6 @@ verify_jwt = false
 
 [functions.extract-reviews-from-image]
 verify_jwt = false
+
+[functions.sync-loox-reviews]
+verify_jwt = false

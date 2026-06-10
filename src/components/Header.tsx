@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { VerifiedSellerBadge } from "./VerifiedSellerBadge";
 import { AISearchBar } from "./AISearchBar";
 import { CartDrawer } from "./CartDrawer";
+import { SummerSaleBanner } from "./SummerSaleBanner";
 import { Menu, X, Crown, Search, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -47,6 +48,7 @@ export const Header = () => {
           : "bg-transparent"
       }`}
     >
+      <SummerSaleBanner />
       <div className="container flex h-16 md:h-20 items-center justify-between px-4 md:px-8">
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>

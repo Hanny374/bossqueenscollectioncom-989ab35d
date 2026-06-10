@@ -100,12 +100,7 @@ export const ProductReviews = ({ productHandle, productTitle }: ProductReviewsPr
       {/* Reviews List */}
       {isLoading ? (
         <div className="text-center py-8 text-muted-foreground">Loading reviews...</div>
-      ) : reviews.length === 0 ? (
-        <div className="text-center py-8">
-          <Star className="w-10 h-10 text-primary/30 mx-auto mb-3" />
-          <p className="text-muted-foreground">No reviews yet — be the first to share your experience!</p>
-        </div>
-      ) : (
+      ) : reviews.length === 0 ? null : (
         <div className="space-y-6 mb-10">
           {reviews.map((review, i) => (
             <motion.div

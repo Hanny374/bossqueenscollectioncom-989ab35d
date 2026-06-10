@@ -12,6 +12,7 @@ import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
 import { LooxReviews } from "@/components/LooxReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
+import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { HairDescriptionModal } from "@/components/HairDescriptionModal";

@@ -23,8 +23,8 @@ export const SummerSaleBanner = () => {
         <span aria-hidden className="text-base leading-none">🌴</span>
         <span aria-hidden className="text-base leading-none">🌺</span>
         <span className="drop-shadow-[0_1px_0_rgba(0,0,0,0.25)]">
-          Tropical Summer Sale — Up to <strong>30% OFF</strong> · Code{" "}
-          <strong>SUMMER30</strong> · Free shipping over $100
+          Launch Special — <strong>15% OFF</strong> your first order · Code{" "}
+          <strong>FIRST15</strong> · Free shipping over $100
         </span>
         <span aria-hidden className="text-base leading-none">🍍</span>
         <span aria-hidden className="text-base leading-none">🌴</span>

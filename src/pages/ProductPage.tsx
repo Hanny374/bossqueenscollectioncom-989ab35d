@@ -1192,7 +1192,7 @@ const ProductPage = () => {
 
         {/* Product Reviews */}
         {product && (
-          <div className="container px-4 md:px-8 pb-16">
+          <div id="product-reviews" className="container px-4 md:px-8 pb-16 scroll-mt-24">
             <LooxReviews productId={product.id} />
             <ProductReviews productHandle={product.handle} productTitle={product.title} />
           </div>

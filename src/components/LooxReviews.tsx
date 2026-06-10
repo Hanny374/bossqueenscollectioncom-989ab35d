@@ -50,31 +50,11 @@ export const LooxReviews = ({ productId }: LooxReviewsProps) => {
         </Button>
       </div>
 
-      {/* Loox widget target - the script auto-detects this element */}
       <div
         id="looxReviews"
         data-product-id={numericId}
         className="loox-reviews-default"
       />
-
-      {/* Fallback empty state when Loox hasn't loaded */}
-      <div className="loox-empty-fallback text-center py-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-          <Star className="w-8 h-8 text-primary" />
-        </div>
-        <p className="text-muted-foreground text-lg mb-2">No reviews yet</p>
-        <p className="text-muted-foreground text-sm mb-6">
-          Be the first to share your experience!
-        </p>
-        <Button
-          onClick={handleWriteReview}
-          variant="outline"
-          className="border-primary text-primary hover:bg-primary/10"
-        >
-          <PenLine className="w-4 h-4 mr-2" />
-          Leave a Review
-        </Button>
-      </div>
     </div>
   );
 };

@@ -12,6 +12,11 @@ const ShippingPage = () => {
         title="Shipping & Delivery"
         description="Free worldwide shipping on orders over $100. Learn about Boss Queens Collection delivery times, tracking, and shipping policies for 180+ countries."
         path="/shipping"
+        keywords="hair wig shipping, worldwide hair delivery, free shipping wigs, Boss Queens shipping policy, international hair shipping"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Shipping & Delivery", path: "/shipping" },
+        ]}
       />
       <Header />
       <main className="pt-32 pb-20">

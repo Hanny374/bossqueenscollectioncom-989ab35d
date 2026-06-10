@@ -53,6 +53,10 @@ const PrivacyPolicyPage = () => {
         title="Privacy Policy"
         description="Boss Queens Collection privacy policy. Learn how we collect, use, and protect your personal information when you shop with us."
         path="/privacy-policy"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Privacy Policy", path: "/privacy-policy" },
+        ]}
       />
       <Header />
       <main className="pt-32 pb-20">

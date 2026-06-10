@@ -51,6 +51,11 @@ const FAQPage = () => {
         title="FAQ"
         description="Frequently asked questions about Boss Queens Collection hair products, shipping, returns, and care. Get answers about our 100% human hair wigs and bundles."
         path="/faq"
+        keywords="hair wig FAQ, human hair questions, wig care, hair bundle FAQ, Boss Queens returns, virgin hair questions"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "FAQ", path: "/faq" },
+        ]}
       />
       <Helmet>
         <script type="application/ld+json">

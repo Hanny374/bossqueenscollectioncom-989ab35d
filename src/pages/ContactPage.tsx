@@ -77,6 +77,11 @@ const ContactPage = () => {
         title="Contact Us"
         description="Get in touch with Boss Queens Collection. Questions about hair products, orders, or shipping? We're here to help. Email, phone, or send us a message."
         path="/contact"
+        keywords="contact Boss Queens Collection, hair vendor contact, wholesale hair inquiry, custom wig orders, St. Maarten hair store"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
       />
       <Header />
       <main className="py-16">

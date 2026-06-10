@@ -3,9 +3,16 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Globe, Briefcase, Check, Sparkles, Rocket, Crown } from "lucide-react";
+import { Globe, Briefcase, Check, Sparkles, Rocket, Crown, MessageCircle, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { SEOHead } from "@/components/SEOHead";
+
+const WHATSAPP_NUMBER = "17215853221";
+const EMAIL = "Bossqueenscollections@gmail.com";
+const waLink = (msg: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+const mailLink = (subject: string, body: string) =>
+  `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
 const services = [
   {
@@ -109,14 +116,36 @@ const ServicesPage = () => {
                           </li>
                         ))}
                       </ul>
-                      <Button
-                        asChild
-                        className="w-full bg-gradient-gold text-espresso hover:opacity-90 font-semibold"
-                      >
-                        <Link to={`/contact?inquiry=${encodeURIComponent(service.title)}`}>
-                          Get Started
-                        </Link>
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button
+                          asChild
+                          className="flex-1 bg-gradient-gold text-espresso hover:opacity-90 font-semibold"
+                        >
+                          <a
+                            href={waLink(`Hi Boss Queens! I'd like to book a ${service.title} consultation.`)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            WhatsApp
+                          </a>
+                        </Button>
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="flex-1 border-primary/30 hover:bg-primary/5 font-semibold"
+                        >
+                          <a
+                            href={mailLink(
+                              `${service.title} Consultation Request`,
+                              `Hi Boss Queens,\n\nI'm interested in booking a ${service.title} consultation. Please share next steps.\n\nThanks!`,
+                            )}
+                          >
+                            <Mail className="w-4 h-4 mr-2" />
+                            Email
+                          </a>
+                        </Button>
+                      </div>
                     </Card>
                   </motion.div>
                 );
@@ -135,16 +164,38 @@ const ServicesPage = () => {
             <p className="text-cream/80 mb-8 text-lg">
               Book a free 15-minute discovery call and we'll map out your next move.
             </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold"
-            >
-              <Link to="/contact?inquiry=discovery-call">
-                <Rocket className="w-4 h-4 mr-2" />
-                Book Free Call
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-gold text-espresso hover:opacity-90 font-semibold"
+              >
+                <a
+                  href={waLink("Hi Boss Queens! I'd like to book a free 15-minute discovery call.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Book on WhatsApp
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-cream/40 text-cream hover:bg-cream/10 hover:text-cream font-semibold"
+              >
+                <a
+                  href={mailLink(
+                    "Free Discovery Call Request",
+                    "Hi Boss Queens,\n\nI'd like to book a free 15-minute discovery call. Please send me a few time options.\n\nThanks!",
+                  )}
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email Us
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
       </main>

@@ -1,28 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sun, X } from "lucide-react";
+import { X } from "lucide-react";
 
 export const SummerSaleBanner = () => {
   const [open, setOpen] = useState(true);
   if (!open) return null;
 
   return (
-    <div className="relative w-full bg-gradient-to-r from-primary via-amber-400 to-primary text-espresso">
+    <div
+      className="relative w-full overflow-hidden text-white"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, #0EA5A4 0%, #14B8A6 25%, #F59E0B 55%, #FB7185 85%, #EC4899 100%)",
+      }}
+    >
+      {/* Sun shimmer */}
+      <div className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay bg-[radial-gradient(circle_at_20%_50%,#FDE68A_0%,transparent_45%),radial-gradient(circle_at_80%_50%,#FBCFE8_0%,transparent_45%)]" />
       <Link
         to="/#products"
-        className="flex items-center justify-center gap-2 px-10 py-2 text-center text-xs sm:text-sm font-semibold tracking-wide"
+        className="relative flex items-center justify-center gap-2 px-10 py-2 text-center text-xs sm:text-sm font-semibold tracking-wide"
       >
-        <Sun className="h-4 w-4 shrink-0" />
-        <span>
-          Summer Sale — Up to <strong>30% OFF</strong> sitewide · Use code{" "}
-          <strong>SUMMER30</strong> · Free worldwide shipping over $100
+        <span aria-hidden className="text-base leading-none">🌴</span>
+        <span aria-hidden className="text-base leading-none">🌺</span>
+        <span className="drop-shadow-[0_1px_0_rgba(0,0,0,0.25)]">
+          Tropical Summer Sale — Up to <strong>30% OFF</strong> · Code{" "}
+          <strong>SUMMER30</strong> · Free shipping over $100
         </span>
+        <span aria-hidden className="text-base leading-none">🍍</span>
+        <span aria-hidden className="text-base leading-none">🌴</span>
       </Link>
       <button
         type="button"
         onClick={() => setOpen(false)}
         aria-label="Dismiss summer sale banner"
-        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 hover:bg-espresso/10 transition"
+        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 hover:bg-white/20 transition"
       >
         <X className="h-3.5 w-3.5" />
       </button>

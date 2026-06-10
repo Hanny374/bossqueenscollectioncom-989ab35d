@@ -4,19 +4,24 @@ import { VerifiedSellerBadge } from "./VerifiedSellerBadge";
 import { AISearchBar } from "./AISearchBar";
 import { CartDrawer } from "./CartDrawer";
 import { SummerSaleBanner } from "./SummerSaleBanner";
-import { Menu, X, Crown, Search, Globe } from "lucide-react";
+import { Menu, X, Crown, Search, Globe, ChevronDown, Sparkles, Scissors, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, AnimatePresence } from "framer-motion";
 
+const wigCategories = [
+  { label: "Shop All Wigs", subtitle: "Browse the full collection", href: "/#products", icon: Crown },
+  { label: "Colored Wigs", subtitle: "Blonde, burgundy, honey & ombré HD lace", href: "/#products?category=colored-wigs", icon: Sparkles },
+  { label: "Bob Wigs", subtitle: "Short bob lace front wigs in all textures", href: "/#products?category=bob-wigs", icon: Scissors },
+  { label: "Lace Front Wigs", subtitle: "HD lace frontals, 13x4 & 13x6", href: "/#products?category=lace-front-wigs", icon: Crown },
+  { label: "Headband Wigs", subtitle: "Easy-to-wear, no glue or lace needed", href: "/#products?category=headband-wigs", icon: Crown },
+  { label: "V Part & Half Wigs", subtitle: "Glueless, natural-looking install", href: "/#products?category=v-part-half-wigs", icon: Crown },
+  { label: "Boho Braids", subtitle: "Crochet & boho braids in human hair", href: "/#products?category=boho-braids", icon: Palette },
+  { label: "Bundles", subtitle: "Virgin hair bundle deals", href: "/#products?category=bundles", icon: Sparkles },
+  { label: "Accessories", subtitle: "Caps, glue, edge control & essentials", href: "/#products?category=accessories", icon: Palette },
+];
+
 const navLinks = [
-  { label: "Shop All", href: "/#products" },
-  { label: "Colored Wigs", href: "/#products?category=colored-wigs" },
-  { label: "Bob Wigs", href: "/#products?category=bob-wigs" },
-  { label: "Headband Wigs", href: "/#products?category=headband-wigs" },
-  { label: "V Part & Half Wigs", href: "/#products?category=v-part-half-wigs" },
-  { label: "Boho Braids", href: "/#products?category=boho-braids" },
-  { label: "Bundles", href: "/#products?category=bundles" },
   { label: "About Us", href: "/about" },
   { label: "Shipping", href: "/shipping" },
   { label: "FAQ", href: "/faq" },
@@ -27,6 +32,8 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [wigsOpen, setWigsOpen] = useState(false);
+  const [mobileWigsOpen, setMobileWigsOpen] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -71,12 +78,49 @@ export const Header = () => {
               </div>
 
               <nav className="flex flex-col gap-1">
+                {/* Mobile Wigs accordion */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 }}
+                >
+                  <button
+                    onClick={() => setMobileWigsOpen((v) => !v)}
+                    className="w-full flex items-center justify-between text-lg font-medium text-foreground hover:text-primary transition-colors py-3 px-2 rounded-lg hover:bg-primary/5"
+                  >
+                    <span>Shop Wigs</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileWigsOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileWigsOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden pl-3 border-l border-border/60 ml-2"
+                      >
+                        {wigCategories.map((c) => (
+                          <Link
+                            key={c.label}
+                            to={c.href}
+                            onClick={() => setIsOpen(false)}
+                            className="flex flex-col py-2 px-2 rounded-lg hover:bg-primary/5"
+                          >
+                            <span className="text-sm font-semibold text-foreground">{c.label}</span>
+                            <span className="text-xs text-muted-foreground">{c.subtitle}</span>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.label}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: (i + 1) * 0.05 }}
                   >
                     <Link
                       to={link.href}
@@ -116,6 +160,53 @@ export const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-0.5">
+          {/* Wigs mega-dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setWigsOpen(true)}
+            onMouseLeave={() => setWigsOpen(false)}
+          >
+            <button
+              onClick={() => setWigsOpen((v) => !v)}
+              className={`flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                wigsOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Shop Wigs
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${wigsOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {wigsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50"
+                >
+                  <div className="w-[640px] grid grid-cols-2 gap-1 rounded-2xl border border-border/60 bg-popover/95 backdrop-blur-xl shadow-elevated p-3">
+                    {wigCategories.map((c) => (
+                      <Link
+                        key={c.label}
+                        to={c.href}
+                        onClick={() => setWigsOpen(false)}
+                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-primary/5 transition-colors"
+                      >
+                        <div className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                          <c.icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-semibold text-foreground">{c.label}</span>
+                          <span className="text-xs text-muted-foreground leading-snug">{c.subtitle}</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {navLinks.map((link) => {
             const isActive = location.pathname === link.href || (link.href !== "/" && location.pathname.startsWith(link.href));
             return (

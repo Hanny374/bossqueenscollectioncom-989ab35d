@@ -464,6 +464,8 @@ const ProductPage = () => {
   const handleAddToCart = () => requireHairDescription("add");
   const handleBuyNow = () => requireHairDescription("buy");
 
+  const { data: reviewStatsMap } = useAllReviewStats();
+
   if (isPageLoading) {
     return (
       <div className="min-h-screen bg-background">

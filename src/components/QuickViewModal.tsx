@@ -202,14 +202,6 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
               options: node.options,
             })}
           </p>
-          <div className="flex items-center gap-1.5 mt-1">
-            <div className="flex">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} className="w-3.5 h-3.5 text-muted-foreground/30" />
-              ))}
-            </div>
-            <span className="text-xs text-muted-foreground">No reviews yet</span>
-          </div>
         </div>
 
         {/* Shipping Info */}

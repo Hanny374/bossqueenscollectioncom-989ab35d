@@ -687,7 +687,12 @@ const ProductPage = () => {
                 transition={{ delay: 0.3 }}
               >
                 {reviewStats && reviewStats.count > 0 && (
-                  <div className="flex items-center gap-2 text-sm">
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById("product-reviews")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    className="flex items-center gap-2 text-sm hover:opacity-80 transition-opacity cursor-pointer group"
+                    aria-label={`See ${reviewStats.count} customer reviews`}
+                  >
                     <div className="flex items-center gap-0.5">
                       {[1, 2, 3, 4, 5].map((s) => (
                         <Star
@@ -698,9 +703,9 @@ const ProductPage = () => {
                     </div>
                     <span className="text-muted-foreground">
                       <span className="font-semibold text-foreground">{reviewStats.avgRating.toFixed(1)}</span>
-                      <span className="ml-1">({reviewStats.count} review{reviewStats.count === 1 ? "" : "s"})</span>
+                      <span className="ml-1 group-hover:underline">({reviewStats.count} review{reviewStats.count === 1 ? "" : "s"})</span>
                     </span>
-                  </div>
+                  </button>
                 )}
                 <div className="flex items-center gap-2 text-sm">
                   <Eye className="w-4 h-4 text-primary" />

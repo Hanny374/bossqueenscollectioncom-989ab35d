@@ -16,8 +16,8 @@ const SHOPIFY_STOREFRONT_URL = isDev
   ? '/shopify-api' 
   : `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 
-// Global price markup (added to all product prices)
-export const PRICE_MARKUP = 100;
+// Global price markup (added to all product prices) — set to luxury retail level
+export const PRICE_MARKUP = 200;
 
 // Types
 export interface ShopifyProduct {

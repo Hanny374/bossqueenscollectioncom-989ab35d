@@ -39,14 +39,13 @@ export const Hero = () => {
 
   // Defer auto-rotate until after LCP/first paint settles to protect LCP.
   useEffect(() => {
+    let timer: number | undefined;
     const start = window.setTimeout(() => {
-      const timer = window.setInterval(next, 4000);
-      (start as unknown as { _t?: number })._t = timer;
+      timer = window.setInterval(next, 4000);
     }, 4000);
     return () => {
       window.clearTimeout(start);
-      const t = (start as unknown as { _t?: number })._t;
-      if (t) window.clearInterval(t);
+      if (timer) window.clearInterval(timer);
     };
   }, [next]);
 
@@ -79,7 +78,7 @@ export const Hero = () => {
             alt={slides[current].alt}
             className="absolute inset-0 w-full h-full object-cover object-top"
             loading={current === 0 ? "eager" : "lazy"}
-            fetchPriority={current === 0 ? "high" : undefined}
+            {...({ fetchpriority: current === 0 ? "high" : undefined } as object)}
             decoding={current === 0 ? "sync" : "async"}
             initial={current === 0 && !hasInteracted ? false : { opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}

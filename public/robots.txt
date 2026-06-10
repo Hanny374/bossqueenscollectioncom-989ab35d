@@ -99,6 +99,68 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
+# Common Crawl — powers training data for most LLMs (ChatGPT, Claude, Gemini, Mistral, etc.)
+User-agent: CCBot
+Allow: /
+
+# Perplexity user-initiated fetcher (separate from PerplexityBot)
+User-agent: Perplexity-User
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# DeepSeek
+User-agent: DeepSeekBot
+Allow: /
+
+# Brave Search (Leo AI)
+User-agent: Bravebot
+Allow: /
+
+# You.com / Phind / Kagi / Andi AI search
+User-agent: PhindBot
+Allow: /
+
+User-agent: KagiBot
+Allow: /
+
+User-agent: AndiBot
+Allow: /
+
+User-agent: Komo
+Allow: /
+
+User-agent: NeevaBot
+Allow: /
+
+# Diffbot — knowledge graph used by Bing/AI engines
+User-agent: Diffbot
+Allow: /
+
+# Image discovery for AI shopping results
+User-agent: ImagesiftBot
+Allow: /
+
+# Webz.io / Omgili / Timpi — AI dataset providers
+User-agent: Webzio-Extended
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+# Facebook AI fetcher
+User-agent: FacebookBot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
 User-agent: Diffbot
 Allow: /
 

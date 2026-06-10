@@ -297,6 +297,81 @@ const Index = () => {
         <Hero />
         <Marquee />
 
+        {/* Shop Path CTAs — Retail vs Wholesale */}
+        <section className="py-10 md:py-16 bg-background">
+          <div className="container px-4 md:px-8">
+            <motion.div
+              className="text-center mb-8 md:mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Choose Your Path</span>
+              <h2 className="font-display text-2xl md:text-4xl font-bold text-foreground mt-2">
+                Shop Retail or Start Your Hair Business
+              </h2>
+              <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                Whether you're buying for yourself or building your brand, we've got you covered.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 max-w-5xl mx-auto">
+              {/* Retail */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="group relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-cream to-primary/5 p-7 md:p-9 shadow-soft hover:shadow-glow transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-11 h-11 rounded-full bg-primary/15 flex items-center justify-center">
+                    <Crown className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Retail</span>
+                </div>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">Shop Wigs</h3>
+                <p className="text-muted-foreground mb-6">
+                  Luxury 100% human hair wigs, bundles & accessories — ready to slay. Free shipping over $100.
+                </p>
+                <Link
+                  to="/#products"
+                  className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity"
+                >
+                  Shop Retail
+                </Link>
+              </motion.div>
+
+              {/* Wholesale */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-espresso to-espresso/90 p-7 md:p-9 shadow-soft hover:shadow-glow transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-11 h-11 rounded-full bg-primary/20 flex items-center justify-center">
+                    <ShoppingBag className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Wholesale</span>
+                </div>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-cream mb-2">Start Your Business</h3>
+                <p className="text-cream/70 mb-6">
+                  Bulk pricing for salons & resellers. Launch your own hair brand with our wholesale program.
+                </p>
+                <Link
+                  to="/contact?inquiry=wholesale"
+                  className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity"
+                >
+                  Shop Wholesale
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
 
         <section className="py-4 md:py-6 bg-primary/5 border-y border-primary/10">
           <div className="container px-4 md:px-8">

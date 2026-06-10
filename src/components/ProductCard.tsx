@@ -289,7 +289,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     />
                   ))}
                 </span>
-                <span className="text-xs text-muted-foreground">({reviewStats.count})</span>
+                <span className="text-xs text-muted-foreground">
+                  {reviewStats.avgRating.toFixed(1)}
+                </span>
               </span>
             )}
           </div>

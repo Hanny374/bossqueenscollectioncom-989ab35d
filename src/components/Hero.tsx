@@ -39,14 +39,13 @@ export const Hero = () => {
 
   // Defer auto-rotate until after LCP/first paint settles to protect LCP.
   useEffect(() => {
+    let timer: number | undefined;
     const start = window.setTimeout(() => {
-      const timer = window.setInterval(next, 4000);
-      (start as unknown as { _t?: number })._t = timer;
+      timer = window.setInterval(next, 4000);
     }, 4000);
     return () => {
       window.clearTimeout(start);
-      const t = (start as unknown as { _t?: number })._t;
-      if (t) window.clearInterval(t);
+      if (timer) window.clearInterval(timer);
     };
   }, [next]);
 

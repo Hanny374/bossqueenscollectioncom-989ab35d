@@ -18,6 +18,11 @@ const AboutPage = () => {
         title="About Us — Empowering Queens & Entrepreneurs"
         description="Boss Queens Collection is a verified vendor from St. Maarten offering retail & wholesale hair worldwide. We inspire young entrepreneurs and offer freelancing services to grow your business."
         path="/about"
+        keywords="about Boss Queens, St. Maarten hair vendor, Caribbean hair brand, wholesale human hair, black-owned hair business"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
       />
       <Header />
       <main>

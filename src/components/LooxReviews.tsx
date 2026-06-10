@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Star, PenLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface LooxReviewsProps {
   productId: string; // Shopify product GID e.g. "gid://shopify/Product/123"
@@ -12,6 +15,8 @@ interface LooxReviewsProps {
  */
 export const LooxReviews = ({ productId }: LooxReviewsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   // Extract numeric ID from Shopify GID
   const numericId = productId.replace(/^gid:\/\/shopify\/Product\//, "");
@@ -25,6 +30,13 @@ export const LooxReviews = ({ productId }: LooxReviewsProps) => {
   }, [numericId]);
 
   const handleWriteReview = () => {
+    if (!user) {
+      toast.error("Please sign in to leave a review", {
+        description: "Only account holders can post reviews.",
+        action: { label: "Sign In", onClick: () => navigate("/auth") },
+      });
+      return;
+    }
     // Loox uses this method to open the review form
     const win = window as any;
     if (win.loox?.openReviewForm) {

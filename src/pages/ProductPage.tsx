@@ -12,6 +12,7 @@ import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
 import { LooxReviews } from "@/components/LooxReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
+import { useAllReviewStats } from "@/hooks/useProductReviewStats";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { HairDescriptionModal } from "@/components/HairDescriptionModal";
@@ -585,6 +586,8 @@ const ProductPage = () => {
   const viewersNow = Math.abs(hashCode % 15) + 3;
   const soldRecently = Math.abs((hashCode >> 4) % 20) + 5;
   const lowStock = Math.abs((hashCode >> 8) % 12) + 1; // Simulated stock 1-12
+  const { data: reviewStatsMap } = useAllReviewStats();
+  const reviewStats = reviewStatsMap?.[product.handle];
 
   return (
     <div className="min-h-screen bg-background">
@@ -682,6 +685,22 @@ const ProductPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
+                {reviewStats && reviewStats.count > 0 && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="flex items-center gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          className={`w-4 h-4 ${s <= Math.round(reviewStats.avgRating) ? "fill-primary text-primary" : "text-muted-foreground/30"}`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-muted-foreground">
+                      <span className="font-semibold text-foreground">{reviewStats.avgRating.toFixed(1)}</span>
+                      <span className="ml-1">({reviewStats.count} review{reviewStats.count === 1 ? "" : "s"})</span>
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2 text-sm">
                   <Eye className="w-4 h-4 text-primary" />
                   <span className="text-muted-foreground">

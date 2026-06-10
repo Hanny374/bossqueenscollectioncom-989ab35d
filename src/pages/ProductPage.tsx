@@ -588,7 +588,6 @@ const ProductPage = () => {
   const viewersNow = Math.abs(hashCode % 15) + 3;
   const soldRecently = Math.abs((hashCode >> 4) % 20) + 5;
   const lowStock = Math.abs((hashCode >> 8) % 12) + 1; // Simulated stock 1-12
-  const { data: reviewStatsMap } = useAllReviewStats();
   const reviewStats = reviewStatsMap?.[product.handle];
 
   return (

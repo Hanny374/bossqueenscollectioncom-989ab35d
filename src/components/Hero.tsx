@@ -78,7 +78,7 @@ export const Hero = () => {
             alt={slides[current].alt}
             className="absolute inset-0 w-full h-full object-cover object-top"
             loading={current === 0 ? "eager" : "lazy"}
-            fetchPriority={current === 0 ? "high" : undefined}
+            {...({ fetchpriority: current === 0 ? "high" : undefined } as object)}
             decoding={current === 0 ? "sync" : "async"}
             initial={current === 0 && !hasInteracted ? false : { opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}

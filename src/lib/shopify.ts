@@ -1,15 +1,13 @@
 import { toast } from "sonner";
 
 // Shopify Storefront API Configuration
-const SHOPIFY_API_VERSION = '2024-04';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
-const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN;
-
-if (!SHOPIFY_STORE_PERMANENT_DOMAIN || !SHOPIFY_STOREFRONT_TOKEN) {
-  console.error(
-    "Shopify Storefront env vars missing. Set VITE_SHOPIFY_STORE_DOMAIN and VITE_SHOPIFY_STOREFRONT_TOKEN."
-  );
-}
+// NOTE: Storefront access tokens are public/publishable by design and safe to ship in client code.
+// Hardcoded so production builds always have valid credentials (env vars are not injected at build time).
+const SHOPIFY_API_VERSION = '2025-07';
+const SHOPIFY_STORE_PERMANENT_DOMAIN =
+  import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'boss-queens-collection-8295.myshopify.com';
+const SHOPIFY_STOREFRONT_TOKEN =
+  import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '0e942a6ba1a520b2bd97819256fe60c5';
 
 // In development, we use a proxy defined in vite.config.ts to avoid CORS issues.
 // In production, we call Shopify directly.

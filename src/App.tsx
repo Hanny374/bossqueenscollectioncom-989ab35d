@@ -121,7 +121,8 @@ const App = () => (
         <AuthProvider>
           <Toaster />
           <Sonner />
-          <EmailGate />
+          {/* EmailGate disabled during launch — was blocking visitors before they could browse. Re-enable after >50 daily visitors. */}
+          {/* <EmailGate /> */}
           <AppContent />
         </AuthProvider>
       </TooltipProvider>

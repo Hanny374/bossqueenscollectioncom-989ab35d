@@ -53,7 +53,7 @@ serve(async (req) => {
         openapi: "3.1.0",
         info: {
           title: "Boss Queens Collection AI Shopping API",
-          description: "Search and browse premium 100% virgin human hair products from Boss Queens Collection. Wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, closures, and accessories. All products shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $100 USD. Supports natural language semantic search powered by vector embeddings.",
+          description: "Search and browse premium 100% virgin human hair products from Boss Queens Collection. Wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, closures, and accessories. All products shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $300 USD. Supports natural language semantic search powered by vector embeddings.",
           version: "1.1.0",
           contact: { name: "Boss Queens Collection", email: "support@bossqueenscollection.com", url: "https://bossqueenscollection.com" },
           "x-logo": { url: "https://bossqueenscollection.com/icon-512.png" },

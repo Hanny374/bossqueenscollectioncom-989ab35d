@@ -32,6 +32,23 @@ function rebrandHtml(html: string): string {
   );
   const suppliers = /\b(?:Wulala|BPHW(?:\s*Hair)?|Wigirl|Luvin|Beaudiva|Allrun|ALIMICE|Alimice|Aircabin|Yyong|Maxine|Lemoda|Unice|Sunber|Isee|Julia|Luduna|Nadula|Recool|Tuneful|Tinashe|Celie|Abijale|Aliballad|Hermosa|Arabella|Beaufox|Cranberry|Dorsanee|Klaiyi|Megalook|Mscoco|Perstar|Virgo|Westkiss)\b/gi;
   out = out.replace(suppliers, "Boss Queens Collection");
+
+  // Strip duplicate spec tables (already shown in "Hair Details & Specifications" accordion).
+  out = out.replace(/<table[\s\S]*?<\/table>/gi, "");
+
+  // Strip "Specifications" / "Item Specifics" / "Product Details" / "Parameters" headings
+  // plus the immediately following list, paragraph, or div until the next heading.
+  out = out.replace(
+    /<(h[1-6]|strong|b|p)[^>]*>\s*(?:Item\s*Specifics|Specifications?|Product\s*(?:Details|Parameters)|Parameters)\s*:?\s*<\/\1>[\s\S]*?(?=<h[1-6]|<\/body|$)/gi,
+    ""
+  );
+
+  // Strip dangling "Key: Value" lines for the most common spec fields (when not in a table).
+  out = out.replace(
+    /<(p|li|div)[^>]*>\s*(?:Hair\s*(?:Type|Grade|Weight|Material|Length)|Weft\s*Type|Lace\s*(?:Type|Size|Color)|Material|Density|Cap\s*Size|Can\s*Be\s*Dyed|Hair\s*Color)\s*:[\s\S]{0,200}?<\/\1>/gi,
+    ""
+  );
+
   return out;
 }
 

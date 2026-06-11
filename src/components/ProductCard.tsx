@@ -9,7 +9,7 @@ import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star, Sp
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
 import { HairDescriptionModal } from "./HairDescriptionModal";
-import { useAllReviewStats } from "@/hooks/useProductReviewStats";
+import { useAllReviewStats, getReviewStats } from "@/hooks/useProductReviewStats";
 
 const COLOR_MAP: Record<string, string> = {
   black: "#1a1a1a", "natural black": "#1a1a1a", "1b": "#1a1a1a", "jet black": "#0a0a0a",
@@ -51,7 +51,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const hairDescription = useCartStore(state => state.hairDescription);
   
   const { data: reviewStatsMap } = useAllReviewStats();
-  const reviewStats = reviewStatsMap?.[node.handle];
+  const reviewStats = getReviewStats(reviewStatsMap, node.handle);
   
   const image = node.images.edges[0]?.node;
   const secondImage = node.images.edges[1]?.node;

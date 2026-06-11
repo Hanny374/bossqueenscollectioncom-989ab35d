@@ -12,7 +12,7 @@ import { generateSalesCopy } from "@/lib/productSalesCopy";
 import { ProductReviews } from "@/components/ProductReviews";
 import { LooxReviews } from "@/components/LooxReviews";
 import { RecentlyViewed, addToRecentlyViewed } from "@/components/RecentlyViewed";
-import { useAllReviewStats } from "@/hooks/useProductReviewStats";
+import { useAllReviewStats, getReviewStats } from "@/hooks/useProductReviewStats";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { HairDescriptionModal } from "@/components/HairDescriptionModal";
@@ -588,7 +588,7 @@ const ProductPage = () => {
   const viewersNow = Math.abs(hashCode % 15) + 3;
   const soldRecently = Math.abs((hashCode >> 4) % 20) + 5;
   const lowStock = Math.abs((hashCode >> 8) % 12) + 1; // Simulated stock 1-12
-  const reviewStats = reviewStatsMap?.[product.handle];
+  const reviewStats = getReviewStats(reviewStatsMap, product.handle);
 
   return (
     <div className="min-h-screen bg-background">

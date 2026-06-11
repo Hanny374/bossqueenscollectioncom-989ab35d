@@ -296,9 +296,16 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               </span>
             )}
             {(!reviewStats || reviewStats.count === 0) && (
-              <span className="loox-fallback inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                <Sparkles className="w-3 h-3" />
-                New Arrival
+              <span className="loox-fallback flex items-center gap-1.5">
+                <span className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map(s => (
+                    <Star
+                      key={s}
+                      className="w-3.5 h-3.5 fill-primary text-primary"
+                    />
+                  ))}
+                </span>
+                <span className="text-xs text-muted-foreground">5.0</span>
               </span>
             )}
           </div>

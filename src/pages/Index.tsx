@@ -554,9 +554,6 @@ const Index = () => {
         <RecentlyViewed />
 
         <Suspense fallback={null}>
-          {/* === STAGE 5: Customer Reviews === */}
-          <HomeReviewsSection />
-
           {/* === STAGE 5b: Customer Spotlight (real photos) === */}
           <CustomerSpotlight />
 

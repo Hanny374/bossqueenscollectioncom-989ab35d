@@ -113,7 +113,7 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
             )}
             {r.photos && r.photos.length > 0 && (
               <div className="relative grid grid-cols-3 gap-1.5 mb-3">
-                {r.photos.slice(0, 3).map((src, i) => (
+                {r.photos.map((src, i) => (
                   <button
                     key={i}
                     type="button"
@@ -126,11 +126,6 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
-                    {i === 2 && r.photos!.length > 3 && (
-                      <div className="absolute inset-0 bg-black/55 flex items-center justify-center text-white text-sm font-semibold">
-                        +{r.photos!.length - 3}
-                      </div>
-                    )}
                   </button>
                 ))}
               </div>

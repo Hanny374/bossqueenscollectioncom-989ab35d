@@ -435,11 +435,6 @@ const Index = () => {
           <TrustBar />
         </Suspense>
 
-        {/* === STAGE 3: Help Users Find What They Want === */}
-        <Suspense fallback={null}>
-          <Categories />
-        </Suspense>
-
         {/* Newly Added Section */}
         <section className="py-12 md:py-20 relative">
           <div className="container px-4 md:px-8">

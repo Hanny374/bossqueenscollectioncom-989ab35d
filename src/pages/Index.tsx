@@ -23,6 +23,7 @@ const Categories = lazy(() => import("@/components/Categories").then(m => ({ def
 const ProductGrid = lazy(() => import("@/components/ProductGrid").then(m => ({ default: m.ProductGrid })));
 const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({ default: m.Testimonials })));
 const HomeReviewsSection = lazy(() => import("@/components/HomeReviewsSection").then(m => ({ default: m.HomeReviewsSection })));
+const CustomerSpotlight = lazy(() => import("@/components/CustomerSpotlight").then(m => ({ default: m.CustomerSpotlight })));
 const TrustBar = lazy(() => import("@/components/TrustBar").then(m => ({ default: m.TrustBar })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
@@ -555,6 +556,9 @@ const Index = () => {
         <Suspense fallback={null}>
           {/* === STAGE 5: Customer Reviews === */}
           <HomeReviewsSection />
+
+          {/* === STAGE 5b: Customer Spotlight (real photos) === */}
+          <CustomerSpotlight />
 
           {/* === STAGE 6: Mid-Funnel Conversion CTA === */}
           <section className="py-14 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-background">

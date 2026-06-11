@@ -31,17 +31,10 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
     let cancelled = false;
     (async () => {
       setLoading(true);
-      const { data, error } = await supabase
-        .from("reviews")
-        .select(
-          "id, reviewer_name, rating, title, body, photos, review_date, created_at, is_verified_purchase"
-        )
-        .eq("product_handle", productHandle)
-        .eq("source", "loox")
-        .eq("rating", 5)
-        .eq("status", "approved")
-        .order("review_date", { ascending: false, nullsFirst: false })
-        .limit(40);
+      const { data, error } = await supabase.rpc("get_loox_reviews", {
+        p_handle: productHandle,
+        p_limit: 40,
+      });
 
       if (cancelled) return;
       if (error || !data) {

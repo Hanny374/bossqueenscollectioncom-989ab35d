@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Star, BadgeCheck, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, BadgeCheck, X, ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import {
@@ -197,6 +197,12 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                   ))}
+                  {activePhotos.length > 0 && (
+                    <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+                      <ImageIcon className="w-3 h-3" />
+                      {activePhotos.length} {activePhotos.length === 1 ? "photo" : "photos"}
+                    </span>
+                  )}
                 </div>
                 {activeReview.title && (
                   <h3 className="font-display text-xl font-semibold text-foreground">

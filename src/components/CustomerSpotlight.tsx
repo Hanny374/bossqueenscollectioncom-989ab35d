@@ -33,15 +33,28 @@ export const CustomerSpotlight = () => {
         (r) => Array.isArray(r.photos) && r.photos.length > 0
       ) as SpotlightReview[];
 
+      // Dedupe by normalized reviewer + body (keep first, prefer most photos).
+      const sorted = [...withPhotos].sort(
+        (a, b) => (b.photos?.length ?? 0) - (a.photos?.length ?? 0)
+      );
+      const seen = new Set<string>();
+      const unique: SpotlightReview[] = [];
+      for (const r of sorted) {
+        const key = `${(r.reviewer_name || "").trim().toLowerCase()}|${(r.body || "").trim().toLowerCase().slice(0, 120)}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        unique.push(r);
+      }
+
       // Only keep reviews whose product still exists, so links aren't broken.
-      const handles = Array.from(new Set(withPhotos.map((r) => r.product_handle)));
+      const handles = Array.from(new Set(unique.map((r) => r.product_handle)));
       const { data: validProducts } = await supabase
         .from("product_embeddings")
         .select("shopify_handle")
         .in("shopify_handle", handles);
       const validSet = new Set((validProducts || []).map((p) => p.shopify_handle));
 
-      const filtered = withPhotos
+      const filtered = unique
         .filter((r) => validSet.has(r.product_handle))
         .slice(0, 12);
 

@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { fetchProductByHandle, ShopifyProduct, markup } from "@/lib/shopify";
+import { fetchProductByHandle, ShopifyProduct, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { ChevronLeft, ChevronRight, Loader2, Zap, Check, ChevronDown, ShoppingCart, Flame, Eye, Truck, Shield, Clock, AlertTriangle, Tag, Sparkles, Star, Minus, Plus, X } from "lucide-react";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -379,6 +379,8 @@ const ProductPage = () => {
     product.productType?.toLowerCase().includes('colored wig') ||
     product.productType?.toLowerCase().includes('bob')
   ) : false;
+
+  const markup = getMarkup(product?.tags);
 
   // Calculate dynamic price with markups for wig products
   const getAdjustedPrice = () => {

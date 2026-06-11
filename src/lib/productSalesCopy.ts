@@ -113,7 +113,7 @@ export function generateSalesCopy(product: ProductAttributes): SalesCopy {
     "Trusted by 10,000+ queens worldwide",
     "Premium 10A grade — the highest quality available",
     "30-day money-back guarantee, no questions asked",
-    "Free shipping on orders over $100",
+    "Free shipping on orders over $300",
     "Fast processing — ships within 1-3 business days",
   ];
 

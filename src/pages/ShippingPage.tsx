@@ -10,7 +10,7 @@ const ShippingPage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Shipping & Delivery"
-        description="Free worldwide shipping on orders over $100. Learn about Boss Queens Collection delivery times, tracking, and shipping policies for 180+ countries."
+        description="Free worldwide shipping on orders over $300. Learn about Boss Queens Collection delivery times, tracking, and shipping policies for 180+ countries."
         path="/shipping"
         keywords="hair wig shipping, worldwide hair delivery, free shipping wigs, Boss Queens shipping policy, international hair shipping"
         breadcrumbs={[
@@ -87,7 +87,7 @@ const ShippingPage = () => {
               {
                 icon: Truck,
                 title: "Free Worldwide Shipping",
-                description: "Enjoy free shipping on all orders over $100. We deliver to every corner of the globe so every queen can access premium hair.",
+                description: "Enjoy free shipping on all orders over $300. We deliver to every corner of the globe so every queen can access premium hair.",
               },
               {
                 icon: Clock,

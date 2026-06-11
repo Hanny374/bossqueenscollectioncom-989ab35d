@@ -722,7 +722,7 @@ const ProductPage = () => {
                 <div className="flex items-center gap-2 text-sm">
                   <Truck className="w-4 h-4 text-primary" />
                   <span className="text-muted-foreground">
-                    <span className="font-semibold text-primary">FREE shipping</span> on orders over $100
+                    <span className="font-semibold text-primary">FREE shipping</span> on orders over $300
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
@@ -1028,7 +1028,7 @@ const ProductPage = () => {
                 </div>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Check className="w-5 h-5 text-primary" />
-                  <span>Free Shipping on Orders Over $100</span>
+                  <span>Free Shipping on Orders Over $300</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Check className="w-5 h-5 text-primary" />
@@ -1143,7 +1143,7 @@ const ProductPage = () => {
                   <AccordionContent>
                     <div className="space-y-3 pt-2 text-sm text-muted-foreground">
                       <p><span className="font-medium text-foreground">Processing Time:</span> 1-3 business days</p>
-                      <p><span className="font-medium text-foreground">US Shipping:</span> 3-7 business days (Free over $100)</p>
+                      <p><span className="font-medium text-foreground">US Shipping:</span> 3-7 business days (Free over $300)</p>
                       <p><span className="font-medium text-foreground">International:</span> 7-21 business days</p>
                       <p><span className="font-medium text-foreground">Tracking:</span> Provided for all orders</p>
                     </div>

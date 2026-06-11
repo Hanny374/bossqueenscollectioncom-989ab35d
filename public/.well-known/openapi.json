@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Boss Queens Collection — AI Shopping API",
-    "description": "Search and browse premium 100% virgin human hair products from Boss Queens Collection. Wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, closures, and accessories. All products shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $100 USD.",
+    "description": "Search and browse premium 100% virgin human hair products from Boss Queens Collection. Wigs (lace front, bob, headband, colored), hair bundles (Brazilian, Peruvian, Indian, Malaysian, Vietnamese), lace frontals, closures, and accessories. All products shipped worldwide from St. Maarten, Caribbean. Free shipping on orders over $300 USD.",
     "version": "1.0.0",
     "contact": {
       "name": "Boss Queens Collection",

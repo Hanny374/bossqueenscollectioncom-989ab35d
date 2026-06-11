@@ -254,7 +254,7 @@ const Index = () => {
       <Header />
       <SEOHead
         title="Premium 100% Human Hair Wigs & Bundles"
-        description="Shop premium 100% virgin human hair wigs, bundles, frontals & closures. Brazilian, Peruvian, Indian hair. Free worldwide shipping over $100. Founded in St. Maarten."
+        description="Shop premium 100% virgin human hair wigs, bundles, frontals & closures. Brazilian, Peruvian, Indian hair. Free worldwide shipping over $300. Founded in St. Maarten."
         path="/"
       />
       {/* ItemList JSON-LD for AI search engines to discover top products */}
@@ -333,7 +333,7 @@ const Index = () => {
                 </div>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">Shop Wigs</h3>
                 <p className="text-muted-foreground mb-6">
-                  Luxury 100% human hair wigs, bundles & accessories — ready to slay. Free shipping over $100.
+                  Luxury 100% human hair wigs, bundles & accessories — ready to slay. Free shipping over $300.
                 </p>
                 <Link
                   to="/#products"
@@ -391,7 +391,7 @@ const Index = () => {
                 </span>
               </div>
               <span className="text-muted-foreground text-sm md:text-base">
-                On all orders over <span className="font-semibold text-primary">$100</span> — delivered worldwide to your doorstep
+                On all orders over <span className="font-semibold text-primary">$300</span> — delivered worldwide to your doorstep
               </span>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Globe className="w-4 h-4" />
@@ -594,7 +594,7 @@ const Index = () => {
                 <div className="flex items-center gap-6 mt-3 text-muted-foreground text-sm">
                   <div className="flex items-center gap-2">
                     <Truck className="w-4 h-4 text-primary" />
-                    <span>Free shipping over $100</span>
+                    <span>Free shipping over $300</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-primary" />
@@ -678,7 +678,7 @@ const Index = () => {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-3xl">
                   {[
-                    { icon: Truck, label: "Free Shipping", desc: "On orders over $100" },
+                    { icon: Truck, label: "Free Shipping", desc: "On orders over $300" },
                     { icon: Shield, label: "Secure Checkout", desc: "256-bit SSL encryption" },
                     { icon: ShieldCheck, label: "100% Authentic", desc: "Guaranteed human hair" },
                     { icon: Package, label: "Easy Returns", desc: "30-day money back" },

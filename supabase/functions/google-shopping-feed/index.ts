@@ -138,7 +138,7 @@ serve(async (req) => {
   <channel>
     <title>Boss Queens Collection</title>
     <link>${STORE_URL}</link>
-    <description>Premium 100% human hair wigs, bundles, frontals and accessories. Free worldwide shipping over $100.</description>
+    <description>Premium 100% human hair wigs, bundles, frontals and accessories. Free worldwide shipping over $300.</description>
     ${items}
   </channel>
 </rss>`;

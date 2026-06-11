@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Crown, Loader2, ShoppingBag, Sparkles, ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
-import { fetchProductByHandle, PRICE_MARKUP } from "@/lib/shopify";
+import { fetchProductByHandle, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 
@@ -101,7 +101,7 @@ const ChatAddToCartButton = ({ handle }: { handle: string }) => {
         product: { node: product },
         variantId: firstVariant.id,
         variantTitle: firstVariant.title,
-        price: { amount: (parseFloat(firstVariant.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: firstVariant.price.currencyCode },
+        price: { amount: (parseFloat(firstVariant.price.amount) + getMarkup(product.tags)).toFixed(2), currencyCode: firstVariant.price.currencyCode },
         quantity: 1,
         selectedOptions: firstVariant.selectedOptions || [],
       });

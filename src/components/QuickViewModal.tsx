@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
+import { ShopifyProduct, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
@@ -64,6 +64,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
 
   const { node } = product;
   const images = node.images.edges;
+  const markup = getMarkup(node.tags);
   const price = node.priceRange.minVariantPrice;
   const compareAtPrice = node.compareAtPriceRange?.maxVariantPrice;
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);
@@ -87,7 +88,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
     product,
     variantId: selectedVariant!.id,
     variantTitle: selectedVariant!.title,
-    price: { amount: (parseFloat(selectedVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
+    price: { amount: (parseFloat(selectedVariant!.price.amount) + markup).toFixed(2), currencyCode: selectedVariant!.price.currencyCode },
     quantity: 1,
     selectedOptions: selectedVariant!.selectedOptions || [],
   });
@@ -219,11 +220,11 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
         {/* Price */}
         <div className="flex items-baseline gap-2">
           <span className="font-display text-xl font-bold text-primary">
-            ${(parseFloat(selectedVariant?.price.amount || price.amount) + PRICE_MARKUP).toFixed(2)}
+            ${(parseFloat(selectedVariant?.price.amount || price.amount) + markup).toFixed(2)}
           </span>
           {isOnSale && (
             <span className="text-sm text-muted-foreground line-through">
-              ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
+              ${(parseFloat(compareAtPrice.amount) + markup).toFixed(2)}
             </span>
           )}
         </div>
@@ -257,7 +258,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
                     {length}"
                     {variant && (
                       <span className="ml-1 text-primary font-semibold">
-                        ${(parseFloat(variant.price.amount) + PRICE_MARKUP).toFixed(0)}
+                        ${(parseFloat(variant.price.amount) + markup).toFixed(0)}
                       </span>
                     )}
                   </button>

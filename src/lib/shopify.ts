@@ -19,6 +19,17 @@ const SHOPIFY_STOREFRONT_URL = isDev
 // Global price markup (added to all product prices) — set to luxury retail level
 export const PRICE_MARKUP = 200;
 
+// Returns the markup to apply for a product. Membership / Hair Club products
+// are exempt so advertised pricing matches Shopify checkout exactly.
+export function getMarkup(tags?: string[] | null): number {
+  if (!tags || tags.length === 0) return PRICE_MARKUP;
+  const lower = tags.map((t) => t.toLowerCase());
+  if (lower.some((t) => t === "membership" || t === "hair-club" || t === "subscription")) {
+    return 0;
+  }
+  return PRICE_MARKUP;
+}
+
 // Types
 export interface ShopifyProduct {
   node: {

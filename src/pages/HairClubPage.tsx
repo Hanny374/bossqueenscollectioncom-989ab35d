@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Crown, Sparkles, Check, Gift, Zap, Star } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { fetchProductByHandle, getMarkup } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const HAIR_CLUB_HANDLE = "boss-queens-hair-club-membership";
 
@@ -24,6 +28,40 @@ const faqs = [
 ];
 
 export default function HairClubPage() {
+  const buyNow = useCartStore((s) => s.buyNow);
+  const isBuyingNow = useCartStore((s) => s.isBuyingNow);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleJoin = async () => {
+    setIsLoading(true);
+    try {
+      const product = await fetchProductByHandle(HAIR_CLUB_HANDLE);
+      const variant = product?.variants.edges[0]?.node;
+      if (!product || !variant) {
+        toast.error("Membership unavailable right now. Please try again later.");
+        return;
+      }
+      await buyNow({
+        product: { node: product },
+        variantId: variant.id,
+        variantTitle: variant.title,
+        price: {
+          amount: (parseFloat(variant.price.amount) + getMarkup(product.tags)).toFixed(2),
+          currencyCode: variant.price.currencyCode,
+        },
+        quantity: 1,
+        selectedOptions: variant.selectedOptions || [],
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Could not start checkout. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const busy = isLoading || isBuyingNow;
+
   return (
     <>
       <Helmet>

@@ -192,49 +192,15 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </button>
         </div>
         
-        {/* Desktop overlay buttons — only on large screens */}
-        <div className="absolute bottom-4 left-4 right-4 z-10 hidden lg:flex gap-2">
-          <Button
-            onClick={(e) => requireHairDescription("add", e)}
-            disabled={isCartLoading || !activeVariant?.availableForSale}
-            variant="outline"
-            className="flex-1 bg-background/95 backdrop-blur-sm border-primary text-primary hover:bg-primary/10 h-11 text-sm"
-          >
-            {isCartLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <>
-                <ShoppingCart className="w-4 h-4 mr-1.5" />
-                Add to Cart
-              </>
-            )}
-          </Button>
-          <Button
-            onClick={(e) => requireHairDescription("buy", e)}
-            disabled={isBuyingNow || !activeVariant?.availableForSale}
-            className="flex-1 bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11 text-sm"
-          >
-            {isBuyingNow ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : !activeVariant?.availableForSale ? (
-              "Sold Out"
-            ) : (
-              <>
-                Buy Now
-              </>
-            )}
-          </Button>
-        </div>
-
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
-      {/* Mobile & tablet buttons — stacked vertically below image */}
-      <div className="flex flex-col gap-2 mt-2 lg:hidden">
+      {/* Buy Now & Add to Cart — shown below image on all viewports */}
+      <div className="flex flex-col sm:flex-row gap-2 mt-3">
         <Button
           onClick={(e) => requireHairDescription("buy", e)}
           disabled={isBuyingNow || !activeVariant?.availableForSale}
-          className="w-full bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11 text-sm font-semibold"
+          className="flex-1 w-full bg-gradient-gold hover:opacity-90 text-espresso shadow-glow h-11 text-sm font-semibold"
         >
           {isBuyingNow ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -250,7 +216,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           onClick={(e) => requireHairDescription("add", e)}
           disabled={isCartLoading || !activeVariant?.availableForSale}
           variant="outline"
-          className="w-full border-primary text-primary hover:bg-primary/10 h-11 text-sm font-semibold"
+          className="flex-1 w-full border-primary text-primary hover:bg-primary/10 h-11 text-sm font-semibold"
         >
           {isCartLoading ? (
             <Loader2 className="w-4 h-4 animate-spin" />

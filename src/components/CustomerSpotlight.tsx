@@ -33,16 +33,24 @@ export const CustomerSpotlight = () => {
         (r) => Array.isArray(r.photos) && r.photos.length > 0
       ) as SpotlightReview[];
 
-      // Dedupe by normalized reviewer + body (keep first, prefer most photos).
+      // Dedupe across multiple signals: photo URL, reviewer+body, and body text.
       const sorted = [...withPhotos].sort(
         (a, b) => (b.photos?.length ?? 0) - (a.photos?.length ?? 0)
       );
-      const seen = new Set<string>();
+      const seenPhotos = new Set<string>();
+      const seenKeys = new Set<string>();
       const unique: SpotlightReview[] = [];
       for (const r of sorted) {
-        const key = `${(r.reviewer_name || "").trim().toLowerCase()}|${(r.body || "").trim().toLowerCase().slice(0, 120)}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
+        const firstPhoto = (r.photos?.[0] || "").split("?")[0].trim().toLowerCase();
+        const nameKey = (r.reviewer_name || "").trim().toLowerCase();
+        const bodyKey = (r.body || "").trim().toLowerCase().slice(0, 120);
+        const composite = `${nameKey}|${bodyKey}`;
+        if (firstPhoto && seenPhotos.has(firstPhoto)) continue;
+        if (composite !== "|" && seenKeys.has(composite)) continue;
+        if (bodyKey && seenKeys.has(`|${bodyKey}`)) continue;
+        if (firstPhoto) seenPhotos.add(firstPhoto);
+        seenKeys.add(composite);
+        if (bodyKey) seenKeys.add(`|${bodyKey}`);
         unique.push(r);
       }
 

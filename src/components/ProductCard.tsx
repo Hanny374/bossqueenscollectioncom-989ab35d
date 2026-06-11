@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
+import { ShopifyProduct, markup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star, Sparkles } from "lucide-react";
@@ -94,7 +94,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     product,
     variantId: activeVariant!.id,
     variantTitle: activeVariant!.title,
-    price: { amount: (parseFloat(activeVariant!.price.amount) + PRICE_MARKUP).toFixed(2), currencyCode: activeVariant!.price.currencyCode },
+    price: { amount: (parseFloat(activeVariant!.price.amount) + markup).toFixed(2), currencyCode: activeVariant!.price.currencyCode },
     quantity: 1,
     selectedOptions: activeVariant!.selectedOptions || []
   });
@@ -317,11 +317,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-xs text-muted-foreground">from</span>
             )}
             <p className="font-display font-bold text-xl text-primary">
-              ${(parseFloat(activeVariant?.price.amount || price.amount) + PRICE_MARKUP).toFixed(2)}
+              ${(parseFloat(activeVariant?.price.amount || price.amount) + markup).toFixed(2)}
             </p>
             {isOnSale && (
               <p className="text-sm text-muted-foreground line-through">
-                ${(parseFloat(compareAtPrice.amount) + PRICE_MARKUP).toFixed(2)}
+                ${(parseFloat(compareAtPrice.amount) + markup).toFixed(2)}
               </p>
             )}
           </div>
@@ -385,7 +385,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     <span className="font-medium">{length}"</span>
                     {variantPrice && (
                       <span className={`font-semibold ${selectedLength === length ? "text-primary" : "text-primary"}`}>
-                        ${(parseFloat(variantPrice) + PRICE_MARKUP).toFixed(0)}
+                        ${(parseFloat(variantPrice) + markup).toFixed(0)}
                       </span>
                     )}
                   </button>

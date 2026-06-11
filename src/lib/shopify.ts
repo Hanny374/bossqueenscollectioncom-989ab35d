@@ -6,8 +6,10 @@ import { toast } from "sonner";
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN =
   import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || 'boss-queens-collection-8295.myshopify.com';
-const SHOPIFY_STOREFRONT_TOKEN =
-  import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || '0e942a6ba1a520b2bd97819256fe60c5';
+// IMPORTANT: Always use this token. The env-provided token belongs to a sales
+// channel that does NOT have the Hair Club membership product published, which
+// breaks the Join the Club checkout flow.
+const SHOPIFY_STOREFRONT_TOKEN = '0e942a6ba1a520b2bd97819256fe60c5';
 
 // In development, we use a proxy defined in vite.config.ts to avoid CORS issues.
 // In production, we call Shopify directly.

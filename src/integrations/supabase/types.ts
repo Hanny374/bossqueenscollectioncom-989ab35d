@@ -253,6 +253,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_loox_reviews: {
+        Args: { p_handle: string; p_limit?: number }
+        Returns: {
+          body: string
+          created_at: string
+          id: string
+          is_verified_purchase: boolean
+          photos: string[]
+          rating: number
+          review_date: string
+          reviewer_name: string
+          title: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

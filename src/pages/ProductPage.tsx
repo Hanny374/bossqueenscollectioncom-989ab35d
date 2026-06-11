@@ -732,9 +732,11 @@ const ProductPage = () => {
                       </div>
                       <span className="text-muted-foreground">
                         <span className="font-semibold text-foreground">{avg.toFixed(1)}</span>
-                        <span className="ml-1 group-hover:underline">
-                          {hasReviews ? `(${count} review${count === 1 ? "" : "s"})` : "(Be the first to review)"}
-                        </span>
+                        {hasReviews && (
+                          <span className="ml-1 group-hover:underline">
+                            ({count} review{count === 1 ? "" : "s"})
+                          </span>
+                        )}
                       </span>
                     </button>
                   );

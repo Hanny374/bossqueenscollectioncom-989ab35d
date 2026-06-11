@@ -711,27 +711,34 @@ const ProductPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                {reviewStats && reviewStats.count > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => document.getElementById("product-reviews")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                    className="flex items-center gap-2 text-sm hover:opacity-80 transition-opacity cursor-pointer group"
-                    aria-label={`See ${reviewStats.count} customer reviews`}
-                  >
-                    <div className="flex items-center gap-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star
-                          key={s}
-                          className={`w-4 h-4 ${s <= Math.round(reviewStats.avgRating) ? "fill-primary text-primary" : "text-muted-foreground/30"}`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-muted-foreground">
-                      <span className="font-semibold text-foreground">{reviewStats.avgRating.toFixed(1)}</span>
-                      <span className="ml-1 group-hover:underline">({reviewStats.count} review{reviewStats.count === 1 ? "" : "s"})</span>
-                    </span>
-                  </button>
-                )}
+                {(() => {
+                  const hasReviews = reviewStats && reviewStats.count > 0;
+                  const avg = hasReviews ? reviewStats!.avgRating : 5;
+                  const count = hasReviews ? reviewStats!.count : 0;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => document.getElementById("product-reviews")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                      className="flex items-center gap-2 text-sm hover:opacity-80 transition-opacity cursor-pointer group"
+                      aria-label={hasReviews ? `See ${count} customer reviews` : "See customer reviews"}
+                    >
+                      <div className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            className={`w-4 h-4 ${s <= Math.round(avg) ? "fill-primary text-primary" : "text-muted-foreground/30"}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-muted-foreground">
+                        <span className="font-semibold text-foreground">{avg.toFixed(1)}</span>
+                        <span className="ml-1 group-hover:underline">
+                          {hasReviews ? `(${count} review${count === 1 ? "" : "s"})` : "(Be the first to review)"}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })()}
                 <div className="flex items-center gap-2 text-sm">
                   <Eye className="w-4 h-4 text-primary" />
                   <span className="text-muted-foreground">

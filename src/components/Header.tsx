@@ -23,6 +23,7 @@ const wigCategories = [
 
 const navLinks = [
   { label: "About Us", href: "/about" },
+  { label: "Hair Club", href: "/hair-club" },
   { label: "Shipping", href: "/shipping" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },

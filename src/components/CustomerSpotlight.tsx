@@ -46,18 +46,23 @@ export const CustomerSpotlight = () => {
       );
       const seenPhotos = new Set<string>();
       const seenKeys = new Set<string>();
+      const seenProductReviewer = new Set<string>();
       const unique: SpotlightReview[] = [];
       for (const r of sorted) {
         const firstPhoto = (r.photos?.[0] || "").split("?")[0].trim().toLowerCase();
         const nameKey = (r.reviewer_name || "").trim().toLowerCase();
         const bodyKey = (r.body || "").trim().toLowerCase().slice(0, 120);
         const composite = `${nameKey}|${bodyKey}`;
+        const prKey = `${r.product_handle}|${nameKey}`;
         if (firstPhoto && seenPhotos.has(firstPhoto)) continue;
         if (composite !== "|" && seenKeys.has(composite)) continue;
         if (bodyKey && seenKeys.has(`|${bodyKey}`)) continue;
+        // Avoid showing same reviewer twice for the same product.
+        if (nameKey && seenProductReviewer.has(prKey)) continue;
         if (firstPhoto) seenPhotos.add(firstPhoto);
         seenKeys.add(composite);
         if (bodyKey) seenKeys.add(`|${bodyKey}`);
+        if (nameKey) seenProductReviewer.add(prKey);
         unique.push(r);
       }
 
@@ -96,7 +101,7 @@ export const CustomerSpotlight = () => {
           </p>
         </div>
 
-        <Carousel opts={{ align: "start", loop: true }} className="relative">
+        <Carousel opts={{ align: "start", loop: false }} className="relative">
           <CarouselContent className="-ml-3 md:-ml-5 cursor-grab active:cursor-grabbing">
             {items.map((r) => (
               <CarouselItem

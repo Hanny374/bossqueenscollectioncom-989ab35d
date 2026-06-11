@@ -70,7 +70,7 @@ export function getReviewStats(
   map: ReviewStatsMap | undefined,
   handle: string,
 ): ReviewStats | undefined {
-  if (!map) return undefined;
+  if (!map || !map.exact || !map.handles) return undefined;
   if (map.exact[handle]) return map.exact[handle];
 
   // Try stripping common dedupe suffixes (-1, -2, etc.)

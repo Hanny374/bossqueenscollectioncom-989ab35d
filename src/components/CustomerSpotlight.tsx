@@ -29,11 +29,23 @@ export const CustomerSpotlight = () => {
       if (cancelled || !data) return;
 
       // Keep only reviews that actually have at least one photo URL.
-      const withPhotos = data
-        .filter((r) => Array.isArray(r.photos) && r.photos.length > 0)
-        .slice(0, 12) as SpotlightReview[];
+      const withPhotos = data.filter(
+        (r) => Array.isArray(r.photos) && r.photos.length > 0
+      ) as SpotlightReview[];
 
-      setItems(withPhotos);
+      // Only keep reviews whose product still exists, so links aren't broken.
+      const handles = Array.from(new Set(withPhotos.map((r) => r.product_handle)));
+      const { data: validProducts } = await supabase
+        .from("product_embeddings")
+        .select("shopify_handle")
+        .in("shopify_handle", handles);
+      const validSet = new Set((validProducts || []).map((p) => p.shopify_handle));
+
+      const filtered = withPhotos
+        .filter((r) => validSet.has(r.product_handle))
+        .slice(0, 12);
+
+      if (!cancelled) setItems(filtered);
     })();
     return () => { cancelled = true; };
   }, []);

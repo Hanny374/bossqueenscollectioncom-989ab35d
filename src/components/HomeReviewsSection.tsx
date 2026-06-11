@@ -27,6 +27,7 @@ const FALLBACK_REVIEWS: HomeReview[] = [
 
 export const HomeReviewsSection = () => {
   const [reviews, setReviews] = useState<HomeReview[]>([]);
+  const [validHandles, setValidHandles] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -58,6 +59,21 @@ export const HomeReviewsSection = () => {
     };
     fetchReviews();
   }, []);
+
+  useEffect(() => {
+    if (reviews.length === 0) return;
+    const handles = Array.from(new Set(reviews.map((r) => r.product_handle)));
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("product_embeddings")
+        .select("shopify_handle")
+        .in("shopify_handle", handles);
+      if (cancelled) return;
+      setValidHandles(new Set((data || []).map((p) => p.shopify_handle)));
+    })();
+    return () => { cancelled = true; };
+  }, [reviews]);
 
   if (reviews.length === 0) return null;
 
@@ -123,14 +139,22 @@ export const HomeReviewsSection = () => {
                     )}
                   </div>
                 </div>
-                <Link
-                  to={`/product/${review.product_handle}`}
-                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {review.product_title.length > 25
-                    ? review.product_title.slice(0, 25) + "..."
-                    : review.product_title}
-                </Link>
+                {validHandles.has(review.product_handle) ? (
+                  <Link
+                    to={`/product/${review.product_handle}`}
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {review.product_title.length > 25
+                      ? review.product_title.slice(0, 25) + "..."
+                      : review.product_title}
+                  </Link>
+                ) : (
+                  <span className="text-xs text-muted-foreground">
+                    {review.product_title.length > 25
+                      ? review.product_title.slice(0, 25) + "..."
+                      : review.product_title}
+                  </span>
+                )}
               </div>
             </motion.div>
           ))}

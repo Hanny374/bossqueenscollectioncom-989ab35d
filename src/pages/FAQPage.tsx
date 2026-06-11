@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     question: "Do you offer free shipping?",
-    answer: "Yes! We offer free worldwide shipping on all orders over $100. For orders under $100, a flat shipping fee will be calculated at checkout.",
+    answer: "Yes! We offer free worldwide shipping on all orders over $300. For orders under $300, a flat shipping fee will be calculated at checkout.",
   },
   {
     question: "What is your return policy?",

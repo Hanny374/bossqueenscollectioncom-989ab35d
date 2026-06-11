@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     question: `How do I use the ${SALE_CODE} discount code?`,
-    answer: `Add any wig, bundle, or accessory to your cart and enter code ${SALE_CODE} at checkout to receive ${SALE_DISCOUNT}. Free worldwide shipping is automatic on orders over $100.`,
+    answer: `Add any wig, bundle, or accessory to your cart and enter code ${SALE_CODE} at checkout to receive ${SALE_DISCOUNT}. Free worldwide shipping is automatic on orders over $300.`,
   },
 ];
 
@@ -114,7 +114,7 @@ const MothersDaySalePage = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Mother's Day Sale 2026 — 20% Off Luxury Wigs & Bundles"
-        description={`Boss Queens Collection Mother's Day Sale: ${SALE_DISCOUNT} all 100% virgin human hair wigs, bundles & accessories with code ${SALE_CODE}. Free shipping over $100. Ends ${SALE_END_LABEL}.`}
+        description={`Boss Queens Collection Mother's Day Sale: ${SALE_DISCOUNT} all 100% virgin human hair wigs, bundles & accessories with code ${SALE_CODE}. Free shipping over $300. Ends ${SALE_END_LABEL}.`}
         path="/mothers-day-sale"
         type="website"
       />
@@ -167,7 +167,7 @@ const MothersDaySalePage = () => {
         <section className="container px-4 md:px-8 py-10 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { icon: Truck, label: "Free shipping over $100" },
+              { icon: Truck, label: "Free shipping over $300" },
               { icon: ShieldCheck, label: "100% virgin human hair" },
               { icon: Gift, label: "Luxe gift packaging" },
               { icon: Sparkles, label: "Grade 10A quality" },

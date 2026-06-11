@@ -208,7 +208,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
         <div className="flex flex-col gap-1 bg-secondary/50 rounded-xl p-2.5">
           <div className="flex items-center gap-2 text-sm">
             <Truck className="w-4 h-4 text-primary shrink-0" />
-            <span className="text-foreground font-medium text-xs">Free shipping over $100</span>
+            <span className="text-foreground font-medium text-xs">Free shipping over $300</span>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <Clock className="w-3.5 h-3.5 shrink-0" />

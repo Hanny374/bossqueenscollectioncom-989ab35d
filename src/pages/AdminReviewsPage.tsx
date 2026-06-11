@@ -252,18 +252,36 @@ const AdminReviewsPage = () => {
           )}
 
           {activeTab === "loox" && (
-            <DSersCSVImporter
-              source="loox"
-              title="Import Loox Reviews CSV"
-              description={
-                <>
-                  In your Loox dashboard go to <strong>Manage Reviews → Export → CSV</strong> and upload the file here.
-                  Reviewer names, ratings, titles, bodies, product handles, and photo URLs are auto-detected and inserted as approved reviews.
-                  Re-uploading the same file won't create duplicates.
-                </>
-              }
-              onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }}
-            />
+            <div className="space-y-6">
+              <div className="bg-card border border-border rounded-xl p-6">
+                <h3 className="font-display text-lg font-bold mb-2">Sync Loox Reviews via API</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Pulls all 5-star reviews from Loox for every product on your store and inserts them as approved reviews. Safe to re-run — duplicates are skipped via <code>source_id</code>.
+                </p>
+                <Button
+                  disabled={isImporting}
+                  onClick={async () => {
+                    setIsImporting(true);
+                    const { data, error } = await supabase.functions.invoke("import-loox-reviews");
+                    setIsImporting(false);
+                    if (error) { toast.error(error.message); return; }
+                    if ((data as any)?.error) { toast.error((data as any).error); return; }
+                    toast.success(`Imported ${(data as any)?.imported ?? 0} reviews (fetched ${(data as any)?.fetched ?? 0})`);
+                    setActiveTab("manage"); setFilter("approved"); fetchReviews();
+                  }}
+                  className="bg-primary text-primary-foreground"
+                >
+                  {isImporting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Upload className="w-4 h-4 mr-2" />}
+                  {isImporting ? "Syncing from Loox…" : "Sync Loox Reviews Now"}
+                </Button>
+              </div>
+              <DSersCSVImporter
+                source="loox"
+                title="Or Import Loox Reviews CSV"
+                description={<>Upload a Loox CSV export as a fallback.</>}
+                onDone={() => { setActiveTab("manage"); setFilter("approved"); fetchReviews(); }}
+              />
+            </div>
           )}
 
           {activeTab === "screenshot" && (

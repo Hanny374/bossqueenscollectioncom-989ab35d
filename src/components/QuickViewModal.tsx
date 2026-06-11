@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct, markup } from "@/lib/shopify";
+import { ShopifyProduct, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Zap, ShoppingCart, Check, ChevronLeft, ChevronRight, ExternalLink, Star, Truck, Clock } from "lucide-react";
@@ -64,6 +64,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
 
   const { node } = product;
   const images = node.images.edges;
+  const markup = getMarkup(node.tags);
   const price = node.priceRange.minVariantPrice;
   const compareAtPrice = node.compareAtPriceRange?.maxVariantPrice;
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);

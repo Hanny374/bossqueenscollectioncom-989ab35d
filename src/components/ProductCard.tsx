@@ -196,7 +196,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
 
       {/* Buy Now & Add to Cart — shown below image on all viewports */}
-      <div className="flex flex-col sm:flex-row gap-2 mt-3">
+      <div className="flex flex-col gap-2 mt-3">
         <Button
           onClick={(e) => requireHairDescription("buy", e)}
           disabled={isBuyingNow || !activeVariant?.availableForSale}

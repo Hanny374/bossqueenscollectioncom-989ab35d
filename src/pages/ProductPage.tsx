@@ -683,6 +683,12 @@ const ProductPage = () => {
                   )}
                 </div>
 
+                {product.tags?.some(t => ["membership","hair-club","subscription"].includes(t.toLowerCase())) && (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Billed monthly · Cancel anytime · Free worldwide shipping
+                  </p>
+                )}
+
                 {/* Low stock warning */}
                 {lowStock > 0 && lowStock <= 10 && (
                   <motion.div

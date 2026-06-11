@@ -99,8 +99,8 @@ export default function HairClubPage() {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button asChild size="lg" className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12 text-base">
-                <Link to={`/product/${HAIR_CLUB_HANDLE}`}>Join the Club — $150/mo</Link>
+              <Button onClick={handleJoin} disabled={busy} size="lg" className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12 text-base">
+                {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Join the Club — $150/mo"}
               </Button>
               <Button asChild variant="outline" size="lg" className="h-12 px-6">
                 <a href="#benefits">See what's included</a>
@@ -157,8 +157,8 @@ export default function HairClubPage() {
                   </li>
                 ))}
               </ul>
-              <Button asChild size="lg" className="mt-10 bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12">
-                <Link to={`/product/${HAIR_CLUB_HANDLE}`}>Become a Member</Link>
+              <Button onClick={handleJoin} disabled={busy} size="lg" className="mt-10 bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12">
+                {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Become a Member"}
               </Button>
             </div>
           </div>
@@ -194,8 +194,8 @@ export default function HairClubPage() {
           </div>
 
           <div className="mt-12 text-center">
-            <Button asChild size="lg" className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12">
-              <Link to={`/product/${HAIR_CLUB_HANDLE}`}>Join the Hair Club</Link>
+            <Button onClick={handleJoin} disabled={busy} size="lg" className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12">
+              {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Join the Hair Club"}
             </Button>
           </div>
         </section>

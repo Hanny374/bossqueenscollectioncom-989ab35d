@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-const HAIR_CLUB_HANDLE = "boss-queens-hair-club";
+const HAIR_CLUB_HANDLE = "boss-queens-hair-club-membership";
 
 const benefits = [
   { icon: Crown, title: "1 Premium Bundle / Month", desc: "Hand-picked Grade 10A virgin human hair shipped to your door every month." },

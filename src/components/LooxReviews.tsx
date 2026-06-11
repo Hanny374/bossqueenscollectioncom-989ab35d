@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Star, BadgeCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface LooxReviewsProps {
   productHandle: string;
@@ -67,12 +74,14 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {reviews.map((r) => (
-          <article
-            key={r.id}
-            className="rounded-xl border border-border bg-card p-4 shadow-sm"
-          >
+      <Carousel opts={{ align: "start", loop: true }} className="relative">
+        <CarouselContent className="-ml-4">
+          {reviews.map((r) => (
+            <CarouselItem
+              key={r.id}
+              className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+            >
+              <article className="h-full rounded-xl border border-border bg-card p-4 shadow-sm">
             <div className="flex items-center gap-1 mb-2" aria-label="5 out of 5 stars">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-primary text-primary" />
@@ -112,9 +121,13 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
                   : format(new Date(r.created_at), "MMM d, yyyy")}
               </span>
             </div>
-          </article>
-        ))}
-      </div>
+              </article>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="hidden sm:flex -left-4" />
+        <CarouselNext className="hidden sm:flex -right-4" />
+      </Carousel>
     </div>
   );
 };

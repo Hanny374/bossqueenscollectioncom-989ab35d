@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ShopifyProduct, markup } from "@/lib/shopify";
+import { ShopifyProduct, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
 import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star, Sparkles } from "lucide-react";
@@ -55,6 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   
   const image = node.images.edges[0]?.node;
   const secondImage = node.images.edges[1]?.node;
+  const markup = getMarkup(node.tags);
   const price = node.priceRange.minVariantPrice;
   const compareAtPrice = node.compareAtPriceRange?.maxVariantPrice;
   const isOnSale = compareAtPrice && parseFloat(compareAtPrice.amount) > parseFloat(price.amount);

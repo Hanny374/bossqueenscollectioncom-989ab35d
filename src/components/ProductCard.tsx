@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ShopifyProduct, PRICE_MARKUP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { getCardDescription } from "@/lib/productSalesCopy";
-import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star } from "lucide-react";
+import { Loader2, Check, Ruler, Palette, Eye, Zap, ShoppingCart, Truck, Star, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { QuickViewModal } from "./QuickViewModal";
 import { HairDescriptionModal } from "./HairDescriptionModal";
@@ -292,6 +292,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 <span className="text-xs text-muted-foreground">
                   {reviewStats.avgRating.toFixed(1)}
                 </span>
+              </span>
+            )}
+            {(!reviewStats || reviewStats.count === 0) && (
+              <span className="loox-fallback inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                <Sparkles className="w-3 h-3" />
+                New Arrival
               </span>
             )}
           </div>

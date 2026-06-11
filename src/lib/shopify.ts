@@ -367,6 +367,12 @@ export const NEWEST_PRODUCTS_QUERY = `
   }
 `;
 
+// Tags that should be hidden from product listings (e.g. membership / subscription products).
+const HIDDEN_TAGS = new Set(["membership", "hair-club", "subscription"]);
+function isHiddenProduct(p: ShopifyProduct): boolean {
+  return (p.node.tags || []).some((t) => HIDDEN_TAGS.has(t.toLowerCase()));
+}
+
 // Fetch all products with cursor-based pagination (sorted by best selling)
 export async function fetchProducts(targetCount: number = 250): Promise<ShopifyProduct[]> {
   const allProducts: ShopifyProduct[] = [];
@@ -391,13 +397,14 @@ export async function fetchProducts(targetCount: number = 250): Promise<ShopifyP
     if (targetCount > 0 && allProducts.length >= targetCount) break;
   }
 
-  return allProducts;
+  return allProducts.filter((p) => !isHiddenProduct(p));
 }
 
 // Fetch newest products
 export async function fetchNewestProducts(first: number = 8, query?: string): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(NEWEST_PRODUCTS_QUERY, { first, query });
-  return data?.data?.products?.edges || [];
+  const edges: ShopifyProduct[] = data?.data?.products?.edges || [];
+  return edges.filter((p) => !isHiddenProduct(p));
 }
 
 // Fetch single product by handle

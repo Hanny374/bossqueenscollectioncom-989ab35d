@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Star, Camera } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface SpotlightReview {
   id: string;
@@ -64,7 +71,7 @@ export const CustomerSpotlight = () => {
 
       const filtered = unique
         .filter((r) => validSet.has(r.product_handle))
-        .slice(0, 12);
+        .slice(0, 20);
 
       if (!cancelled) setItems(filtered);
     })();
@@ -89,45 +96,53 @@ export const CustomerSpotlight = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
-          {items.map((r) => (
-            <Link
-              key={r.id}
-              to={`/product/${r.product_handle}`}
-              className="group relative block rounded-2xl overflow-hidden shadow-soft hover-lift bg-card"
-            >
-              <div className="aspect-[3/4] overflow-hidden bg-secondary/30">
-                <img
-                  src={r.photos[0]}
-                  alt={`Customer photo from ${r.reviewer_name}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-3 md:p-4 bg-gradient-to-t from-foreground/85 via-foreground/40 to-transparent">
-                <div className="flex items-center gap-0.5 mb-1">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      className={`w-3.5 h-3.5 ${
-                        s <= r.rating ? "fill-primary text-primary" : "text-background/40"
-                      }`}
+        <Carousel opts={{ align: "start", loop: true }} className="relative">
+          <CarouselContent className="-ml-3 md:-ml-5 cursor-grab active:cursor-grabbing">
+            {items.map((r) => (
+              <CarouselItem
+                key={r.id}
+                className="pl-3 md:pl-5 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+              >
+                <Link
+                  to={`/product/${r.product_handle}`}
+                  className="group relative block rounded-2xl overflow-hidden shadow-soft hover-lift bg-card"
+                >
+                  <div className="aspect-[3/4] overflow-hidden bg-secondary/30">
+                    <img
+                      src={r.photos[0]}
+                      alt={`Customer photo from ${r.reviewer_name}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                  ))}
-                </div>
-                <p className="text-background text-xs md:text-sm font-semibold truncate">
-                  {r.reviewer_name}
-                </p>
-                {r.body && (
-                  <p className="text-background/80 text-[11px] md:text-xs line-clamp-2 mt-0.5">
-                    {r.body}
-                  </p>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 p-3 md:p-4 bg-gradient-to-t from-foreground/85 via-foreground/40 to-transparent">
+                    <div className="flex items-center gap-0.5 mb-1">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          className={`w-3.5 h-3.5 ${
+                            s <= r.rating ? "fill-primary text-primary" : "text-background/40"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-background text-xs md:text-sm font-semibold truncate">
+                      {r.reviewer_name}
+                    </p>
+                    {r.body && (
+                      <p className="text-background/80 text-[11px] md:text-xs line-clamp-2 mt-0.5">
+                        {r.body}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden sm:flex -left-4 h-10 w-10" />
+          <CarouselNext className="hidden sm:flex -right-4 h-10 w-10" />
+        </Carousel>
       </div>
     </section>
   );

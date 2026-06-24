@@ -29,6 +29,7 @@ const PRODUCTS_QUERY = `
           compareAtPriceRange {
             maxVariantPrice { amount currencyCode }
           }
+          featuredImage { url altText }
           variants(first: 20) {
             edges {
               node {
@@ -55,6 +56,7 @@ interface ProductSummary {
   available: boolean;
   price: string;
   compareAt: string | null;
+  image: string | null;
   variants: string[];
   options: { name: string; values: string[] }[];
 }
@@ -81,7 +83,7 @@ async function getProductCatalog(): Promise<string> {
         "Content-Type": "application/json",
         "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_ACCESS_TOKEN,
       },
-      body: JSON.stringify({ query: PRODUCTS_QUERY, variables: { first: 50 } }),
+      body: JSON.stringify({ query: PRODUCTS_QUERY, variables: { first: 100 } }),
     });
 
     if (!resp.ok) {
@@ -109,6 +111,7 @@ async function getProductCatalog(): Promise<string> {
         compareAt: compareAtAmt && parseFloat(compareAtAmt) > 0
           ? `$${parseFloat(compareAtAmt).toFixed(2)}`
           : null,
+        image: n.featuredImage?.url || null,
         variants: (n.variants?.edges || []).map((v: any) => {
           const vn = v.node;
           const opts = vn.selectedOptions?.map((o: any) => `${o.name}: ${o.value}`).join(", ");
@@ -122,7 +125,8 @@ async function getProductCatalog(): Promise<string> {
       let line = `• ${p.title} — ${p.price}`;
       if (p.compareAt) line += ` (was ${p.compareAt})`;
       if (!p.available) line += " [SOLD OUT]";
-      line += `\n  URL: https://bossqueenscollectioncom.lovable.app/product/${p.handle}`;
+      line += `\n  URL: https://bossqueenscollection.com/product/${p.handle}`;
+      if (p.image) line += `\n  Image: ${p.image}`;
       if (p.type) line += `\n  Type: ${p.type}`;
       if (p.tags.length) line += `\n  Tags: ${p.tags.join(", ")}`;
       if (p.options.length) {

@@ -129,7 +129,7 @@ serve(async (req) => {
         <g:service>Standard</g:service>
         <g:price>0 USD</g:price>
       </g:shipping>
-      <g:custom_label_0>free-shipping-over-100</g:custom_label_0>
+      <g:custom_label_0>free-shipping-over-300</g:custom_label_0>
     </item>`;
     }
 

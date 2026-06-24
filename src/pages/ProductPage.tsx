@@ -1193,6 +1193,7 @@ const ProductPage = () => {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
+                )}
 
                 <AccordionItem value="shipping" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">

@@ -55,9 +55,13 @@ export const Header = () => {
     if (!href.startsWith("/#") || location.pathname !== "/") return;
 
     const id = href.slice(2).split("?")[0];
-    window.setTimeout(() => {
+    let attempts = 0;
+    const scrollToTarget = () => {
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
+      attempts += 1;
+      if (attempts < 80) window.setTimeout(scrollToTarget, 250);
+    };
+    window.setTimeout(scrollToTarget, 50);
   };
 
   return (

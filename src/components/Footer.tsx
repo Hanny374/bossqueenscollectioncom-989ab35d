@@ -148,6 +148,7 @@ export const Footer = () => {
                 { label: "About Us", href: "/about" },
                 { label: "Shipping Info", href: "/shipping" },
                 { label: "FAQ", href: "/faq" },
+                { label: "Access Your Ebook", href: "/ebook-access" },
               ].map((link) => (
                 <li key={link.label}>
                   <Link to={link.href} className="text-cream/70 hover:text-primary transition-colors">

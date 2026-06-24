@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { toast } from 'sonner';
 import { 
   ShopifyProduct, 
   storefrontApiRequest,
@@ -48,6 +49,21 @@ function formatCheckoutUrl(checkoutUrl: string): string {
   } catch {
     return checkoutUrl;
   }
+}
+
+function isEbookItem(item: { product: ShopifyProduct }): boolean {
+  const p = item.product?.node;
+  if (!p) return false;
+  const hay = `${p.title || ''} ${p.productType || ''} ${(p.tags || []).join(' ')}`.toLowerCase();
+  return /\b(ebook|playbook|digital)\b/.test(hay);
+}
+
+function showEbookDeliveryToast() {
+  toast.success("Ebook purchase — instant access after checkout 📚", {
+    description: "After payment, return to bossqueenscollection.com/ebook-access and enter your order # + email to download instantly.",
+    duration: 12000,
+    action: { label: "Open page", onClick: () => window.open('/ebook-access', '_blank') },
+  });
 }
 
 interface UserError {
@@ -144,6 +160,7 @@ export const useCartStore = create<CartStore>()(
         
         set({ isLoading: true });
         try {
+          if (isEbookItem(item)) showEbookDeliveryToast();
           if (!cartId) {
             const result = await createShopifyCart({ ...item, lineId: null });
             if (result) {
@@ -185,6 +202,7 @@ export const useCartStore = create<CartStore>()(
       buyNow: async (item) => {
         set({ isBuyingNow: true });
         try {
+          if (isEbookItem(item)) showEbookDeliveryToast();
           const result = await createShopifyCart({ ...item, lineId: null });
           if (result) {
             // Use window.open first; if blocked by popup blocker (common on mobile),

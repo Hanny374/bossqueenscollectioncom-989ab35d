@@ -23,6 +23,7 @@ const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage"));
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const HairClubPage = lazy(() => import("./pages/HairClubPage"));
+const EbookAccessPage = lazy(() => import("./pages/EbookAccessPage"));
 
 // Lazy load below-fold widgets
 const WhatsAppButton = lazy(() => import("./components/WhatsAppButton").then(m => ({ default: m.WhatsAppButton })));
@@ -101,6 +102,7 @@ const AppContent = () => {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/hair-club" element={<HairClubPage />} />
+          <Route path="/ebook-access" element={<EbookAccessPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />

@@ -26,6 +26,7 @@ function detectAttributes(product: ProductAttributes) {
 
   return {
     isWig: allText.includes("wig") || allText.includes("bob") || allText.includes("closure") || allText.includes("frontal"),
+    isDigital: allText.includes("ebook") || allText.includes("e-book") || allText.includes("digital") || allText.includes("playbook") || allText.includes("blueprint") || allText.includes("pdf"),
     isBundle: allText.includes("bundle") || allText.includes("weave"),
     isStraight: allText.includes("straight") || allText.includes("bone straight"),
     isCurly: allText.includes("curly") || allText.includes("deep wave") || allText.includes("water wave") || allText.includes("loose wave"),
@@ -48,6 +49,29 @@ function detectAttributes(product: ProductAttributes) {
 
 export function generateSalesCopy(product: ProductAttributes): SalesCopy {
   const attrs = detectAttributes(product);
+
+  // Digital products (ebooks, playbooks, blueprints) get their own copy track.
+  if (attrs.isDigital) {
+    return {
+      headline: "The Boss Queen Blueprint — Build Your Million-Dollar Brand",
+      shortDescription:
+        "Instant-download playbook with the exact systems Boss Queens use to source luxe hair, brand like a CEO, and scale to seven figures.",
+      benefits: [
+        "Instant PDF download — start reading in seconds",
+        "Step-by-step sourcing framework for Grade 10A hair & luxe goods",
+        "Premium pricing & brand positioning that attracts paying customers",
+        "Sales funnels & content systems that convert 24/7",
+        "Land your first 100 customers with zero ad spend",
+        "Lifetime access — read on any device, forever",
+      ],
+      whyChoose: [
+        "Trusted by Boss Queens building real luxury brands",
+        "Battle-tested playbook, not generic theory",
+        "One-time payment, lifetime access",
+        "Instant delivery — no waiting, no shipping",
+      ],
+    };
+  }
 
   // Build headline
   let headline = "";

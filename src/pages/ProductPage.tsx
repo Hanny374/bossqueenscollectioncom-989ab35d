@@ -1200,15 +1200,24 @@ const ProductPage = () => {
 
                 <AccordionItem value="shipping" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
-                    Shipping & Delivery
+                    {isDigitalProduct ? "Delivery & Access" : "Shipping & Delivery"}
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="space-y-3 pt-2 text-sm text-muted-foreground">
-                      <p><span className="font-medium text-foreground">Processing Time:</span> 1-3 business days</p>
-                      <p><span className="font-medium text-foreground">US Shipping:</span> 3-7 business days (Free over $300)</p>
-                      <p><span className="font-medium text-foreground">International:</span> 7-21 business days</p>
-                      <p><span className="font-medium text-foreground">Tracking:</span> Provided for all orders</p>
-                    </div>
+                    {isDigitalProduct ? (
+                      <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                        <p><span className="font-medium text-foreground">Delivery:</span> Instant — download link available right after checkout</p>
+                        <p><span className="font-medium text-foreground">Format:</span> PDF, readable on any device</p>
+                        <p><span className="font-medium text-foreground">Access:</span> Lifetime — re-download anytime via the Ebook Access page</p>
+                        <p><span className="font-medium text-foreground">Confirmation:</span> Sent to your email along with the download link</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                        <p><span className="font-medium text-foreground">Processing Time:</span> 1-3 business days</p>
+                        <p><span className="font-medium text-foreground">US Shipping:</span> 3-7 business days (Free over $300)</p>
+                        <p><span className="font-medium text-foreground">International:</span> 7-21 business days</p>
+                        <p><span className="font-medium text-foreground">Tracking:</span> Provided for all orders</p>
+                      </div>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
 
@@ -1238,15 +1247,22 @@ const ProductPage = () => {
                     Returns & Exchanges
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="space-y-3 pt-2 text-sm text-muted-foreground">
-                      <p>We offer a <span className="font-medium text-foreground">30-day return policy</span> on all unused items in original packaging.</p>
-                      <ul className="list-disc list-inside space-y-2">
-                        <li>Hair must be uncut, unwashed, and unaltered</li>
-                        <li>Original packaging and tags must be intact</li>
-                        <li>Contact us within 30 days of delivery</li>
-                        <li>Refund processed within 5-7 business days</li>
-                      </ul>
-                    </div>
+                    {isDigitalProduct ? (
+                      <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                        <p>Due to the instant nature of digital downloads, all ebook sales are <span className="font-medium text-foreground">final</span>.</p>
+                        <p>If you have any issue accessing your download, email <a href="mailto:Bossqueenscollections@gmail.com" className="text-primary underline">Bossqueenscollections@gmail.com</a> and we'll resend your link right away.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-3 pt-2 text-sm text-muted-foreground">
+                        <p>We offer a <span className="font-medium text-foreground">30-day return policy</span> on all unused items in original packaging.</p>
+                        <ul className="list-disc list-inside space-y-2">
+                          <li>Hair must be uncut, unwashed, and unaltered</li>
+                          <li>Original packaging and tags must be intact</li>
+                          <li>Contact us within 30 days of delivery</li>
+                          <li>Refund processed within 5-7 business days</li>
+                        </ul>
+                      </div>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

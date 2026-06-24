@@ -448,7 +448,10 @@ const ProductPage = () => {
 
   const isAccessory = product ? (
     product.productType?.toLowerCase().includes("accessor") ||
-    product.tags?.some((t: string) => t.toLowerCase().includes("accessor"))
+    product.tags?.some((t: string) => {
+      const tag = t.toLowerCase();
+      return tag.includes("accessor") || tag === "ebook" || tag === "digital";
+    })
   ) : false;
 
   const requireHairDescription = useCallback((action: "add" | "buy") => {

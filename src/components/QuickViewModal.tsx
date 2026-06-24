@@ -72,7 +72,8 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
   const availableVariants = node.variants.edges.filter((v) => v.node.availableForSale).length;
   const inStock = availableVariants > 0;
   const lengthOption = node.options?.find((opt) => opt.name.toLowerCase().includes("length"));
-  const isWig = node.productType?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("lace");
+  const isDigital = node.productType?.toLowerCase().includes("ebook") || node.productType?.toLowerCase().includes("digital") || node.title?.toLowerCase().includes("ebook") || node.tags?.some(t => { const x = t.toLowerCase(); return x === "ebook" || x === "digital" || x.includes("playbook"); });
+  const isWig = !isDigital && (node.productType?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("wig") || node.title?.toLowerCase().includes("lace"));
   const laceTypeOption = node.options?.find((opt) => opt.name.toLowerCase() === "lace type" || opt.name.toLowerCase() === "lace size");
 
   const detectedLaceTypes: string[] = [];
@@ -82,7 +83,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
   if (titleLower.includes("4x4")) detectedLaceTypes.push("4x4");
   if (titleLower.includes("5x5")) detectedLaceTypes.push("5x5");
   if (titleLower.includes("360")) detectedLaceTypes.push("360");
-  const laceTypes = laceTypeOption?.values || (detectedLaceTypes.length > 0 ? detectedLaceTypes : isWig ? ["13x4", "13x6"] : []);
+  const laceTypes = isDigital ? [] : (laceTypeOption?.values || (detectedLaceTypes.length > 0 ? detectedLaceTypes : isWig ? ["13x4", "13x6"] : []));
 
   const getCartItem = () => ({
     product,

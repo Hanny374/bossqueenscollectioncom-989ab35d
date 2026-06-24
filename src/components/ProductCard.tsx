@@ -377,7 +377,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
         
-        {(node.productType?.toLowerCase().includes('wig') || node.title?.toLowerCase().includes('wig') || node.productType?.toLowerCase().includes('bob')) && (
+        {(() => {
+          const isDigital = node.productType?.toLowerCase().includes('ebook') || node.productType?.toLowerCase().includes('digital') || node.title?.toLowerCase().includes('ebook') || node.tags?.some(t => { const x = t.toLowerCase(); return x === 'ebook' || x === 'digital' || x.includes('playbook'); });
+          const isWig = node.productType?.toLowerCase().includes('wig') || node.title?.toLowerCase().includes('wig') || node.productType?.toLowerCase().includes('bob');
+          return !isDigital && isWig;
+        })() && (
           <div className="space-y-1.5">
             <span className="text-xs text-muted-foreground font-medium">Density</span>
             <div className="flex flex-wrap gap-1.5">

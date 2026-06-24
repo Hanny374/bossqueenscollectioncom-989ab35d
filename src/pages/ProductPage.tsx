@@ -1059,7 +1059,10 @@ const ProductPage = () => {
                       </ul>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {["✨ Premium 10A Grade", "💎 100% Human Hair", "🔥 Best Seller", "🛡️ 30-Day Guarantee"].map((tag) => (
+                      {(isDigitalProduct
+                        ? ["📘 Instant PDF Download", "♾️ Lifetime Access", "🔥 Best Seller", "🛡️ Secure Checkout"]
+                        : ["✨ Premium 10A Grade", "💎 100% Human Hair", "🔥 Best Seller", "🛡️ 30-Day Guarantee"]
+                      ).map((tag) => (
                         <span key={tag} className="text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                           {tag}
                         </span>

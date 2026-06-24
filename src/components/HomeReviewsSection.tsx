@@ -97,7 +97,7 @@ export const HomeReviewsSection = () => {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="py-16 bg-secondary/30">
+    <section id="reviews" className="py-16 bg-secondary/30 scroll-mt-24">
       <div className="container px-4 md:px-8">
         <motion.div
           className="text-center mb-10"

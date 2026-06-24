@@ -25,6 +25,7 @@ const Testimonials = lazy(() => import("@/components/Testimonials").then(m => ({
 const HomeReviewsSection = lazy(() => import("@/components/HomeReviewsSection").then(m => ({ default: m.HomeReviewsSection })));
 const CustomerSpotlight = lazy(() => import("@/components/CustomerSpotlight").then(m => ({ default: m.CustomerSpotlight })));
 const TrustBar = lazy(() => import("@/components/TrustBar").then(m => ({ default: m.TrustBar })));
+const EbookSpotlight = lazy(() => import("@/components/EbookSpotlight").then(m => ({ default: m.EbookSpotlight })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const CATEGORY_FILTERS = [
@@ -433,6 +434,10 @@ const Index = () => {
         {/* === STAGE 2: Social Proof Right After Products === */}
         <Suspense fallback={null}>
           <TrustBar />
+        </Suspense>
+
+        <Suspense fallback={null}>
+          <EbookSpotlight />
         </Suspense>
 
         {/* Newly Added Section */}

@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { ReviewForm } from "./ReviewForm";
 import { Star, ShieldCheck, Camera } from "lucide-react";
 import { motion } from "framer-motion";
+import { dedupeReviews } from "@/lib/reviewDedupe";
 
 interface Review {
   id: string;
@@ -30,36 +31,14 @@ export const ProductReviews = ({ productHandle, productTitle }: ProductReviewsPr
     setIsLoading(true);
     const { data } = await supabase
       .from("reviews")
-      .select("id, rating, title, body, photos, is_verified_purchase, created_at, user_id, reviewer_name")
+      .select("id, rating, title, body, photos, is_verified_purchase, created_at, user_id, reviewer_name, source")
       .eq("product_handle", productHandle)
       .eq("status", "approved")
+      .neq("source", "loox")
       .order("created_at", { ascending: false });
 
     if (data && data.length > 0) {
-      // Dedupe: drop reviews that repeat the same photo URL or same body text.
-      const seenPhotos = new Set<string>();
-      const seenBodies = new Set<string>();
-      const normalizePhoto = (u: string) => {
-        if (!u) return "";
-        try {
-          const url = new URL(u);
-          const path = url.pathname.replace(/\/+$/, "");
-          const file = path.split("/").pop() || path;
-          return `${url.host}${path}|${file}`.toLowerCase();
-        } catch {
-          return u.split("?")[0].split("#")[0].trim().toLowerCase();
-        }
-      };
-      const deduped = data.filter((r) => {
-        const photos = (r.photos || []) as string[];
-        const normalized = photos.map(normalizePhoto).filter(Boolean);
-        if (normalized.some((p) => seenPhotos.has(p))) return false;
-        const bodyKey = (r.body || "").trim().toLowerCase().slice(0, 160);
-        if (bodyKey && seenBodies.has(bodyKey)) return false;
-        normalized.forEach((p) => seenPhotos.add(p));
-        if (bodyKey) seenBodies.add(bodyKey);
-        return true;
-      });
+      const deduped = dedupeReviews(data);
 
       // Fetch profiles for native review authors (imported reviews have null user_id)
       const userIds = deduped.map(r => r.user_id).filter((id): id is string => !!id);

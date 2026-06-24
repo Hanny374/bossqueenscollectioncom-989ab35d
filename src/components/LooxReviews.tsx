@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { dedupeReviews } from "@/lib/reviewDedupe";
 
 interface LooxReviewsProps {
   productHandle: string;
@@ -50,18 +51,11 @@ export const LooxReviews = ({ productHandle }: LooxReviewsProps) => {
       if (error || !data) {
         setReviews([]);
       } else {
-        // Dedupe by normalized body + reviewer (keep first, prefer ones with photos).
+        // Dedupe by normalized body, reviewer, and photo (keep first, prefer ones with photos).
         const sorted = [...data].sort(
           (a, b) => (b.photos?.length ?? 0) - (a.photos?.length ?? 0)
         );
-        const seen = new Set<string>();
-        const unique: ReviewRow[] = [];
-        for (const r of sorted) {
-          const key = `${(r.reviewer_name || "").trim().toLowerCase()}|${(r.body || "").trim().toLowerCase().slice(0, 120)}`;
-          if (seen.has(key)) continue;
-          seen.add(key);
-          unique.push(r);
-        }
+        const unique = dedupeReviews(sorted);
         const withPhotos = unique.filter((r) => (r.photos?.length ?? 0) > 0);
         const withoutPhotos = unique.filter((r) => (r.photos?.length ?? 0) === 0);
         setReviews([...withPhotos, ...withoutPhotos].slice(0, 20));

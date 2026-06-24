@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Star, Camera } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { dedupeReviews, normalizeReviewPhoto, normalizeReviewText } from "@/lib/reviewDedupe";
 import {
   Carousel,
   CarouselContent,
@@ -41,30 +42,17 @@ export const CustomerSpotlight = () => {
       ) as SpotlightReview[];
 
       // Dedupe across multiple signals: photo URL, reviewer+body, and body text.
-      const sorted = [...withPhotos].sort(
+      const sorted = dedupeReviews([...withPhotos]).sort(
         (a, b) => (b.photos?.length ?? 0) - (a.photos?.length ?? 0)
       );
-      const normalizePhoto = (u: string) => {
-        if (!u) return "";
-        try {
-          const url = new URL(u);
-          // Strip query/hash and trailing slash; use host+pathname (filename) lowercased.
-          const path = url.pathname.replace(/\/+$/, "");
-          const file = path.split("/").pop() || path;
-          return `${url.host}${path}|${file}`.toLowerCase();
-        } catch {
-          return u.split("?")[0].split("#")[0].trim().toLowerCase();
-        }
-      };
       const seenPhotos = new Set<string>();
       const seenKeys = new Set<string>();
       const seenProductReviewer = new Set<string>();
       const unique: SpotlightReview[] = [];
       for (const r of sorted) {
-        const normalizedPhotos = (r.photos || []).map(normalizePhoto).filter(Boolean);
-        const firstPhoto = normalizedPhotos[0] || "";
-        const nameKey = (r.reviewer_name || "").trim().toLowerCase();
-        const bodyKey = (r.body || "").trim().toLowerCase().slice(0, 120);
+        const normalizedPhotos = (r.photos || []).map(normalizeReviewPhoto).filter(Boolean);
+        const nameKey = normalizeReviewText(r.reviewer_name || "");
+        const bodyKey = normalizeReviewText(r.body).slice(0, 180);
         const composite = `${nameKey}|${bodyKey}`;
         const prKey = `${r.product_handle}|${nameKey}`;
         // Skip if ANY photo in this review has already been shown in another review.

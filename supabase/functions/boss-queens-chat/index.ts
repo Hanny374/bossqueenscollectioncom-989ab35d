@@ -223,7 +223,7 @@ serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { messages } = body;
+    const { messages, cart, pageContext } = body;
 
     if (!Array.isArray(messages) || messages.length === 0 || messages.length > 50) {
       return new Response(
@@ -248,6 +248,14 @@ serve(async (req) => {
     }
 
     const catalog = await getProductCatalog();
+    const safeCart = Array.isArray(cart) ? cart.slice(0, 20).map((c: any) => ({
+      title: String(c?.title || "").slice(0, 120),
+      variant: String(c?.variant || "").slice(0, 80),
+      qty: Number(c?.qty) || 1,
+      price: String(c?.price || "").slice(0, 20),
+      handle: String(c?.handle || "").slice(0, 120),
+    })) : [];
+    const safePageContext = typeof pageContext === "string" ? pageContext.slice(0, 200) : "";
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
@@ -261,9 +269,9 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
+          model: "google/gemini-3.5-flash",
           messages: [
-            { role: "system", content: buildSystemPrompt(catalog) },
+            { role: "system", content: buildSystemPrompt(catalog, safeCart, safePageContext) },
             ...messages,
           ],
           stream: true,

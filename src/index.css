@@ -24,7 +24,7 @@
     --popover-foreground: 25 20% 15%;
 
     /* Warm Gold - Primary brand color */
-    --primary: 38 70% 50%;
+    --primary: 36 55% 42%;
     --primary-foreground: 40 40% 98%;
 
     /* Soft Cream - Secondary */
@@ -45,14 +45,14 @@
 
     --border: 35 25% 88%;
     --input: 35 25% 88%;
-    --ring: 38 70% 50%;
+    --ring: 36 55% 42%;
 
     --radius: 0.75rem;
 
     /* Custom tokens - Luxe Gold */
-    --gold: 38 70% 50%;
-    --gold-light: 40 65% 65%;
-    --gold-dark: 35 75% 40%;
+    --gold: 36 55% 42%;
+    --gold-light: 40 50% 58%;
+    --gold-dark: 32 65% 28%;
     --cream: 40 50% 96%;
     --cream-dark: 38 40% 90%;
     --espresso: 25 35% 18%;
@@ -64,20 +64,20 @@
     --nude: 25 25% 88%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(40 65% 65%), hsl(38 70% 50%), hsl(35 75% 40%));
+    --gradient-gold: linear-gradient(135deg, hsl(42 55% 62%), hsl(36 60% 45%), hsl(30 70% 28%));
     --gradient-cream: linear-gradient(180deg, hsl(40 50% 98%), hsl(38 40% 94%));
     --gradient-hero: linear-gradient(135deg, hsl(40 40% 98% / 0.95), hsl(38 45% 96% / 0.85));
     --gradient-champagne: linear-gradient(135deg, hsl(40 60% 92%), hsl(38 55% 85%), hsl(35 50% 75%));
 
     /* Refined Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(35 30% 30% / 0.06);
-    --shadow-glow: 0 8px 30px -8px hsl(38 70% 50% / 0.20);
+    --shadow-glow: 0 8px 30px -8px hsl(36 60% 38% / 0.28);
     --shadow-elevated: 0 20px 45px -12px hsl(25 25% 25% / 0.10);
 
     /* Sidebar */
     --sidebar-background: 40 40% 98%;
     --sidebar-foreground: 25 20% 15%;
-    --sidebar-primary: 38 70% 50%;
+    --sidebar-primary: 36 55% 42%;
     --sidebar-primary-foreground: 40 40% 98%;
     --sidebar-accent: 40 40% 95%;
     --sidebar-accent-foreground: 25 20% 15%;
@@ -114,9 +114,9 @@
     --input: 25 15% 22%;
     --ring: 38 65% 55%;
 
-    --gold: 38 60% 50%;
-    --gold-light: 40 55% 60%;
-    --gold-dark: 35 65% 38%;
+    --gold: 36 55% 48%;
+    --gold-light: 40 50% 58%;
+    --gold-dark: 32 65% 30%;
     --cream: 40 35% 20%;
     --cream-dark: 38 25% 15%;
     --espresso: 25 25% 70%;

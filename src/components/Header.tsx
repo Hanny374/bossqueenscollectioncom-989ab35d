@@ -50,6 +50,16 @@ export const Header = () => {
     setSearchOpen(false);
   }, [location.pathname]);
 
+  const handleHashNav = (href: string, closeMobile = false) => {
+    if (closeMobile) setIsOpen(false);
+    if (!href.startsWith("/#") || location.pathname !== "/") return;
+
+    const id = href.slice(2).split("?")[0];
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-500 ${
@@ -106,7 +116,7 @@ export const Header = () => {
                           <Link
                             key={c.label}
                             to={c.href}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => handleHashNav(c.href, true)}
                             className="flex flex-col py-2 px-2 rounded-lg hover:bg-primary/5"
                           >
                             <span className="text-sm font-semibold text-foreground">{c.label}</span>
@@ -127,7 +137,7 @@ export const Header = () => {
                   >
                     <Link
                       to={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => handleHashNav(link.href, true)}
                       className="text-lg font-medium text-foreground hover:text-primary transition-colors py-3 px-2 rounded-lg hover:bg-primary/5 block"
                     >
                       {link.label}
@@ -192,7 +202,10 @@ export const Header = () => {
                       <Link
                         key={c.label}
                         to={c.href}
-                        onClick={() => setWigsOpen(false)}
+                        onClick={() => {
+                          setWigsOpen(false);
+                          handleHashNav(c.href);
+                        }}
                         className="group flex items-start gap-3 p-3 rounded-xl hover:bg-primary/5 transition-colors"
                       >
                         <div className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -216,6 +229,7 @@ export const Header = () => {
               <Link
                 key={link.label}
                 to={link.href}
+                onClick={() => handleHashNav(link.href)}
                 className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full
                   ${isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
               >

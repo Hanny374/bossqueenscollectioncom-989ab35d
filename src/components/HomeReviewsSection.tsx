@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Star, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { dedupeReviews } from "@/lib/reviewDedupe";
 
 interface HomeReview {
   id: string;
@@ -64,12 +65,13 @@ export const HomeReviewsSection = () => {
       profileMap = new Map((profiles || []).map((p) => [p.id, p.display_name]));
     }
 
-    const mapped: HomeReview[] = rows.map((r) => ({
+    const mapped: HomeReview[] = dedupeReviews(rows.map((r) => ({
       ...r,
       display_name: (r.user_id ? profileMap.get(r.user_id) : null) || (r as any).reviewer_name || null,
-    }));
+      reviewer_name: (r as any).reviewer_name || null,
+    })));
 
-    setReviews(prev => nextPage === 1 ? mapped : [...prev, ...mapped]);
+    setReviews(prev => nextPage === 1 ? mapped : dedupeReviews([...prev, ...mapped]));
     setHasMore(rows.length === PAGE_SIZE);
     setPage(nextPage);
     setIsLoading(false);

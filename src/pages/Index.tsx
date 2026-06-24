@@ -557,6 +557,9 @@ const Index = () => {
           {/* === STAGE 5b: Customer Spotlight (real photos) === */}
           <CustomerSpotlight />
 
+          {/* === STAGE 5c: Written Reviews === */}
+          <HomeReviewsSection />
+
           {/* === STAGE 6: Mid-Funnel Conversion CTA === */}
           <section className="py-14 md:py-20 relative overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-background">
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)', backgroundSize: '40px 40px' }} />

@@ -203,6 +203,11 @@
 
     <!-- Meta (Facebook/Instagram) Pixel -->
     <!-- Replace YOUR_META_PIXEL_ID with your Pixel ID from Meta Events Manager -->
+    <!-- Loader is disabled until a real Pixel ID is set. The IIFE injects
+         fbevents.js unconditionally (~80KB blocking script), so leaving it
+         active wastes bandwidth on every page load. Uncomment AND set the
+         init line below to enable. -->
+    <!--
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -212,9 +217,10 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      // fbq('init', 'YOUR_META_PIXEL_ID');
-      // fbq('track', 'PageView');
+      fbq('init', 'YOUR_META_PIXEL_ID');
+      fbq('track', 'PageView');
     </script>
+    -->
 
     <!-- TikTok Pixel -->
     <!-- Replace YOUR_TIKTOK_PIXEL_ID with your Pixel ID from TikTok Events Manager -->

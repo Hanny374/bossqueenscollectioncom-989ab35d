@@ -190,7 +190,7 @@ serve(async (req) => {
           website: "https://bossqueenscollection.com",
           currency: "USD",
           total: (data || []).length,
-          freeShippingOver: 100,
+          freeShippingOver: 300,
           products: (data || []).map(formatProduct),
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }

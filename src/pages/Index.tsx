@@ -266,7 +266,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "Product",
             name: "Boss Queens Collection — Premium Human Hair Wigs",
-            description: "Grade 10A 100% virgin human hair wigs, bundles, frontals and closures with free worldwide shipping over $100.",
+            description: "Grade 10A 100% virgin human hair wigs, bundles, frontals and closures with free worldwide shipping over $300.",
             brand: { "@type": "Brand", name: "Boss Queens Collection" },
             image: "https://bossqueenscollection.com/og-image.jpg",
             aggregateRating: {

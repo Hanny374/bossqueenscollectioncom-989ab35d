@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
+import faceOfBrand from "@/assets/face-of-brand.png.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

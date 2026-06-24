@@ -225,9 +225,22 @@ export const AIChatWidget = () => {
       });
     };
 
+    const cartSnapshot = useCartStore.getState().items.map((i) => ({
+      title: i.product.node.title,
+      variant: i.variantTitle,
+      qty: i.quantity,
+      price: `$${parseFloat(i.price.amount).toFixed(2)}`,
+      handle: i.product.node.handle,
+    }));
+    const pageContext = typeof window !== "undefined"
+      ? `${window.location.pathname}${window.location.search}`
+      : "";
+
     try {
       await streamChat({
         messages: allMessages,
+        cart: cartSnapshot,
+        pageContext,
         onDelta: upsert,
         onDone: () => setIsLoading(false),
         onError: (err) => {

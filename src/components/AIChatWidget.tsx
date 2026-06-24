@@ -14,11 +14,15 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/boss-queens-
 
 async function streamChat({
   messages,
+  cart,
+  pageContext,
   onDelta,
   onDone,
   onError,
 }: {
   messages: Msg[];
+  cart: Array<{ title: string; variant: string; qty: number; price: string; handle: string }>;
+  pageContext: string;
   onDelta: (text: string) => void;
   onDone: () => void;
   onError: (err: string) => void;
@@ -29,7 +33,7 @@ async function streamChat({
       "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, cart, pageContext }),
   });
 
   if (!resp.ok) {

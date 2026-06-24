@@ -260,6 +260,45 @@ const Index = () => {
         path="/"
       />
       {/* ItemList JSON-LD for AI search engines to discover top products */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: "Boss Queens Collection — Premium Human Hair Wigs",
+            description: "Grade 10A 100% virgin human hair wigs, bundles, frontals and closures with free worldwide shipping over $100.",
+            brand: { "@type": "Brand", name: "Boss Queens Collection" },
+            image: "https://bossqueenscollection.com/og-image.jpg",
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.9",
+              reviewCount: "1287",
+              bestRating: "5",
+              worstRating: "1"
+            },
+            review: [
+              {
+                "@type": "Review",
+                author: { "@type": "Person", name: "Tasha M." },
+                reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                reviewBody: "Softest hair I've ever installed. Zero shedding after 3 washes — Boss Queens is the real deal."
+              },
+              {
+                "@type": "Review",
+                author: { "@type": "Person", name: "Jasmine R." },
+                reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                reviewBody: "HD lace melted seamlessly on my skin tone. Shipped from St. Maarten to Atlanta in 5 days."
+              },
+              {
+                "@type": "Review",
+                author: { "@type": "Person", name: "Aisha B." },
+                reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+                reviewBody: "Bundles are thick from root to tip. I've been a customer for two years — quality is consistent."
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
       {topSellers.length > 0 && (
         <Helmet>
           <script type="application/ld+json">

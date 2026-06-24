@@ -373,11 +373,23 @@ const ProductPage = () => {
   const isCartLoading = useCartStore(state => state.isLoading);
   const isBuyingNow = useCartStore(state => state.isBuyingNow);
 
+  const isDigitalProduct = product ? (
+    product.productType?.toLowerCase().includes('ebook') ||
+    product.productType?.toLowerCase().includes('digital') ||
+    product.title?.toLowerCase().includes('ebook') ||
+    product.tags?.some(t => {
+      const tag = t.toLowerCase();
+      return tag === 'ebook' || tag === 'digital' || tag.includes('playbook');
+    })
+  ) : false;
+
   const isWigProduct = product ? (
-    product.productType?.toLowerCase().includes('wig') || 
-    product.title?.toLowerCase().includes('wig') ||
-    product.productType?.toLowerCase().includes('colored wig') ||
-    product.productType?.toLowerCase().includes('bob')
+    !isDigitalProduct && (
+      product.productType?.toLowerCase().includes('wig') ||
+      product.title?.toLowerCase().includes('wig') ||
+      product.productType?.toLowerCase().includes('colored wig') ||
+      product.productType?.toLowerCase().includes('bob')
+    )
   ) : false;
 
   const markup = getMarkup(product?.tags);

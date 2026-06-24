@@ -1072,29 +1072,61 @@ const ProductPage = () => {
                 );
               })()}
 
-              {/* Trust badges */}
-              <div className="border-t border-border pt-6 space-y-3">
-                {!isDigitalProduct && (
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span>100% Human Hair Guaranteed</span>
+              {/* Trust signals — Minimalist Luxury */}
+              {(() => {
+                const signals = isDigitalProduct
+                  ? [
+                      { label: "Instant Digital Download", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/>
+                          </svg>
+                        ) },
+                      { label: "Lifetime Access Guaranteed", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                          </svg>
+                        ) },
+                      { label: "Secure Encrypted Checkout", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                          </svg>
+                        ) },
+                    ]
+                  : [
+                      { label: "100% Human Hair Guaranteed", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                          </svg>
+                        ) },
+                      { label: "Free Shipping Over $300", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                          </svg>
+                        ) },
+                      { label: "Easy 30-Day Returns", icon: (
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                          </svg>
+                        ) },
+                    ];
+                return (
+                  <div className="border-t border-border pt-6 flex flex-col gap-y-3.5">
+                    {signals.map((s) => (
+                      <div key={s.label} className="flex items-center gap-x-4 group animate-fade-in">
+                        <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-primary">
+                          {s.icon}
+                        </span>
+                        <div className="flex flex-col">
+                          <span className="font-display italic font-semibold text-[15px] leading-tight tracking-tight text-foreground">
+                            {s.label}
+                          </span>
+                          <span className="h-px w-0 group-hover:w-full bg-primary/30 transition-all duration-500" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                )}
-                {isDigitalProduct && (
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <Check className="w-5 h-5 text-primary" />
-                    <span>Instant Digital Download</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <Check className="w-5 h-5 text-primary" />
-                  <span>{isDigitalProduct ? "Lifetime Access — Read on Any Device" : "Free Shipping on Orders Over $300"}</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <Check className="w-5 h-5 text-primary" />
-                  <span>{isDigitalProduct ? "Secure Checkout & Instant Delivery" : "Easy 30-Day Returns"}</span>
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Hair Details Dropdown */}
               <Accordion type="single" collapsible className="w-full border-t border-border pt-4">

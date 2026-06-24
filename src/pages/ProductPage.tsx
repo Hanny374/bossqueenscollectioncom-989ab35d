@@ -1071,22 +1071,31 @@ const ProductPage = () => {
 
               {/* Trust badges */}
               <div className="border-t border-border pt-6 space-y-3">
+                {!isDigitalProduct && (
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Check className="w-5 h-5 text-primary" />
+                    <span>100% Human Hair Guaranteed</span>
+                  </div>
+                )}
+                {isDigitalProduct && (
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                    <Check className="w-5 h-5 text-primary" />
+                    <span>Instant Digital Download</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Check className="w-5 h-5 text-primary" />
-                  <span>100% Human Hair Guaranteed</span>
+                  <span>{isDigitalProduct ? "Lifetime Access — Read on Any Device" : "Free Shipping on Orders Over $300"}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Check className="w-5 h-5 text-primary" />
-                  <span>Free Shipping on Orders Over $300</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <Check className="w-5 h-5 text-primary" />
-                  <span>Easy 30-Day Returns</span>
+                  <span>{isDigitalProduct ? "Secure Checkout & Instant Delivery" : "Easy 30-Day Returns"}</span>
                 </div>
               </div>
 
               {/* Hair Details Dropdown */}
               <Accordion type="single" collapsible className="w-full border-t border-border pt-4">
+                {!isDigitalProduct && (
                 <AccordionItem value="hair-details" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
                     Hair Details & Specifications
@@ -1184,6 +1193,7 @@ const ProductPage = () => {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
+                )}
 
                 <AccordionItem value="shipping" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
@@ -1199,6 +1209,7 @@ const ProductPage = () => {
                   </AccordionContent>
                 </AccordionItem>
 
+                {!isDigitalProduct && (
                 <AccordionItem value="care" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
                     Care Instructions
@@ -1217,6 +1228,7 @@ const ProductPage = () => {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
+                )}
 
                 <AccordionItem value="returns" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">

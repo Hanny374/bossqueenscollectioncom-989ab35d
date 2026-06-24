@@ -44,7 +44,7 @@ const CartTimer = () => {
   );
 };
 
-const FREE_SHIPPING_THRESHOLD = 100;
+const FREE_SHIPPING_THRESHOLD = 300;
 
 export const CartDrawer = () => {
   const { items, isLoading, isSyncing, isCartOpen, updateQuantity, removeItem, getCheckoutUrl, syncCart, setCartOpen } = useCartStore();

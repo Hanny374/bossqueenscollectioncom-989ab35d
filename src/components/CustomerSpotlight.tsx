@@ -44,22 +44,36 @@ export const CustomerSpotlight = () => {
       const sorted = [...withPhotos].sort(
         (a, b) => (b.photos?.length ?? 0) - (a.photos?.length ?? 0)
       );
+      const normalizePhoto = (u: string) => {
+        if (!u) return "";
+        try {
+          const url = new URL(u);
+          // Strip query/hash and trailing slash; use host+pathname (filename) lowercased.
+          const path = url.pathname.replace(/\/+$/, "");
+          const file = path.split("/").pop() || path;
+          return `${url.host}${path}|${file}`.toLowerCase();
+        } catch {
+          return u.split("?")[0].split("#")[0].trim().toLowerCase();
+        }
+      };
       const seenPhotos = new Set<string>();
       const seenKeys = new Set<string>();
       const seenProductReviewer = new Set<string>();
       const unique: SpotlightReview[] = [];
       for (const r of sorted) {
-        const firstPhoto = (r.photos?.[0] || "").split("?")[0].trim().toLowerCase();
+        const normalizedPhotos = (r.photos || []).map(normalizePhoto).filter(Boolean);
+        const firstPhoto = normalizedPhotos[0] || "";
         const nameKey = (r.reviewer_name || "").trim().toLowerCase();
         const bodyKey = (r.body || "").trim().toLowerCase().slice(0, 120);
         const composite = `${nameKey}|${bodyKey}`;
         const prKey = `${r.product_handle}|${nameKey}`;
-        if (firstPhoto && seenPhotos.has(firstPhoto)) continue;
+        // Skip if ANY photo in this review has already been shown in another review.
+        if (normalizedPhotos.some((p) => seenPhotos.has(p))) continue;
         if (composite !== "|" && seenKeys.has(composite)) continue;
         if (bodyKey && seenKeys.has(`|${bodyKey}`)) continue;
         // Avoid showing same reviewer twice for the same product.
         if (nameKey && seenProductReviewer.has(prKey)) continue;
-        if (firstPhoto) seenPhotos.add(firstPhoto);
+        normalizedPhotos.forEach((p) => seenPhotos.add(p));
         seenKeys.add(composite);
         if (bodyKey) seenKeys.add(`|${bodyKey}`);
         if (nameKey) seenProductReviewer.add(prKey);

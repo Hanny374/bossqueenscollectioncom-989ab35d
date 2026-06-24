@@ -104,7 +104,10 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
     await buyNow(getCartItem());
   };
 
-  const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => t.toLowerCase().includes("accessor")));
+  const isAccessory = (node.productType?.toLowerCase().includes("accessor") || node.tags?.some(t => {
+    const tag = t.toLowerCase();
+    return tag.includes("accessor") || tag === "ebook" || tag === "digital";
+  }));
 
   const handleAddToCart = () => {
     if (!isAccessory && (!hairDescription || hairDescription.trim().length < 10)) {

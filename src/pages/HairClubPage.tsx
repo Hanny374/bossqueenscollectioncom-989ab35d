@@ -65,8 +65,8 @@ export default function HairClubPage() {
   return (
     <>
       <Helmet>
-        <title>Boss Queens Hair Club — $150/mo Bundle Membership</title>
-        <meta name="description" content="Join the Boss Queens Hair Club: 1 Grade 10A virgin hair bundle every month, priority access to new drops, 10% off everything, and exclusive member-only deals. $150/month." />
+        <title>Boss Queens VIP Hair Club — $150/mo Bundle Membership</title>
+        <meta name="description" content="Join the Boss Queens VIP Hair Club: 1 Grade 10A virgin hair bundle every month, priority access to new drops, 10% off everything, and exclusive member-only deals. $150/month." />
         <link rel="canonical" href="https://bossqueenscollection.com/hair-club" />
       </Helmet>
 
@@ -92,7 +92,7 @@ export default function HairClubPage() {
               className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground"
             >
               The Boss Queens<br />
-              <span className="bg-gradient-gold bg-clip-text text-transparent">Hair Club</span>
+              <span className="bg-gradient-gold bg-clip-text text-transparent">VIP Hair Club</span>
             </motion.h1>
             <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-muted-foreground">
               Premium hair, delivered monthly. One Grade 10A virgin bundle, priority access to new drops, and 10% off every purchase — all for $150/month.
@@ -170,7 +170,7 @@ export default function HairClubPage() {
             {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-primary" />)}
           </div>
           <p className="font-display text-xl md:text-2xl max-w-2xl mx-auto text-foreground italic">
-            "The Hair Club has changed my whole routine. New bundle every month, always premium quality. I never have to hunt for hair again."
+            "The VIP Hair Club has changed my whole routine. New bundle every month, always premium quality. I never have to hunt for hair again."
           </p>
           <p className="mt-4 text-sm text-muted-foreground">— Verified Club Member</p>
         </section>
@@ -195,7 +195,7 @@ export default function HairClubPage() {
 
           <div className="mt-12 text-center">
             <Button onClick={handleJoin} disabled={busy} size="lg" className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12">
-              {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Join the Hair Club"}
+              {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Join the VIP Hair Club"}
             </Button>
           </div>
         </section>

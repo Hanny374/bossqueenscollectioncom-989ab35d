@@ -28,36 +28,55 @@ const FALLBACK_REVIEWS: HomeReview[] = [
 export const HomeReviewsSection = () => {
   const [reviews, setReviews] = useState<HomeReview[]>([]);
   const [validHandles, setValidHandles] = useState<Set<string>>(new Set());
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [usingFallback, setUsingFallback] = useState(false);
+  const PAGE_SIZE = 6;
+
+  const fetchPage = async (nextPage: number) => {
+    setIsLoading(true);
+    const from = (nextPage - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    const { data } = await supabase
+      .from("reviews")
+      .select("id, rating, title, body, product_handle, product_title, is_verified_purchase, created_at, user_id, reviewer_name")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false })
+      .range(from, to);
+
+    if (nextPage === 1 && (!data || data.length === 0)) {
+      setReviews(FALLBACK_REVIEWS);
+      setUsingFallback(true);
+      setHasMore(false);
+      setIsLoading(false);
+      return;
+    }
+
+    const rows = data || [];
+    const userIds = rows.map(r => r.user_id).filter((id): id is string => !!id);
+    let profileMap = new Map<string, string | null>();
+    if (userIds.length) {
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("id, display_name")
+        .in("id", userIds);
+      profileMap = new Map((profiles || []).map((p) => [p.id, p.display_name]));
+    }
+
+    const mapped: HomeReview[] = rows.map((r) => ({
+      ...r,
+      display_name: (r.user_id ? profileMap.get(r.user_id) : null) || (r as any).reviewer_name || null,
+    }));
+
+    setReviews(prev => nextPage === 1 ? mapped : [...prev, ...mapped]);
+    setHasMore(rows.length === PAGE_SIZE);
+    setPage(nextPage);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      const { data } = await supabase
-        .from("reviews")
-        .select("id, rating, title, body, product_handle, product_title, is_verified_purchase, created_at, user_id, reviewer_name")
-        .eq("status", "approved")
-        .order("created_at", { ascending: false })
-        .limit(6);
-
-      if (data && data.length > 0) {
-        const userIds = data.map(r => r.user_id).filter((id): id is string => !!id);
-        let profileMap = new Map<string, string | null>();
-        if (userIds.length) {
-          const { data: profiles } = await supabase
-            .from("profiles")
-            .select("id, display_name")
-            .in("id", userIds);
-          profileMap = new Map((profiles || []).map((p) => [p.id, p.display_name]));
-        }
-
-        setReviews(data.map((r) => ({
-          ...r,
-          display_name: (r.user_id ? profileMap.get(r.user_id) : null) || (r as any).reviewer_name || null,
-        })));
-      } else {
-        setReviews(FALLBACK_REVIEWS);
-      }
-    };
-    fetchReviews();
+    fetchPage(1);
   }, []);
 
   useEffect(() => {
@@ -159,6 +178,18 @@ export const HomeReviewsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {!usingFallback && hasMore && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => fetchPage(page + 1)}
+              disabled={isLoading}
+              className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity disabled:opacity-60"
+            >
+              {isLoading ? "Loading..." : "Load more reviews"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

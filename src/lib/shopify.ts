@@ -29,6 +29,9 @@ export function getMarkup(tags?: string[] | null): number {
   if (lower.some((t) => t === "membership" || t === "hair-club" || t === "subscription")) {
     return 0;
   }
+  if (lower.some((t) => t === "ebook" || t === "digital")) {
+    return 0;
+  }
   return PRICE_MARKUP;
 }
 

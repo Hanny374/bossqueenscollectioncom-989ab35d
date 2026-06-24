@@ -1209,6 +1209,7 @@ const ProductPage = () => {
                   </AccordionContent>
                 </AccordionItem>
 
+                {!isDigitalProduct && (
                 <AccordionItem value="care" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">
                     Care Instructions
@@ -1227,6 +1228,7 @@ const ProductPage = () => {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
+                )}
 
                 <AccordionItem value="returns" className="border-b-0">
                   <AccordionTrigger className="text-foreground font-semibold hover:no-underline">

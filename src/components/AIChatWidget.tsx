@@ -393,6 +393,14 @@ export const AIChatWidget = () => {
                       <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_a]:text-primary [&_a]:underline [&_a]:font-medium">
                         <ReactMarkdown
                           components={{
+                            img: ({ src, alt }) => (
+                              <img
+                                src={src}
+                                alt={alt || ""}
+                                loading="lazy"
+                                className="my-1.5 rounded-lg w-full max-w-[220px] aspect-[3/4] object-cover border border-border"
+                              />
+                            ),
                             a: ({ href, children }) => {
                               // Check if this is an internal product link
                               const internalMatch = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)\/product\/([^\s?#]+)/);

@@ -69,9 +69,9 @@ export const HomeReviewsSection = () => {
       ...r,
       display_name: (r.user_id ? profileMap.get(r.user_id) : null) || (r as any).reviewer_name || null,
       reviewer_name: (r as any).reviewer_name || null,
-    })));
+    })), { ignorePhotos: true });
 
-    setReviews(prev => nextPage === 1 ? mapped : dedupeReviews([...prev, ...mapped]));
+    setReviews(prev => nextPage === 1 ? mapped : dedupeReviews([...prev, ...mapped], { ignorePhotos: true }));
     setHasMore(rows.length === PAGE_SIZE);
     setPage(nextPage);
     setIsLoading(false);

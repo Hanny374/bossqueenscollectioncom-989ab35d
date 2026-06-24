@@ -24,7 +24,10 @@ export const normalizeReviewPhoto = (value?: string | null) => {
   }
 };
 
-export function dedupeReviews<T extends ReviewLike>(reviews: T[]) {
+export function dedupeReviews<T extends ReviewLike>(
+  reviews: T[],
+  options: { ignorePhotos?: boolean } = {},
+) {
   const seenBodies = new Set<string>();
   const seenReviewerBodies = new Set<string>();
   const seenPhotos = new Set<string>();
@@ -33,7 +36,9 @@ export function dedupeReviews<T extends ReviewLike>(reviews: T[]) {
     const bodyKey = normalizeReviewText(review.body).slice(0, 180);
     const reviewerKey = normalizeReviewText(review.reviewer_name || "shopper");
     const reviewerBodyKey = `${reviewerKey}|${bodyKey}`;
-    const photoKeys = (review.photos || []).map(normalizeReviewPhoto).filter(Boolean);
+    const photoKeys = options.ignorePhotos
+      ? []
+      : (review.photos || []).map(normalizeReviewPhoto).filter(Boolean);
 
     if (photoKeys.some((photoKey) => seenPhotos.has(photoKey))) return false;
     if (bodyKey && seenBodies.has(bodyKey)) return false;

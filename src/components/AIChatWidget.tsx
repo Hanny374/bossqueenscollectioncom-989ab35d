@@ -14,11 +14,15 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/boss-queens-
 
 async function streamChat({
   messages,
+  cart,
+  pageContext,
   onDelta,
   onDone,
   onError,
 }: {
   messages: Msg[];
+  cart: Array<{ title: string; variant: string; qty: number; price: string; handle: string }>;
+  pageContext: string;
   onDelta: (text: string) => void;
   onDone: () => void;
   onError: (err: string) => void;
@@ -29,7 +33,7 @@ async function streamChat({
       "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify({ messages, cart, pageContext }),
   });
 
   if (!resp.ok) {
@@ -221,9 +225,22 @@ export const AIChatWidget = () => {
       });
     };
 
+    const cartSnapshot = useCartStore.getState().items.map((i) => ({
+      title: i.product.node.title,
+      variant: i.variantTitle,
+      qty: i.quantity,
+      price: `$${parseFloat(i.price.amount).toFixed(2)}`,
+      handle: i.product.node.handle,
+    }));
+    const pageContext = typeof window !== "undefined"
+      ? `${window.location.pathname}${window.location.search}`
+      : "";
+
     try {
       await streamChat({
         messages: allMessages,
+        cart: cartSnapshot,
+        pageContext,
         onDelta: upsert,
         onDone: () => setIsLoading(false),
         onError: (err) => {
@@ -376,6 +393,14 @@ export const AIChatWidget = () => {
                       <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_a]:text-primary [&_a]:underline [&_a]:font-medium">
                         <ReactMarkdown
                           components={{
+                            img: ({ src, alt }) => (
+                              <img
+                                src={src}
+                                alt={alt || ""}
+                                loading="lazy"
+                                className="my-1.5 rounded-lg w-full max-w-[220px] aspect-[3/4] object-cover border border-border"
+                              />
+                            ),
                             a: ({ href, children }) => {
                               // Check if this is an internal product link
                               const internalMatch = href?.match(/bossqueenscollection[^/]*\.(?:lovable\.app|com)\/product\/([^\s?#]+)/);

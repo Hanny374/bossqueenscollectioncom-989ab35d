@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
+import faceOfBrand from "@/assets/face-of-brand.png.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -119,6 +120,62 @@ const AboutPage = () => {
 
         {/* Inspiring Young Entrepreneurs */}
         <section className="py-20 bg-gradient-cream">
+          <div className="container px-4 md:px-8 mb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative order-2 lg:order-1"
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-elevated bg-background">
+                  <img
+                    src={faceOfBrand.url}
+                    alt="Founder & Face of Boss Queens Collection"
+                    loading="lazy"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10" />
+                <div className="absolute -top-6 -right-6 w-40 h-40 bg-primary/15 rounded-full blur-3xl -z-10" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="space-y-6 order-1 lg:order-2"
+              >
+                <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  👑 Face of the Brand
+                </span>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+                  Meet the Boss Behind the Brand
+                </h2>
+                <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+                  <p>
+                    Boss Queens Collection is led by a passionate Caribbean founder who turned a vision into a global brand. From St. Maarten to queens around the world — every collection is curated with intention, love, and an eye for true luxury.
+                  </p>
+                  <p>
+                    She's not just the face — she's the heart, the strategist, and the stylist behind every bundle, wig, and business package we offer.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                    <Sparkles className="w-4 h-4" /> Founder
+                  </span>
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                    <Briefcase className="w-4 h-4" /> CEO
+                  </span>
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                    <Heart className="w-4 h-4" /> Stylist & Mentor
+                  </span>
+                </div>
+              </motion.div>
+            </div>
+          </div>
           <div className="container px-4 md:px-8">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">

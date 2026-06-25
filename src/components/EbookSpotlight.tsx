@@ -47,7 +47,7 @@ export const EbookSpotlight = () => {
               </ul>
 
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="font-display text-3xl md:text-4xl font-bold text-primary">$7</span>
+                <span className="font-display text-3xl md:text-4xl font-bold text-primary">$47</span>
                 <span className="text-muted-foreground line-through text-lg">$97</span>
                 <span className="text-xs uppercase tracking-widest text-primary font-semibold">Launch price</span>
               </div>

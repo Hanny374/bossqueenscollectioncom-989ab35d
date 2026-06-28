@@ -275,7 +275,8 @@ const StartBusinessPage = () => {
                   {submitting ? "Submitting…" : "Get My Custom Startup Plan"}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
-                  By submitting, you agree to be contacted by our team about your hair business goals.
+                  Custom AI-built startup plan — <span className="text-primary font-semibold">$250 one-time</span>.
+                  Delivered as a PDF roadmap within 3–5 business days. By submitting, you agree to be contacted by our team.
                 </p>
               </motion.form>
             )}

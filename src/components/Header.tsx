@@ -26,7 +26,7 @@ const navLinks = [
   { label: "VIP Hair Club", href: "/hair-club" },
   { label: "Start Your Business", href: "/start-business" },
   { label: "Ebook", href: "/product/60-seconds-to-100k-brand-blueprint-ebook" },
-  { label: "Book a Massage", href: "https://www.instagram.com/eliteescapemassage/", external: true },
+  { label: "Book a Massage", href: "https://www.fresha.com/a/elite-escape-mobile-massage-phillipsburg-brysons-drive-uastojpm", external: true },
   { label: "Reviews", href: "/#reviews" },
   { label: "Shipping", href: "/shipping" },
   { label: "FAQ", href: "/faq" },

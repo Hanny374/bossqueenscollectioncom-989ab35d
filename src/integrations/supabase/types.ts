@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      business_inquiries: {
+        Row: {
+          business_stage: string
+          business_type: string | null
+          country: string | null
+          created_at: string
+          email: string
+          full_name: string
+          goals: string | null
+          id: string
+          monthly_budget: string | null
+          notes: string | null
+          phone: string | null
+          target_customers: string | null
+          timeline: string | null
+        }
+        Insert: {
+          business_stage: string
+          business_type?: string | null
+          country?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          goals?: string | null
+          id?: string
+          monthly_budget?: string | null
+          notes?: string | null
+          phone?: string | null
+          target_customers?: string | null
+          timeline?: string | null
+        }
+        Update: {
+          business_stage?: string
+          business_type?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          goals?: string | null
+          id?: string
+          monthly_budget?: string | null
+          notes?: string | null
+          phone?: string | null
+          target_customers?: string | null
+          timeline?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string

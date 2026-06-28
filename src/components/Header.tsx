@@ -24,6 +24,7 @@ const wigCategories = [
 const navLinks = [
   { label: "About Us", href: "/about" },
   { label: "VIP Hair Club", href: "/hair-club" },
+  { label: "Start Your Business", href: "/start-business" },
   { label: "Ebook", href: "/product/60-seconds-to-100k-brand-blueprint-ebook" },
   { label: "Reviews", href: "/#reviews" },
   { label: "Shipping", href: "/shipping" },

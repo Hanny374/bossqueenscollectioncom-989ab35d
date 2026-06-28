@@ -221,14 +221,23 @@ export const GiftCardsSpotlight = () => {
           </div>
 
           <div className="mt-8 text-center">
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-primary/40 text-foreground hover:bg-primary/5"
-            >
-              <Link to="/contact?topic=stationery">Request a Custom Stationery Quote</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold shadow-glow hover:opacity-95 px-8 h-12"
+              >
+                <Link to="/gift-cards">Explore All Gift Cards</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-primary/40 text-foreground hover:bg-primary/5 h-12"
+              >
+                <Link to="/contact?topic=stationery">Custom Stationery Quote</Link>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>

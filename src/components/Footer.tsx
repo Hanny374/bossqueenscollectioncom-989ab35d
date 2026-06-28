@@ -199,11 +199,11 @@ export const Footer = () => {
 
         {/* Copyright */}
         <div className="border-t border-cream/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-cream/50 text-sm space-y-1">
+          <div className="text-cream/80 text-sm space-y-1">
             <p>© 2026 Boss Queens Collection. All rights reserved.</p>
             <p>Powered by <a href="https://www.shopify.com" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition-colors underline">Shopify</a></p>
           </div>
-          <div className="flex gap-6 text-sm text-cream/50">
+          <div className="flex gap-6 text-sm text-cream/80">
             <Link to="/privacy-policy" className="hover:text-cream transition-colors">Privacy Policy</Link>
             <Link to="/shipping" className="hover:text-cream transition-colors">Terms of Service</Link>
           </div>

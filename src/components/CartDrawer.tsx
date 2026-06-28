@@ -72,8 +72,13 @@ export const CartDrawer = () => {
   return (
     <Sheet open={isCartOpen} onOpenChange={setCartOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative border-primary/20 hover:bg-primary/5 hover:border-primary/40">
-          <ShoppingCart className="h-5 w-5" />
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={totalItems > 0 ? `Open cart, ${totalItems} item${totalItems === 1 ? "" : "s"}` : "Open cart"}
+          className="relative border-primary/20 hover:bg-primary/5 hover:border-primary/40"
+        >
+          <ShoppingCart className="h-5 w-5" aria-hidden="true" />
           <AnimatePresence>
             {totalItems > 0 && (
               <motion.div

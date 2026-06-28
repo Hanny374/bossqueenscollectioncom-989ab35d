@@ -59,12 +59,33 @@
   ],
   "supported_currencies": ["USD"],
   "shipping": {
-    "free_shipping_threshold": 100,
+    "free_shipping_threshold": 300,
     "worldwide": true,
     "origin": "St. Maarten, Caribbean",
     "processing_days": "3-5",
     "delivery_days": "5-21"
   },
+  "digital_offerings": [
+    {
+      "name": "60 Seconds to $100K Brand Blueprint (Ebook)",
+      "price_usd": 47,
+      "compare_at_usd": 97,
+      "type": "digital_download",
+      "url": "https://bossqueenscollection.com/product/60-seconds-to-100k-brand-blueprint-ebook"
+    },
+    {
+      "name": "AI Custom Startup Plan",
+      "price_usd": 1500,
+      "payment_options": ["pay_in_full_1500", "3x500_installments_starting_with_250_deposit"],
+      "type": "service",
+      "url": "https://bossqueenscollection.com/start-business"
+    },
+    {
+      "name": "VIP Hair Club",
+      "type": "membership",
+      "url": "https://bossqueenscollection.com/hair-club"
+    }
+  ],
   "social": {
     "instagram": "https://www.instagram.com/bossqueenscollection",
     "tiktok": "https://www.tiktok.com/@bossqueenscollection",

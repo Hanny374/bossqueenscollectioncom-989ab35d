@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useId } from "react";
 import { X, Check, Copy, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -12,12 +12,32 @@ export const SummerSaleBanner = () => {
   const [error, setError] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [copied, setCopied] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const titleId = useId();
+  const descId = useId();
 
   useEffect(() => {
     if (typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY) === "1") {
       setUnlocked(true);
     }
   }, []);
+
+  // ESC to close + autofocus email field when modal opens
+  useEffect(() => {
+    if (!modal) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setModal(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const t = window.setTimeout(() => emailRef.current?.focus(), 80);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.clearTimeout(t);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [modal]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,6 +123,10 @@ export const SummerSaleBanner = () => {
 
     {modal && (
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descId}
         className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
         onClick={() => setModal(false)}
       >
@@ -113,18 +137,18 @@ export const SummerSaleBanner = () => {
           <button
             type="button"
             onClick={() => setModal(false)}
-            aria-label="Close"
-            className="absolute right-3 top-3 rounded-full p-1.5 text-muted-foreground hover:bg-muted transition"
+            aria-label="Close discount popup"
+            className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition"
           >
             <X className="h-4 w-4" />
           </button>
           <div className="mx-auto mb-3 inline-flex items-center justify-center rounded-full bg-primary/10 p-3">
-            <Sparkles className="h-6 w-6 text-primary" />
+            <Sparkles className="h-6 w-6 text-primary" aria-hidden="true" />
           </div>
-          <h3 className="font-display text-2xl font-bold text-foreground">
+          <h3 id={titleId} className="font-display text-2xl font-bold text-foreground">
             Unlock 15% OFF, Queen
           </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p id={descId} className="mt-2 text-sm text-muted-foreground">
             Drop your email and we'll reveal your <strong>SUMMER15</strong> code instantly. No spam — just exclusive drops.
           </p>
 
@@ -137,29 +161,39 @@ export const SummerSaleBanner = () => {
               <button
                 type="button"
                 onClick={copyCode}
-                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+                aria-live="polite"
+                className="mt-4 inline-flex w-full min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition"
               >
-                {copied ? <><Check className="h-4 w-4" /> Copied!</> : <><Copy className="h-4 w-4" /> Copy code</>}
+                {copied ? <><Check className="h-4 w-4" aria-hidden="true" /> Copied!</> : <><Copy className="h-4 w-4" aria-hidden="true" /> Copy code</>}
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+              <label htmlFor="summer15-email" className="sr-only">Email address</label>
               <input
+                id="summer15-email"
+                ref={emailRef}
                 type="email"
                 inputMode="email"
                 autoComplete="email"
                 required
                 placeholder="you@email.com"
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${descId}-err` : undefined}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 maxLength={255}
-                className="w-full rounded-full border border-border bg-background px-5 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="w-full min-h-11 rounded-full border border-border bg-background px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              {error && <p className="text-xs text-destructive">{error}</p>}
+              {error && (
+                <p id={`${descId}-err`} role="alert" className="text-xs text-destructive">
+                  {error}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition disabled:opacity-60"
+                className="inline-flex w-full min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition disabled:opacity-60"
               >
                 {loading ? "Unlocking…" : "Reveal my code"}
               </button>

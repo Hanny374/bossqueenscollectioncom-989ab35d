@@ -134,10 +134,16 @@ const StartBusinessPage = () => {
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <Link
-                    to="/product/60-seconds-to-100k-brand-blueprint-ebook"
+                    to="/product/ai-custom-startup-plan"
                     className="inline-flex items-center h-11 px-6 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity"
                   >
-                    Grab the $47 Blueprint Ebook
+                    Unlock My $250 Custom Plan
+                  </Link>
+                  <Link
+                    to="/product/60-seconds-to-100k-brand-blueprint-ebook"
+                    className="inline-flex items-center h-11 px-6 rounded-full border-2 border-primary/30 text-foreground font-semibold hover:bg-primary/5 transition-colors"
+                  >
+                    Or grab the $47 Ebook
                   </Link>
                   <Link
                     to="/"
@@ -269,7 +275,8 @@ const StartBusinessPage = () => {
                   {submitting ? "Submitting…" : "Get My Custom Startup Plan"}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
-                  By submitting, you agree to be contacted by our team about your hair business goals.
+                  Custom AI-built startup plan — <span className="text-primary font-semibold">$250 one-time</span>.
+                  Delivered as a PDF roadmap within 3–5 business days. By submitting, you agree to be contacted by our team.
                 </p>
               </motion.form>
             )}

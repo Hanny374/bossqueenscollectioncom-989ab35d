@@ -280,13 +280,10 @@ export const AIChatWidget = () => {
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 2, duration: 0.4 }}
-              className="bg-card border border-border shadow-elevated rounded-2xl rounded-br-sm px-4 py-3 max-w-[220px] text-left group hover:border-primary/40 transition-colors"
+              className="bg-card border border-border shadow-elevated rounded-2xl rounded-br-sm px-4 py-2.5 text-left group hover:border-primary/40 transition-colors"
             >
-              <p className="text-xs font-medium text-foreground leading-snug">
-                👋 Need help finding the perfect wig?
-              </p>
-              <p className="text-[11px] text-primary font-semibold mt-1">
-                Chat with Queen B →
+              <p className="text-xs font-semibold text-primary leading-snug whitespace-nowrap">
+                👑 Chat with Queen B →
               </p>
             </motion.button>
 

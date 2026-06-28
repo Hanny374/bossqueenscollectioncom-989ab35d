@@ -4,6 +4,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===========================================
+   About page — Midnight Onyx & Champagne theme
+   Scoped overrides; layout untouched.
+   =========================================== */
+[data-theme="onyx"] {
+  --background: 0 0% 4%;
+  --foreground: 40 30% 96%;
+
+  --card: 0 0% 7%;
+  --card-foreground: 40 30% 96%;
+
+  --popover: 0 0% 6%;
+  --popover-foreground: 40 30% 96%;
+
+  /* Champagne gold accent */
+  --primary: 42 65% 70%;
+  --primary-foreground: 0 0% 6%;
+
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 40 30% 94%;
+
+  --muted: 0 0% 12%;
+  --muted-foreground: 40 15% 72%;
+
+  --accent: 42 55% 60%;
+  --accent-foreground: 0 0% 6%;
+
+  --border: 42 30% 28%;
+  --input: 0 0% 14%;
+  --ring: 42 65% 70%;
+
+  --gradient-gold: linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(0 0% 9%) 55%, hsl(42 55% 22%) 100%);
+  --gradient-cream: linear-gradient(180deg, hsl(0 0% 5%), hsl(0 0% 8%));
+  --gradient-hero: linear-gradient(135deg, hsl(0 0% 5% / 0.95), hsl(0 0% 8% / 0.85));
+  --gradient-champagne: linear-gradient(135deg, hsl(42 60% 78%), hsl(42 55% 65%), hsl(38 50% 50%));
+
+  --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.5);
+  --shadow-glow: 0 8px 30px -8px hsl(42 65% 55% / 0.35);
+  --shadow-elevated: 0 20px 45px -12px hsl(0 0% 0% / 0.6);
+}
+[data-theme="onyx"] .bg-gradient-gold-dark {
+  background: linear-gradient(135deg, hsl(42 65% 70%), hsl(38 60% 55%));
+}
+
 /* 
   Boss Queens Collection - Luxe Gold & Cream Design System
   Colors: Warm gold, cream, espresso, soft rose

@@ -137,7 +137,7 @@ const StartBusinessPage = () => {
                     to="/product/ai-custom-startup-plan"
                     className="inline-flex items-center h-11 px-6 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity"
                   >
-                    Unlock My $250 Custom Plan
+                    Pay $250 Deposit · Lock In My Plan
                   </Link>
                   <Link
                     to="/product/60-seconds-to-100k-brand-blueprint-ebook"
@@ -275,8 +275,9 @@ const StartBusinessPage = () => {
                   {submitting ? "Submitting…" : "Get My Custom Startup Plan"}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
-                  Custom AI-built startup plan — <span className="text-primary font-semibold">$250 one-time</span>.
-                  Delivered as a PDF roadmap within 3–5 business days. By submitting, you agree to be contacted by our team.
+                  Custom AI-built startup plan — <span className="text-primary font-semibold">$1,500 total</span>, paid as
+                  3 installments of $500 (first installment split into two $250 payments). Start today with a
+                  <span className="text-primary font-semibold"> $250 deposit</span>. PDF roadmap delivered within 3–5 business days.
                 </p>
               </motion.form>
             )}

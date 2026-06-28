@@ -14,7 +14,7 @@ const fadeUp = {
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div data-theme="onyx" className="min-h-screen bg-background text-foreground">
       <SEOHead
         title="About Us — Empowering Queens & Entrepreneurs"
         description="Boss Queens Collection is a verified vendor from St. Maarten offering retail & wholesale hair worldwide. We inspire young entrepreneurs and offer freelancing services to grow your business."

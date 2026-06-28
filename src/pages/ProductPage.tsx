@@ -810,7 +810,7 @@ const ProductPage = () => {
                                 onClick={() => variantForValue && setSelectedVariant(variantForValue.node)}
                                 className={`px-3 py-2 rounded-lg border transition-all ${isLength ? 'min-w-[60px]' : 'px-4'} ${
                                   isSelected
-                                    ? "border-primary bg-primary/10 text-primary"
+                                    ? "border-primary bg-primary/15 text-foreground"
                                     : "border-border hover:border-primary/50"
                                 }`}
                               >

@@ -253,7 +253,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
                     disabled={variant && !variant.availableForSale}
                     className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
                       isSelected
-                        ? "border-primary bg-primary/10 text-primary font-semibold"
+                        ? "border-primary bg-primary/15 text-foreground font-semibold"
                         : variant?.availableForSale
                         ? "border-border/50 text-foreground hover:border-primary/50"
                         : "border-border/30 text-muted-foreground/50 cursor-not-allowed line-through"
@@ -283,7 +283,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
                   onClick={() => setSelectedDensity(d)}
                   className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
                     selectedDensity === d
-                      ? "border-primary bg-primary/10 text-primary font-semibold"
+                      ? "border-primary bg-primary/15 text-foreground font-semibold"
                       : "border-border/50 text-foreground hover:border-primary/50"
                   }`}
                 >
@@ -305,7 +305,7 @@ function QuickViewContent({ product, onOpenChange }: { product: ShopifyProduct; 
                   onClick={() => setSelectedLaceType(lace)}
                   className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
                     selectedLaceType === lace
-                      ? "border-primary bg-primary/10 text-primary font-semibold"
+                      ? "border-primary bg-primary/15 text-foreground font-semibold"
                       : "border-border/50 text-foreground hover:border-primary/50"
                   }`}
                 >

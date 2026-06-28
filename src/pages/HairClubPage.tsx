@@ -9,6 +9,7 @@ import { fetchProductByHandle, getMarkup } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { ClubChat } from "@/components/ClubChat";
 
 const HAIR_CLUB_HANDLE = "boss-queens-hair-club-membership";
 
@@ -199,6 +200,9 @@ export default function HairClubPage() {
             </Button>
           </div>
         </section>
+
+        {/* Community Chat */}
+        <ClubChat />
       </main>
 
       <Footer />

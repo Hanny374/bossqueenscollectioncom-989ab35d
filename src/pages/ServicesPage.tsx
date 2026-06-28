@@ -47,22 +47,6 @@ const services = [
   },
 ];
 
-services.push({
-  icon: Wrench,
-  title: "AI SEO & Site Maintenance",
-  tagline: "Monthly care for your storefront",
-  price: "$500 / month",
-  description:
-    "Hands-off monthly maintenance — AI-powered SEO tuning, content refreshes, performance audits, and site updates so your store keeps ranking and converting.",
-  features: [
-    "AI-driven SEO optimization & keyword tuning",
-    "Monthly content & product page refreshes",
-    "Speed, accessibility & uptime monitoring",
-    "Plugin, theme & security updates",
-    "Monthly performance report",
-  ],
-} as any);
-
 const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-background">

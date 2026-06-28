@@ -1,6 +1,18 @@
-import { useEffect, useRef, useState, FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { Loader2, Send, MessageCircle, Trash2 } from "lucide-react";
+import {
+  Loader2,
+  Send,
+  MessageCircle,
+  Trash2,
+  Users,
+  Sparkles,
+  Shield,
+  Heart,
+  Crown,
+  Scissors,
+  Camera,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -31,6 +43,12 @@ export const ClubChat = () => {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const activeQueens = useMemo(() => {
+    const ids = new Set(messages.map((m) => m.user_id));
+    if (user) ids.add(user.id);
+    return Math.max(ids.size, 1);
+  }, [messages, user]);
 
   useEffect(() => {
     if (!user) return;
@@ -112,24 +130,26 @@ export const ClubChat = () => {
   };
 
   return (
-    <section className="container px-4 md:px-8 py-16 max-w-3xl">
-      <div className="text-center mb-8">
-        <span className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">
-          Members Only
-        </span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold mt-3">
-          VIP Community Chat
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
-          Connect with fellow Queens — share styling tips, hair routines, and outfit inspiration.
-        </p>
-      </div>
-
-      <div className="rounded-3xl border border-primary/20 bg-card shadow-elevated overflow-hidden flex flex-col h-[520px]">
+    <ClubChatLayout
+      messageCount={messages.length}
+      activeQueens={activeQueens}
+    >
+      <div className="rounded-3xl border border-primary/20 bg-card shadow-elevated overflow-hidden flex flex-col h-[560px]">
         {/* Chat header */}
-        <div className="flex items-center gap-2 px-5 py-3 border-b border-border/60 bg-gradient-champagne">
-          <MessageCircle className="w-4 h-4 text-primary" />
-          <span className="text-sm font-semibold text-foreground">Club Lounge</span>
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-border/60 bg-gradient-champagne">
+          <div className="w-9 h-9 rounded-full bg-primary/15 text-primary flex items-center justify-center">
+            <Crown className="w-4 h-4" />
+          </div>
+          <div className="leading-tight">
+            <div className="text-sm font-semibold text-foreground">Club Lounge</div>
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              </span>
+              Live · {activeQueens} Queen{activeQueens === 1 ? "" : "s"} active
+            </div>
+          </div>
           <span className="ml-auto text-[11px] text-muted-foreground">
             {messages.length} message{messages.length === 1 ? "" : "s"}
           </span>
@@ -220,8 +240,129 @@ export const ClubChat = () => {
           </form>
         )}
       </div>
-    </section>
+    </ClubChatLayout>
   );
 };
 
 export default ClubChat;
+
+const guidelines = [
+  {
+    icon: Heart,
+    title: "Lift each other up",
+    desc: "Compliments, encouragement, and good vibes only — this is a safe space for every Queen.",
+  },
+  {
+    icon: Shield,
+    title: "Keep it private",
+    desc: "What's shared in the Lounge stays in the Lounge. No screenshots, no outside drama.",
+  },
+  {
+    icon: Sparkles,
+    title: "Share the wins",
+    desc: "Drop your install pics, styling routines, and outfit-of-the-day moments — we want to see it.",
+  },
+];
+
+const conversationStarters = [
+  { icon: Scissors, label: "Styling tips & install routines" },
+  { icon: Camera, label: "Show off your latest look" },
+  { icon: Sparkles, label: "Texture & color recommendations" },
+  { icon: Crown, label: "Boss moves & business wins" },
+];
+
+const ClubChatLayout = ({
+  children,
+  messageCount,
+  activeQueens,
+}: {
+  children: React.ReactNode;
+  messageCount: number;
+  activeQueens: number;
+}) => (
+  <section className="container px-4 md:px-8 py-20 max-w-6xl">
+    <div className="text-center mb-10">
+      <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-primary font-semibold">
+        <Crown className="w-3.5 h-3.5" /> Members Only · Live Lounge
+      </span>
+      <h2 className="font-display text-3xl md:text-5xl font-bold mt-3">
+        The VIP <span className="bg-gradient-gold bg-clip-text text-transparent">Community Chat</span>
+      </h2>
+      <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        A private, real-time lounge for Boss Queens VIP members. Trade styling secrets,
+        share install reveals, and connect with women who get it — 24/7, from anywhere in the world.
+      </p>
+
+      {/* Live stats */}
+      <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2">
+        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/25 bg-primary/5 text-xs text-foreground">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <strong className="font-semibold">{activeQueens}</strong> Queens online
+        </span>
+        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/60 bg-card text-xs text-foreground">
+          <MessageCircle className="w-3.5 h-3.5 text-primary" />
+          <strong className="font-semibold">{messageCount}</strong> message{messageCount === 1 ? "" : "s"} shared
+        </span>
+        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/60 bg-card text-xs text-foreground">
+          <Users className="w-3.5 h-3.5 text-primary" />
+          End-to-end member-verified
+        </span>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 lg:gap-8 items-start">
+      {/* Chat */}
+      <div>{children}</div>
+
+      {/* Side panel */}
+      <aside className="space-y-5">
+        <div className="rounded-2xl border border-primary/20 bg-card p-5 shadow-soft">
+          <div className="flex items-center gap-2 text-primary mb-3">
+            <Shield className="w-4 h-4" />
+            <h3 className="font-display text-base font-semibold text-foreground">House Rules</h3>
+          </div>
+          <ul className="space-y-3">
+            {guidelines.map((g) => (
+              <li key={g.title} className="flex gap-3">
+                <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <g.icon className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-foreground leading-tight">{g.title}</div>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{g.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-2xl border border-border/60 bg-gradient-champagne p-5">
+          <div className="flex items-center gap-2 text-primary mb-3">
+            <Sparkles className="w-4 h-4" />
+            <h3 className="font-display text-base font-semibold text-foreground">What to share</h3>
+          </div>
+          <ul className="space-y-2">
+            {conversationStarters.map((s) => (
+              <li key={s.label} className="flex items-center gap-2.5 text-sm text-foreground">
+                <s.icon className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-2xl border border-border/60 bg-card p-5 text-center">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Not a member yet? Unlock the Lounge plus monthly bundles and 10% off everything.
+          </p>
+          <Button asChild size="sm" className="mt-3 bg-gradient-gold text-[hsl(25_40%_18%)] font-semibold w-full">
+            <Link to="/hair-club#benefits">Join the VIP Club</Link>
+          </Button>
+        </div>
+      </aside>
+    </div>
+  </section>
+);

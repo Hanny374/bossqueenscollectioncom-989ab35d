@@ -25,6 +25,7 @@ const TrustBar = lazy(() => import("@/components/TrustBar").then(m => ({ default
 const EbookSpotlight = lazy(() => import("@/components/EbookSpotlight").then(m => ({ default: m.EbookSpotlight })));
 const MassageSpotlight = lazy(() => import("@/components/MassageSpotlight").then(m => ({ default: m.MassageSpotlight })));
 const StartBusinessSpotlight = lazy(() => import("@/components/StartBusinessSpotlight").then(m => ({ default: m.StartBusinessSpotlight })));
+const GiftCardsSpotlight = lazy(() => import("@/components/GiftCardsSpotlight").then(m => ({ default: m.GiftCardsSpotlight })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const CATEGORY_FILTERS = [
@@ -484,6 +485,10 @@ const Index = () => {
 
         <Suspense fallback={null}>
           <StartBusinessSpotlight />
+        </Suspense>
+
+        <Suspense fallback={null}>
+          <GiftCardsSpotlight />
         </Suspense>
 
         {/* Newly Added Section */}

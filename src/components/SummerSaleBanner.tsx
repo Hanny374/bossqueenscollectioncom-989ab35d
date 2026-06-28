@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useId } from "react";
-import { X, Check, Copy, Sparkles } from "lucide-react";
+import { X, Check, Copy, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "bqc_summer15_unlocked";
@@ -9,7 +9,9 @@ export const SummerSaleBanner = () => {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{ message: string; retryable: boolean } | null>(null);
+  const [statusMsg, setStatusMsg] = useState("");
+  const [attempts, setAttempts] = useState(0);
   const [unlocked, setUnlocked] = useState(false);
   const [copied, setCopied] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -41,22 +43,41 @@ export const SummerSaleBanner = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError(null);
+    setStatusMsg("");
     const trimmed = email.trim().toLowerCase();
     if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setError("Please enter a valid email address");
+      setError({ message: "Please enter a valid email address.", retryable: false });
+      setStatusMsg("Invalid email address. Please correct it and try again.");
+      emailRef.current?.focus();
       return;
     }
     setLoading(true);
+    setStatusMsg("Submitting your email…");
     try {
-      await supabase.from("email_captures").insert({ email: trimmed, source: "summer15" });
+      const { error: insertError } = await supabase
+        .from("email_captures")
+        .insert({ email: trimmed, source: "summer15" });
+      if (insertError) {
+        const isDup = /duplicate|unique/i.test(insertError.message || "");
+        if (!isDup) throw insertError;
+      }
       supabase.functions
         .invoke("sync-mailchimp", { body: { email: trimmed } })
         .catch((err) => console.error("Mailchimp sync error:", err));
       localStorage.setItem(STORAGE_KEY, "1");
       setUnlocked(true);
-    } catch {
-      setError("Something went wrong. Please try again.");
+      setStatusMsg("Success! Your discount code has been revealed.");
+      setAttempts(0);
+    } catch (err: any) {
+      console.error("Email capture error:", err);
+      setAttempts((n) => n + 1);
+      const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+      const message = offline
+        ? "You appear to be offline. Check your connection and retry."
+        : "We couldn't save your email right now. Please try again.";
+      setError({ message, retryable: true });
+      setStatusMsg(`Error: ${message}`);
     } finally {
       setLoading(false);
     }
@@ -168,7 +189,11 @@ export const SummerSaleBanner = () => {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+            <form onSubmit={handleSubmit} className="mt-5 space-y-3" noValidate>
+              {/* Polite status updates for screen readers */}
+              <div role="status" aria-live="polite" className="sr-only">
+                {statusMsg}
+              </div>
               <label htmlFor="summer15-email" className="sr-only">Email address</label>
               <input
                 id="summer15-email"
@@ -181,14 +206,47 @@ export const SummerSaleBanner = () => {
                 aria-invalid={error ? true : undefined}
                 aria-describedby={error ? `${descId}-err` : undefined}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError(null);
+                }}
                 maxLength={255}
-                className="w-full min-h-11 rounded-full border border-border bg-background px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className={`w-full min-h-11 rounded-full border bg-background px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary ${
+                  error ? "border-destructive ring-1 ring-destructive/40" : "border-border"
+                }`}
               />
               {error && (
-                <p id={`${descId}-err`} role="alert" className="text-xs text-destructive">
-                  {error}
-                </p>
+                <div
+                  id={`${descId}-err`}
+                  role="alert"
+                  aria-live="assertive"
+                  className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-left text-xs text-destructive"
+                >
+                  <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                  <div className="flex-1">
+                    <p className="font-medium">{error.message}</p>
+                    {error.retryable && attempts >= 2 && (
+                      <p className="mt-1 text-muted-foreground">
+                        Still failing? Email us at{" "}
+                        <a href="mailto:Bossqueenscollections@gmail.com" className="underline">
+                          Bossqueenscollections@gmail.com
+                        </a>{" "}
+                        and we'll send your code.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+              {error?.retryable && (
+                <button
+                  type="button"
+                  onClick={() => handleSubmit({ preventDefault: () => {} } as React.FormEvent)}
+                  disabled={loading}
+                  className="inline-flex w-full min-h-11 items-center justify-center gap-2 rounded-full border border-primary/40 bg-background px-6 py-3 text-sm font-semibold text-primary hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary transition disabled:opacity-60"
+                >
+                  <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} aria-hidden="true" />
+                  {loading ? "Retrying…" : "Retry"}
+                </button>
               )}
               <button
                 type="submit"

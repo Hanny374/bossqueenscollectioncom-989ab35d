@@ -23,11 +23,23 @@ export const MassageSpotlight = () => {
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
                 Book a Luxury Massage
               </h2>
-              <p className="text-muted-foreground md:text-lg leading-relaxed">
-                Treat yourself like the Queen you are. Book a relaxing session with
-                <span className="text-foreground font-semibold"> Elite Escape Mobile Massage</span> on Fresha — or follow
-                <span className="text-foreground font-semibold"> @eliteescapemassage</span> on socials.
+              <p className="font-display italic text-foreground/90 text-lg md:text-xl leading-relaxed mb-3">
+                "Welcome, Queen. You've poured into everyone else — now it's your turn to be poured into."
               </p>
+              <p className="text-muted-foreground md:text-lg leading-relaxed">
+                Step into a private, candle-lit ritual with
+                <span className="text-foreground font-semibold"> Elite Escape Mobile Massage</span>.
+                Reserve your time on Fresha through the link below — your sanctuary is one tap away.
+              </p>
+              <a
+                href="https://www.fresha.com/a/elite-escape-mobile-massage-phillipsburg-brysons-drive-uastojpm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 text-primary font-semibold underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-all"
+              >
+                <CalendarCheck className="w-4 h-4" />
+                Open the Fresha booking app →
+              </a>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <a

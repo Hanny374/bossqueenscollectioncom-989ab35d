@@ -403,10 +403,10 @@ const Index = () => {
                   Bulk pricing for salons & resellers. Launch your own hair brand with our wholesale program.
                 </p>
                 <Link
-                  to="/contact?inquiry=wholesale"
+                  to="/start-business"
                   className="inline-flex items-center justify-center h-12 px-7 rounded-full bg-gradient-gold text-espresso font-semibold shadow-glow hover:opacity-90 transition-opacity"
                 >
-                  Shop Wholesale
+                  Start Your Business
                 </Link>
               </motion.div>
             </div>

@@ -26,6 +26,7 @@ const HomeReviewsSection = lazy(() => import("@/components/HomeReviewsSection").
 const CustomerSpotlight = lazy(() => import("@/components/CustomerSpotlight").then(m => ({ default: m.CustomerSpotlight })));
 const TrustBar = lazy(() => import("@/components/TrustBar").then(m => ({ default: m.TrustBar })));
 const EbookSpotlight = lazy(() => import("@/components/EbookSpotlight").then(m => ({ default: m.EbookSpotlight })));
+const MassageSpotlight = lazy(() => import("@/components/MassageSpotlight").then(m => ({ default: m.MassageSpotlight })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const CATEGORY_FILTERS = [
@@ -477,6 +478,10 @@ const Index = () => {
 
         <Suspense fallback={null}>
           <EbookSpotlight />
+        </Suspense>
+
+        <Suspense fallback={null}>
+          <MassageSpotlight />
         </Suspense>
 
         {/* Newly Added Section */}

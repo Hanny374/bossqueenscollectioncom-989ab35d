@@ -43,7 +43,7 @@ export const VerifiedSellerBadge = ({
 
   // Default variant
   return (
-    <div className={`inline-flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1 rounded-full border border-primary/20 ${className}`}>
+    <div className={`inline-flex items-center gap-1.5 bg-primary/15 text-foreground px-2.5 py-1 rounded-full border border-primary/30 ${className}`}>
       <span className="flex items-center justify-center w-4 h-4 rounded-full bg-primary">
         <Check className="w-3 h-3 text-primary-foreground stroke-[3]" />
       </span>

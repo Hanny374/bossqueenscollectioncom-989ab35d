@@ -23,17 +23,17 @@
     --popover: 40 50% 99%;
     --popover-foreground: 25 20% 15%;
 
-    /* Warm Gold - Primary brand color */
-    --primary: 36 55% 42%;
+    /* Warm Gold - Primary brand color (darkened to meet WCAG AA 4.5:1 on cream/background) */
+    --primary: 36 60% 35%;
     --primary-foreground: 40 40% 98%;
 
     /* Soft Cream - Secondary */
     --secondary: 40 40% 95%;
     --secondary-foreground: 25 25% 20%;
 
-    /* Muted warm tones */
+    /* Muted warm tones (foreground darkened to meet WCAG AA 4.5:1) */
     --muted: 35 25% 92%;
-    --muted-foreground: 25 15% 45%;
+    --muted-foreground: 25 18% 38%;
 
     /* Accent - Soft rose gold */
     --accent: 15 45% 90%;

@@ -118,7 +118,7 @@ export const HairDescriptionModal = ({ open, onOpenChange, onConfirm }: HairDesc
                   onClick={() => toggle(key, opt)}
                   className={`text-[11px] md:text-xs px-2.5 py-1 md:px-3 md:py-1.5 rounded-full border transition-all flex items-center gap-0.5 ${
                     selected
-                      ? "border-primary bg-primary/10 text-primary font-semibold shadow-sm"
+                      ? "border-primary bg-primary/15 text-foreground font-semibold shadow-sm"
                       : "border-border/60 text-foreground hover:border-primary/50 active:bg-secondary"
                   }`}
                 >

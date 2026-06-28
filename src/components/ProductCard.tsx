@@ -355,7 +355,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedLength(selectedLength === length ? null : length); }}
                     className={`text-xs px-2.5 py-1 rounded-full flex items-center gap-1 border transition-all cursor-pointer ${
                       selectedLength === length
-                        ? "border-primary bg-primary/10 text-primary font-semibold ring-1 ring-primary/30"
+                        ? "border-primary bg-primary/15 text-foreground font-semibold ring-1 ring-primary/30"
                         : "bg-secondary text-foreground border-border/50 hover:border-primary/50"
                     }`}
                   >
@@ -391,7 +391,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSelectedDensity(d); }}
                   className={`text-xs px-2 py-1 rounded-full border transition-all ${
                     selectedDensity === d
-                      ? "border-primary bg-primary/10 text-primary font-semibold"
+                      ? "border-primary bg-primary/15 text-foreground font-semibold"
                       : "border-border/50 text-foreground hover:border-primary/50"
                   }`}
                 >

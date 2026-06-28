@@ -28,6 +28,8 @@ export const CookieConsent = () => {
     <AnimatePresence>
       {visible && (
         <motion.div
+          role="region"
+          aria-label="Cookie consent"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}

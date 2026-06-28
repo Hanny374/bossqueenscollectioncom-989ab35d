@@ -35,9 +35,10 @@ export const MassageSpotlight = () => {
                 href="https://www.fresha.com/a/elite-escape-mobile-massage-phillipsburg-brysons-drive-uastojpm"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Open the Fresha booking app for Elite Escape Mobile Massage (opens in new tab)"
                 className="inline-flex items-center gap-2 mt-4 text-primary font-semibold underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition-all"
               >
-                <CalendarCheck className="w-4 h-4" />
+                <CalendarCheck className="w-4 h-4" aria-hidden="true" />
                 Open the Fresha booking app →
               </a>
             </div>
@@ -46,27 +47,30 @@ export const MassageSpotlight = () => {
                 href="https://www.fresha.com/a/elite-escape-mobile-massage-phillipsburg-brysons-drive-uastojpm"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Book a massage on Fresha (opens in new tab)"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold shadow-elevated hover:shadow-glow transition-all"
               >
-                <CalendarCheck className="w-4 h-4" />
+                <CalendarCheck className="w-4 h-4" aria-hidden="true" />
                 Book on Fresha
               </a>
               <a
                 href="https://www.instagram.com/eliteescapemassage/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Elite Escape Massage on Instagram (opens in new tab)"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-primary/40 text-foreground font-semibold hover:bg-primary/10 transition-all"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-4 h-4" aria-hidden="true" />
                 Instagram
               </a>
               <a
                 href="https://www.tiktok.com/@eliteescapemassage"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Elite Escape Massage on TikTok (opens in new tab)"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-primary/40 text-foreground font-semibold hover:bg-primary/10 transition-all"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.97a8.16 8.16 0 0 0 4.77 1.52V7.04a4.85 4.85 0 0 1-1.84-.35z"/></svg>
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.97a8.16 8.16 0 0 0 4.77 1.52V7.04a4.85 4.85 0 0 1-1.84-.35z"/></svg>
                 TikTok
               </a>
             </div>

@@ -44,6 +44,12 @@ export const ClubChat = () => {
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const activeQueens = useMemo(() => {
+    const ids = new Set(messages.map((m) => m.user_id));
+    if (user) ids.add(user.id);
+    return Math.max(ids.size, 1);
+  }, [messages, user]);
+
   useEffect(() => {
     if (!user) return;
     let active = true;

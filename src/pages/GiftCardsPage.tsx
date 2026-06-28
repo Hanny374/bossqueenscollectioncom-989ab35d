@@ -52,11 +52,11 @@ const serviceCards = [
     title: "Massage Gift Card",
     tagline: "Elite Escape Mobile Massage",
     desc: "Pour into the woman who pours into everyone else. Mobile spa experience delivered to her door.",
-    denoms: ["$75", "$150", "$250"],
+    denoms: ["Custom amount"],
     perks: [
+      "You choose the amount — any value",
       "Mobile service — they come to her",
       "Bookable via Fresha",
-      "Welcome note included",
     ],
     href: "/contact?topic=gift-card-massage",
     cta: "Gift a Massage",

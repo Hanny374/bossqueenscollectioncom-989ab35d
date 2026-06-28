@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap } from "lucide-react";
+import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap, Crown, Scissors, BookOpen, Flower2, Star } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import faceOfBrand from "@/assets/face-of-brand.png.asset.json";
@@ -16,8 +16,8 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="About Us — Empowering Queens & Entrepreneurs"
-        description="Boss Queens Collection is a verified vendor from St. Maarten offering retail & wholesale hair worldwide. We inspire young entrepreneurs and offer freelancing services to grow your business."
+        title="About Us — 100% Human Hair Wigs & The Woman Behind The Brand"
+        description="Boss Queens Collection is a St. Maarten verified vendor of 100% virgin human hair wigs, bundles & frontals — plus business mentorship, wellness, and luxury services for modern women."
         path="/about"
         keywords="about Boss Queens, St. Maarten hair vendor, Caribbean hair brand, wholesale human hair, black-owned hair business"
         breadcrumbs={[
@@ -43,7 +43,7 @@ const AboutPage = () => {
                   Our Story & Mission
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  From a tiny Caribbean island to empowering queens and entrepreneurs around the world — we're more than hair, we're a movement.
+                  Premium <span className="font-semibold text-foreground">100% virgin human hair wigs</span> from a tiny Caribbean island to queens around the world — we're more than hair, we're a movement.
                 </p>
               </motion.div>
             </div>

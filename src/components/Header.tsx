@@ -26,6 +26,7 @@ const navLinks = [
   { label: "VIP Hair Club", href: "/hair-club" },
   { label: "Start Your Business", href: "/start-business" },
   { label: "Ebook", href: "/product/60-seconds-to-100k-brand-blueprint-ebook" },
+  { label: "Book a Massage", href: "https://www.instagram.com/eliteescapemassage/", external: true },
   { label: "Reviews", href: "/#reviews" },
   { label: "Shipping", href: "/shipping" },
   { label: "FAQ", href: "/faq" },
@@ -140,13 +141,24 @@ export const Header = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: (i + 1) * 0.05 }}
                   >
-                    <Link
-                      to={link.href}
-                      onClick={() => handleHashNav(link.href, true)}
-                      className="text-lg font-medium text-foreground hover:text-primary transition-colors py-3 px-2 rounded-lg hover:bg-primary/5 block"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg font-medium text-foreground hover:text-primary transition-colors py-3 px-2 rounded-lg hover:bg-primary/5 block"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        onClick={() => handleHashNav(link.href, true)}
+                        className="text-lg font-medium text-foreground hover:text-primary transition-colors py-3 px-2 rounded-lg hover:bg-primary/5 block"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
               </nav>
@@ -230,6 +242,19 @@ export const Header = () => {
 
           {navLinks.map((link) => {
             const isActive = location.pathname === link.href || (link.href !== "/" && location.pathname.startsWith(link.href));
+            if (link.external) {
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative px-4 py-2 text-sm font-medium transition-colors rounded-full text-muted-foreground hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              );
+            }
             return (
               <Link
                 key={link.label}

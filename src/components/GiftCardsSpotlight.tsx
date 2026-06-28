@@ -47,7 +47,7 @@ const serviceCards: {
     title: "Massage Gift Card",
     tagline: "Elite Escape Mobile Massage",
     desc: "Pour into the woman who pours into everyone else. Mobile spa experience delivered.",
-    denoms: ["$75", "$150", "$250"],
+    denoms: ["Custom amount"],
     cta: "Gift a Massage",
     href: "/contact?topic=gift-card-massage",
   },

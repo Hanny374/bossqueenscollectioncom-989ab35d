@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap } from "lucide-react";
+import { Heart, Globe, Award, Users, Sparkles, Shield, Rocket, Store, Briefcase, TrendingUp, CheckCircle, Zap, Crown, Scissors, BookOpen, Flower2, Star } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import faceOfBrand from "@/assets/face-of-brand.png.asset.json";
@@ -16,8 +16,8 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="About Us — Empowering Queens & Entrepreneurs"
-        description="Boss Queens Collection is a verified vendor from St. Maarten offering retail & wholesale hair worldwide. We inspire young entrepreneurs and offer freelancing services to grow your business."
+        title="About Us — 100% Human Hair Wigs & The Woman Behind The Brand"
+        description="Boss Queens Collection is a St. Maarten verified vendor of 100% virgin human hair wigs, bundles & frontals — plus business mentorship, wellness, and luxury services for modern women."
         path="/about"
         keywords="about Boss Queens, St. Maarten hair vendor, Caribbean hair brand, wholesale human hair, black-owned hair business"
         breadcrumbs={[
@@ -43,7 +43,7 @@ const AboutPage = () => {
                   Our Story & Mission
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  From a tiny Caribbean island to empowering queens and entrepreneurs around the world — we're more than hair, we're a movement.
+                  Premium <span className="font-semibold text-foreground">100% virgin human hair wigs</span> from a tiny Caribbean island to queens around the world — we're more than hair, we're a movement.
                 </p>
               </motion.div>
             </div>
@@ -176,6 +176,93 @@ const AboutPage = () => {
               </motion.div>
             </div>
           </div>
+
+          {/* What Makes Me Different */}
+          <div className="container px-4 md:px-8 mt-20">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-12"
+              >
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                  <Crown className="w-4 h-4" /> What Makes Me Different
+                </span>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  Not Just a Hair Brand — A Full Lifestyle for Queens
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  Most vendors sell you hair and disappear. I built Boss Queens Collection to walk with you
+                  through every season — your hair, your healing, your business, and your brand.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  {
+                    icon: Scissors,
+                    title: "100% Virgin Human Hair",
+                    desc: "Grade 10A wigs, bundles, frontals & closures — ethically sourced, hand-inspected, and built to last 12+ months with care.",
+                    tag: "The Foundation",
+                  },
+                  {
+                    icon: Briefcase,
+                    title: "Business Mentorship",
+                    desc: "From the $47 brand blueprint to a $1,500 AI-built launch plan, I hand you the exact playbook I used to build this brand.",
+                    tag: "The Strategy",
+                  },
+                  {
+                    icon: Flower2,
+                    title: "Wellness & Self-Care",
+                    desc: "Mobile massage gift cards and rituals for the woman who pours into everyone else. You can't build an empire from an empty cup.",
+                    tag: "The Restoration",
+                  },
+                  {
+                    icon: Star,
+                    title: "Luxury Touchpoints",
+                    desc: "Custom client appreciation cards, luxury business cards, and thank-you notes — because every detail of your brand should feel premium.",
+                    tag: "The Polish",
+                  },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.title}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeUp}
+                    className="group relative rounded-2xl bg-background border border-primary/20 p-6 shadow-soft hover:shadow-elevated hover:border-primary/50 transition-all"
+                  >
+                    <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.2em] text-primary/70 font-semibold">
+                      {item.tag}
+                    </span>
+                    <div className="w-12 h-12 rounded-xl bg-gradient-gold text-[hsl(25_40%_18%)] inline-flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                      <item.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="mt-12 rounded-3xl bg-gradient-gold p-8 md:p-12 text-center shadow-elevated"
+              >
+                <p className="font-display text-2xl md:text-3xl text-foreground italic max-w-3xl mx-auto leading-relaxed">
+                  "I'm not selling you a wig. I'm handing you the confidence, the strategy, and the
+                  sisterhood to build the life you keep dreaming about."
+                </p>
+                <p className="mt-4 text-sm uppercase tracking-[0.3em] text-foreground/70 font-semibold">
+                  — The Boss Behind Boss Queens
+                </p>
+              </motion.div>
+            </div>
+          </div>
+
           <div className="container px-4 md:px-8">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">

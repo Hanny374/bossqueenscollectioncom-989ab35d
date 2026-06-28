@@ -20,12 +20,21 @@ export const MassageSpotlight = () => {
                   Self-Care Partner
                 </span>
               </div>
+              <div
+                role="note"
+                aria-label="Welcome message"
+                className="mb-5 rounded-2xl border border-primary/30 bg-primary/5 px-5 py-4 shadow-sm"
+              >
+                <p className="font-display italic text-foreground text-lg md:text-xl leading-relaxed">
+                  "Welcome, Queen. You've poured into everyone else — now it's your turn to be poured into."
+                </p>
+                <p className="mt-2 text-xs md:text-sm tracking-[0.2em] uppercase text-primary/80">
+                  A note before you book
+                </p>
+              </div>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
                 Book a Luxury Massage
               </h2>
-              <p className="font-display italic text-foreground/90 text-lg md:text-xl leading-relaxed mb-3">
-                "Welcome, Queen. You've poured into everyone else — now it's your turn to be poured into."
-              </p>
               <p className="text-muted-foreground md:text-lg leading-relaxed">
                 Step into a private, candle-lit ritual with
                 <span className="text-foreground font-semibold"> Elite Escape Mobile Massage</span>.

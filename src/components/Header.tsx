@@ -300,6 +300,10 @@ export const Header = () => {
           <VerifiedSellerBadge className="hidden lg:inline-flex" />
         </div>
       </div>
+      {/* Mobile persistent search bar — always visible under header on small screens */}
+      <div className="md:hidden border-t border-border/40 bg-background/80 backdrop-blur-md px-4 py-2">
+        <AISearchBar />
+      </div>
     </header>
   );
 };

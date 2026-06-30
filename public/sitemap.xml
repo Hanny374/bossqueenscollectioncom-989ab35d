@@ -3,10 +3,15 @@
   <!-- Static fallback. The dynamic, product-aware sitemap lives at:
        https://iwrfexevbiiaikabbbus.supabase.co/functions/v1/sitemap
        (also referenced from robots.txt). -->
-  <url><loc>https://bossqueenscollection.com/</loc><lastmod>2026-06-10</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://bossqueenscollection.com/about</loc><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://bossqueenscollection.com/contact</loc><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bossqueenscollection.com/shipping</loc><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bossqueenscollection.com/faq</loc><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://bossqueenscollection.com/privacy-policy</loc><lastmod>2026-06-10</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://bossqueenscollection.com/</loc><lastmod>2026-06-30</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://bossqueenscollection.com/about</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bossqueenscollection.com/contact</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bossqueenscollection.com/shipping</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bossqueenscollection.com/faq</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bossqueenscollection.com/services</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bossqueenscollection.com/hair-club</loc><lastmod>2026-06-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bossqueenscollection.com/start-business</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://bossqueenscollection.com/gift-cards</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bossqueenscollection.com/product/60-seconds-to-100k-brand-blueprint-ebook</loc><lastmod>2026-06-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://bossqueenscollection.com/privacy-policy</loc><lastmod>2026-06-30</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
